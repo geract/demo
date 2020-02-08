@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_223552) do
+ActiveRecord::Schema.define(version: 2020_02_08_212948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,4 +38,39 @@ ActiveRecord::Schema.define(version: 2020_02_06_223552) do
     t.index ["pet_type"], name: "index_pets_on_pet_type"
   end
 
+  create_table "organization_addresses", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.boolean "main_location"
+    t.string "type"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_organization_addresses_on_organization_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "director"
+    t.string "description"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "5013c"
+    t.boolean "sheltered"
+    t.boolean "foster_based"
+    t.string "url"
+    t.string "email"
+    t.string "phone"
+    t.bigint "admin_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_organizations_on_admin_id"
+  end
+
+  add_foreign_key "organization_addresses", "organizations"
+  add_foreign_key "organizations", "admins"
 end
