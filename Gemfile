@@ -18,6 +18,7 @@ gem 'rescue_groups', github: 'petparent/rescue_groups', branch: 'petparent-raw-d
 gem 'activerecord-import'
 gem 'whenever', require: false
 gem 'sidekiq'
+gem 'simple_form'
 
 group :development, :test do
   gem 'pry'
