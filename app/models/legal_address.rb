@@ -1,0 +1,2 @@
+class LegalAddress < OrganizationAddress
+end
