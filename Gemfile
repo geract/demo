@@ -13,6 +13,10 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise_token_auth'
+gem 'rescue_groups', github: 'petparent/rescue_groups', branch: 'petparent-raw-data'
+gem 'activerecord-import'
+gem 'whenever', require: false
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry'
@@ -31,6 +35,7 @@ group :test do
   gem 'minitest-reporters', '>= 0.5.0'
   gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
