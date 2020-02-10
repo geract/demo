@@ -13,10 +13,12 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise_token_auth'
+gem 'simple_form'
 gem 'rescue_groups', github: 'petparent/rescue_groups', branch: 'petparent-raw-data'
 gem 'activerecord-import'
 gem 'whenever', require: false
 gem 'sidekiq'
+gem 'simple_form'
 
 group :development, :test do
   gem 'pry'
