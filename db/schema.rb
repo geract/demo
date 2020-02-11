@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.string "unconfirmed_email"
     t.string "type", null: false
     t.string "name"
-    t.string "nickname"
     t.string "image"
     t.string "email"
     t.json "tokens"
