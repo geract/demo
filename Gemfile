@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'rescue_groups', github: 'petparent/rescue_groups', branch: 'petparent-raw-data'
 gem 'activerecord-import'
 gem 'whenever', require: false
+gem 'rack-cors'
 gem 'sidekiq'
 gem 'simple_form'
 
