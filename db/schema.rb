@@ -27,17 +27,6 @@ ActiveRecord::Schema.define(version: 2020_02_08_212948) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "pets", force: :cascade do |t|
-    t.string "name"
-    t.string "external_id"
-    t.string "external_type"
-    t.string "pet_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["external_type"], name: "index_pets_on_external_type"
-    t.index ["pet_type"], name: "index_pets_on_pet_type"
-  end
-
   create_table "organization_addresses", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -69,6 +58,17 @@ ActiveRecord::Schema.define(version: 2020_02_08_212948) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["admin_id"], name: "index_organizations_on_admin_id"
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.string "name"
+    t.string "external_id"
+    t.string "external_type"
+    t.string "pet_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["external_type"], name: "index_pets_on_external_type"
+    t.index ["pet_type"], name: "index_pets_on_pet_type"
   end
 
   add_foreign_key "organization_addresses", "organizations"

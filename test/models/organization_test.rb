@@ -1,7 +1,15 @@
 require "test_helper"
 
 describe Organization do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+
+  test 'must_have_a_physical_address' do
+    @organization = FactoryBot.create(:organization)
+    @physical_address = FactoryBot.create(:physical_address)
+
+    assert_equal 'petparent', @physical_address.name
+  end
+
+  def initialize_organization
+    @organization = FactoryBot.create(:organization)
+  end
 end

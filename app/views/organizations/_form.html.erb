@@ -1,0 +1,43 @@
+<%= simple_form_for @organization do |org| %>
+  <h4>Organization Information</h4>
+  <%= org.input :name %>
+  <%= org.input :director %>
+  <%= org.input :description %>
+  <%= org.input :facebook %>
+  <%= org.input :twitter %>
+  <%= org.input :instagram %>
+  <%= org.input :'5013c' %>
+  <%= org.input :url %>
+  <%= org.input :email %>
+  <%= org.input :phone %>
+  <%= org.input :sheltered, as: :boolean %>
+  <%= org.input :foster_based, as: :boolean %>
+  <%= org.simple_fields_for :legal_address do |legal| %>
+    <h4>Legal Address</h4>
+    <%= legal.input :name %>
+    <%= legal.input :address %>
+    <%= legal.input :city %>
+    <%= legal.input :state %>
+    <%= legal.input :zip_code %>
+    <%= legal.input :main_location, as: :boolean%>
+  <% end %>
+  <%= org.simple_fields_for :physical_addresses do |physical| %>
+    <h4>First Physical Addresses</h4>
+    <%= physical.input :name %>
+    <%= physical.input :address %>
+    <%= physical.input :city %>
+    <%= physical.input :state %>
+    <%= physical.input :zip_code %>
+    <%= physical.input :main_location, as: :boolean%>
+  <% end %>
+  <%= org.simple_fields_for :physical_addresses do |physical_dos| %>
+    <h4>Second Physical Addresses </h4>
+    <%= physical_dos.input :name %>
+    <%= physical_dos.input :address %>
+    <%= physical_dos.input :city %>
+    <%= physical_dos.input :state %>
+    <%= physical_dos.input :zip_code %>
+    <%= physical_dos.input :main_location, as: :boolean%>
+  <% end %>
+  <%= org.submit%>
+<% end %>

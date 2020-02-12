@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     }
   
   authenticate :admin do
+    root to: 'organizations#new'
     resources :organizations do
       resources :organizations_adresses
     end

@@ -19,6 +19,8 @@ gem 'activerecord-import'
 gem 'whenever', require: false
 gem 'sidekiq'
 gem 'simple_form'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :development, :test do
   gem 'pry'
