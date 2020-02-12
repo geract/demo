@@ -1,7 +1,11 @@
 require "test_helper"
 
-describe Admin do
-  # it "does a thing" do
-  #   value(1+1).must_equal 2
-  # end
+class OrganizationTest < ActiveSupport::TestCase
+  def setup
+    @admin = build(:admin)
+  end
+
+  def test_association
+    must have_one :organization
+  end
 end

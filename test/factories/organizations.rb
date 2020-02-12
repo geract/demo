@@ -9,8 +9,8 @@ FactoryBot.define do
     foster_based { false }
     url { "petparent.com" }
     email { "31212345" }
-    admin { true }
+    admin
     legal_address
-    physical_address 
+    physical_addresses { build_list(:physical_address, 1) }
   end
 end

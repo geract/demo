@@ -6,6 +6,5 @@ FactoryBot.define do
     state { "New York" }
     zip_code { "99923" }
     main_location { true }
-    organization
   end
 end
