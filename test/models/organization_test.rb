@@ -1,15 +1,12 @@
 require "test_helper"
 
-describe Organization do
-
-  test 'must_have_a_physical_address' do
-    @organization = FactoryBot.create(:organization)
-    @physical_address = FactoryBot.create(:physical_address)
-
-    assert_equal 'petparent', @physical_address.name
+class OrganizationTest < ActiveSupport::TestCase
+  def setup
+    @organization = build(:organization, :admin)
   end
 
-  def initialize_organization
-    @organization = FactoryBot.create(:organization)
+  def organization_address_association
+    must have_many :physical_addresses
+    must have_one :legal_address
   end
 end
