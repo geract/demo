@@ -7,7 +7,7 @@ class Admins::OrganizationsController < Admins::BaseController
 
   def create
     if create_organization
-      redirect_to organization_path(@organization)
+      redirect_to admins_organization_path(@organization)
     else
       render 'organizations/new'
     end

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      get '/admin', to: 'admin/organization#new', as: :admin_root
+      get '/admin', to: 'admins/organizations#new', as: :admin_root
     end
     unauthenticated do
       get '/admin', to: 'devise/sessions#new'
