@@ -31,13 +31,13 @@ module PetparentBack
       g.helper                false
     end
 
-    config.middleware.insert_before 0, Rack::Cors do
+    config.middleware.use Rack::Cors do
       allow do
         origins '*'
         resource '*',
-        expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-        headers: :any,
-        methods: [:get, :post, :options, :delete, :put]
+          headers: :any,
+          expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          methods: [:get, :post, :options, :delete, :put]
       end
     end
   end
