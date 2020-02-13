@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   controllers: { 
     sessions: "admins/sessions"
   }
-  
+
   namespace :users, path: 'user' do
     mount_devise_token_auth_for 'User', at: '/auth'
+    api_version(module: 'v1', parameter: {name: 'version', value: '1'}) do
+      resources :hola
+    end
   end
 end

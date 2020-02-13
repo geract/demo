@@ -20,6 +20,7 @@ gem 'whenever', require: false
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'simple_form'
+gem 'versionist'
 
 group :development, :test do
   gem 'pry'
