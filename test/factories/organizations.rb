@@ -13,4 +13,10 @@ FactoryBot.define do
     legal_address
     physical_addresses { build_list(:physical_address, 1) }
   end
+
+  trait :complete do
+    admin { create(:admin) }
+    physical_addresses { build_list(:physical_address, 1) }
+    legal_address { build(:legal_address) }
+  end
 end

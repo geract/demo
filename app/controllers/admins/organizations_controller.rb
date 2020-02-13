@@ -1,4 +1,8 @@
 class Admins::OrganizationsController < Admins::BaseController
+  def index
+    @organizations = Organization.by_name
+  end
+
   def new
     @organization = Organization.new
     @organization.physical_addresses.build

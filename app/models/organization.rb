@@ -4,4 +4,6 @@ class Organization < ApplicationRecord
   has_many :physical_addresses
 
   accepts_nested_attributes_for :legal_address, :physical_addresses, update_only: true
+
+  scope :by_name, -> { order(:name) }
 end
