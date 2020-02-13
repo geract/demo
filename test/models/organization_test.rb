@@ -5,12 +5,7 @@ class OrganizationTest < ActiveSupport::TestCase
     @organization = build(:organization)
   end
 
-  def test_associations
-    assert_difference '@organization.physical_addresses.count', 2 do
-      create(:physical_address, organization: @organization)
-    end
-
-    legal_address = create(:legal_address, organization: @organization)
-    assert_equal @organization.legal_address.id, legal_address.id
-  end
+  should have_many(:physical_addresses)
+  should have_one(:legal_address)
+  should belong_to(:admin)
 end
