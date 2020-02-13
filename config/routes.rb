@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   devise_for :admins, only: :sessions, path: '/admin',
-             path_names: { sign_in: 'login', sign_out: 'logout' }
+             path_names: { sign_in: 'login', sign_out: 'logout' },
+             controllers: { sessions: 'admins/sessions' }
 
   devise_scope :admin do
     authenticated :admin do
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admins, path: 'admin' do
-    root to: 'organizations#new'
+    root to: 'admins/organizations#new'
     resources :organizations
   end
 end

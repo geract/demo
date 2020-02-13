@@ -1,4 +1,4 @@
-= simple_form_for @organization do |org|
+= simple_form_for [:admins, @organization] do |org|
   %h4 Organization Information
   = org.input :name
   = org.input :director
