@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
-  devise_for :admins, path: 'admin', 
-    controllers: { 
-      sessions: "admins/sessions"
-    }
   
-  authenticate :admin do
-    root to: 'organizations#new'
-    resources :organizations do
-      resources :organizations_adresses
+  mount_devise_token_auth_for 'User', at: 'auth'
+  
+  devise_for :admins, only: :sessions, path: '/admin',
+             path_names: { sign_in: 'login', sign_out: 'logout' }
+  
+  devise_scope :admin do
+    authenticated :admin do
+      get '/admin', to: 'admin/organization#new', as: :admin_root
     end
+    unauthenticated do
+      get '/admin', to: 'devise/sessions#new'
+    end
+  end
+
+  namespace :admins, path: 'admin' do
+    root to: 'organizations#new'
+    resources :organizations
   end
 end

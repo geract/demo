@@ -1,4 +1,4 @@
-class OrganizationsController < ApplicationController
+class Admin::OrganizationsController < Admin::BaseController
   def new
     @organization = Organization.new
     @organization.physical_addresses.build
