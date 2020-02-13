@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.index ["external_type"], name: "index_pets_on_external_type"
     t.index ["pet_type"], name: "index_pets_on_pet_type"
   end
-  
+
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.index ["type"], name: "index_users_on_type"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
-  
+
   add_foreign_key "organization_addresses", "organizations"
   add_foreign_key "organizations", "admins"
 end
