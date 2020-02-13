@@ -27,6 +27,39 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "organization_addresses", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.boolean "main_location"
+    t.string "type"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_organization_addresses_on_organization_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "director"
+    t.string "description"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "5013c"
+    t.boolean "sheltered"
+    t.boolean "foster_based"
+    t.string "url"
+    t.string "email"
+    t.string "phone"
+    t.bigint "admin_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_id"], name: "index_organizations_on_admin_id"
+  end
+
   create_table "pets", force: :cascade do |t|
     t.string "name"
     t.string "external_id"
@@ -64,4 +97,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "organization_addresses", "organizations"
+  add_foreign_key "organizations", "admins"
 end

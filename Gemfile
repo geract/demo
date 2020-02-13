@@ -19,6 +19,9 @@ gem 'activerecord-import'
 gem 'whenever', require: false
 gem 'sidekiq'
 gem 'simple_form'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'haml'
 
 group :development, :test do
   gem 'pry'
@@ -43,6 +46,8 @@ group :test do
   gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
   gem 'webmock'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
