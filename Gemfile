@@ -24,6 +24,7 @@ gem 'versionist'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'haml'
+gem 'simple_segment'
 
 group :development, :test do
   gem 'pry'
