@@ -8,6 +8,7 @@ require 'capybara/minitest'
 require 'database_cleaner'
 require 'database_cleaner_support'
 require 'webmock/minitest'
+require_relative 'helpers/login_test_helper'
 
 MiniTest::Reporters.use!
 DatabaseCleaner.clean_with :truncation
@@ -29,10 +30,19 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :minitest
+    with.library :rails
+  end
+end
+
 class ActionDispatch::IntegrationTest
+  include Warden::Test::Helpers
   include Capybara::DSL
   include Capybara::Minitest::Assertions
   include DatabaseCleanerSupport
+  include LoginTestHelpers
 
   def teardown
     Capybara.reset_sessions!

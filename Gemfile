@@ -21,6 +21,9 @@ gem 'rack-cors'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'versionist'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'haml'
 
 group :development, :test do
   gem 'pry'
@@ -28,9 +31,14 @@ end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
 end
 
 group :test do
@@ -40,6 +48,8 @@ group :test do
   gem 'factory_bot_rails'
   gem 'database_cleaner-active_record'
   gem 'webmock'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -1,0 +1,6 @@
+%section
+  %h1 Organizations
+  %ul
+    - @organizations.each do |org|
+      %li
+        = link_to org.name, admins_organization_path(org)

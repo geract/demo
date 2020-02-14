@@ -68,12 +68,31 @@ GEM
       zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     ansi (1.5.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
+    capistrano (3.11.2)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.6.0)
+      capistrano (~> 3.1)
+    capistrano-rails (1.4.0)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rbenv (2.1.6)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capistrano3-puma (3.1.1)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
     capybara (3.31.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -114,11 +133,20 @@ GEM
     ffi (1.12.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    haml (5.1.2)
+      temple (>= 0.8.0)
+      tilt
     hashdiff (1.0.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
+    jquery-rails (4.3.5)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -145,6 +173,9 @@ GEM
       ruby-progressbar
     msgpack (1.3.1)
     multipart-post (2.1.1)
+    net-scp (2.0.0)
+      net-ssh (>= 2.6.5, < 6.0.0)
+    net-ssh (5.2.0)
     nio4r (2.5.2)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
@@ -213,6 +244,12 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    shoulda (3.6.0)
+      shoulda-context (~> 1.0, >= 1.0.1)
+      shoulda-matchers (~> 3.0)
+    shoulda-context (1.2.2)
+    shoulda-matchers (3.1.3)
+      activesupport (>= 4.0.0)
     sidekiq (6.0.4)
       connection_pool (>= 2.2.2)
       rack (>= 2.0.0)
@@ -232,6 +269,10 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.20.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    temple (0.8.2)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -275,12 +316,20 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   bootsnap (>= 1.4.2)
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rbenv
+  capistrano3-puma
   capybara
   database_cleaner-active_record
   devise
   devise_token_auth
   factory_bot_rails
+  haml
   jbuilder (~> 2.7)
+  jquery-rails
+  jquery-ui-rails
   listen (>= 3.0.5, < 3.2)
   minitest-rails (~> 6.0.0)
   minitest-reporters (>= 0.5.0)
@@ -291,6 +340,8 @@ DEPENDENCIES
   rails (~> 6.0.0)
   rescue_groups!
   sass-rails (~> 5)
+  shoulda
+  shoulda-matchers
   sidekiq
   simple_form
   spring

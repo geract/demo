@@ -29,6 +29,7 @@ module PetparentBack
       g.stylesheets           false
       g.javascripts           false
       g.helper                false
+      g.template_engine :haml
     end
 
     config.middleware.use Rack::Cors do
