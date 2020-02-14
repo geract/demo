@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   mount_devise_token_auth_for 'User', at: 'auth'
 
   devise_for :admins, only: :sessions, path: '/admin',
@@ -18,5 +17,12 @@ Rails.application.routes.draw do
   namespace :admins, path: 'admin' do
     root to: 'admins/organizations#new'
     resources :organizations
+  end
+
+  namespace :users, path: 'user' do
+    mount_devise_token_auth_for 'User', at: '/auth'
+    api_version(module: 'v1', parameter: {name: 'version', value: '1'}) do
+      resources :hola
+    end
   end
 end
