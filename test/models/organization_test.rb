@@ -7,13 +7,31 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should have_many(:physical_addresses)
   should have_one(:legal_address)
-  should belong_to(:admin)
+
+  validate_presence_of(:name)
+  validate_presence_of(:director)
+  validate_presence_of(:email)
+  validate_presence_of(:phone)
+  validate_presence_of(:legal_address)
+
+  def test_validate_organization_type
+    organization = create(:organization, :complete, sheltered: false, foster_based: false)
+    assert organization.sheltered
+
+    organization.update(foster_based: true)
+    assert organization.foster_based
+  end
+
+  def test_invalid_physical_addresses?
+    organization = create(:organization, :complete, physical_addresses: [], foster_based: true)
+
+    assert_equal ["A physical addresses must be entered."], organization.errors['base']
+  end
 
   def test_organization_by_name
-    admin = create(:admin)
-    a_organization = create(:organization, :complete, name: 'a', admin: admin)
-    aa_organization = create(:organization, :complete, name: 'aa', admin: admin)
-    z_organization = create(:organization, :complete, name: 'z', admin: admin)
+    a_organization = create(:organization, :complete, name: 'a')
+    aa_organization = create(:organization, :complete, name: 'aa')
+    z_organization = create(:organization, :complete, name: 'z')
 
     assert_equal Organization.by_name, [a_organization, aa_organization, z_organization]
   end

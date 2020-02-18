@@ -9,10 +9,10 @@ FactoryBot.define do
     foster_based { false }
     url { "petparent.com" }
     email { "31212345" }
+    phone { "31212345" }
   end
 
   trait :complete do
-    admin { create(:admin) }
     physical_addresses { build_list(:physical_address, 1) }
     legal_address { build(:legal_address) }
   end

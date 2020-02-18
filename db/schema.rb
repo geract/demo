@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_205834) do
+ActiveRecord::Schema.define(version: 2020_02_17_174628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,10 +54,8 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
     t.string "url"
     t.string "email"
     t.string "phone"
-    t.bigint "admin_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["admin_id"], name: "index_organizations_on_admin_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -98,5 +96,4 @@ ActiveRecord::Schema.define(version: 2020_02_11_205834) do
   end
 
   add_foreign_key "organization_addresses", "organizations"
-  add_foreign_key "organizations", "admins"
 end

@@ -10,10 +10,11 @@ class Admins::OrganizationsController < Admins::BaseController
   end
 
   def create
-    if create_organization
+    @organization = Organization.new(organization_params)
+    if Admin::SaveOrganization.perform(@organization)
       redirect_to admins_organization_path(@organization)
     else
-      render 'organizations/new'
+      render :new
     end
   end
 
@@ -41,7 +42,7 @@ class Admins::OrganizationsController < Admins::BaseController
   end
 
   def organization_addresses_attributes
-    [:id, :name, :address, :city, :state, :zip_code, :main_location, :type]
+    %i(id name address city state zip_code main_location)
   end
 
   def create_organization

@@ -2,11 +2,10 @@ require 'test_helper'
 
 class Admin::IndexOrganizationTest < ActionDispatch::IntegrationTest
   def setup
-    admin = create(:admin)
-    create(:organization, :complete, admin: admin, name: 'Foster Organization')
-    create(:organization, :complete, admin: admin, name: 'Rescuer Organization')
+    create(:organization, :complete, name: 'Foster Organization')
+    create(:organization, :complete, name: 'Rescuer Organization')
 
-    login_as(admin, scope: :admin)
+    login_as_admin
     visit admins_organizations_path
   end
 

@@ -1,5 +1,6 @@
 %section
   %h1 Organizations
+  = link_to 'New Organization', new_admins_organization_path
   %ul
     - @organizations.each do |org|
       %li

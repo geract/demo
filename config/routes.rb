@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      get '/admin', to: 'admins/organizations#new', as: :admin_root
+      get '/admin', to: 'admins/organizations#index', as: :admin_root
     end
     unauthenticated do
       get '/admin', to: 'devise/sessions#new'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admins, path: 'admin' do
-    root to: 'admins/organizations#new'
+    root to: 'admins/organizations#index'
     resources :organizations
   end
 
