@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   end
 
   namespace :users, path: 'user' do
-    api_version(module: 'v1', parameter: {name: 'version', value: '1'}) do
+    api_version(module: 'v1', header: {name: 'API-VERSION', value: '1'}) do
+      resources :pets
+      resources :characteristics_options, only: %i(index)
     end
   end
 end

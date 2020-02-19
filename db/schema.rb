@@ -65,6 +65,21 @@ ActiveRecord::Schema.define(version: 2020_02_17_174628) do
     t.string "pet_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "price", null: false
+    t.string "microchip_provider"
+    t.string "microchip_number"
+    t.string "housed"
+    t.string "breed", null: false
+    t.string "second_breed"
+    t.string "sex", null: false
+    t.string "size", null: false
+    t.string "age", null: false
+    t.text "description", null: false
+    t.text "medical_history"
+    t.text "foster_family"
+    t.boolean "public"
+    t.boolean "mix_breed"
+    t.jsonb "personality", default: "{}", null: false
     t.index ["external_type"], name: "index_pets_on_external_type"
     t.index ["pet_type"], name: "index_pets_on_pet_type"
   end

@@ -14,3 +14,9 @@
 
 ### Run server
 `rails server`
+
+### Run test suite
+`rails test`
+
+### To enable test coverage (simplecov)
+`export COVERAGE=1`
