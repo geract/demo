@@ -1,6 +1,7 @@
 class Organization < ApplicationRecord
   has_one :legal_address
   has_many :physical_addresses
+  has_one_attached :logo
 
   validates :name, presence: true
   validates :director, presence: true

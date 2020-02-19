@@ -18,6 +18,16 @@ class Admins::OrganizationsController < Admins::BaseController
     end
   end
 
+  def update
+    @organization = Organization.find(params[:id])
+
+    if @organization.update(organization_params)
+      redirect_to admins_organization_path(@organization)
+    else
+      render :show
+    end
+  end
+
   def show
     @organization = Organization.find(params[:id])
   end
@@ -37,6 +47,7 @@ class Admins::OrganizationsController < Admins::BaseController
                                           :phone,
                                           :sheltered,
                                           :foster_based,
+                                          :logo,
                                           legal_address_attributes: organization_addresses_attributes,
                                           physical_addresses_attributes: organization_addresses_attributes)
   end
