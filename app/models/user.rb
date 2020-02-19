@@ -2,7 +2,8 @@
 
 class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
-  
-  devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable
+
+  PASSWORD_FORMAT = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}\z/
+
+  validates :password, format: PASSWORD_FORMAT
 end
