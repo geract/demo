@@ -16,6 +16,7 @@ require 'database_cleaner'
 require 'database_cleaner_support'
 require 'webmock/minitest'
 require_relative 'helpers/login_test_helper'
+require_relative 'helpers/api_headers_helper'
 
 MiniTest::Reporters.use!
 DatabaseCleaner.clean_with :truncation
@@ -50,6 +51,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::Minitest::Assertions
   include DatabaseCleanerSupport
   include LoginTestHelpers
+  include ApiHeadersHelper
 
   def teardown
     Capybara.reset_sessions!

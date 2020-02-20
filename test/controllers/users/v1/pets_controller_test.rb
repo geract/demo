@@ -2,13 +2,15 @@ require "test_helper"
 
 class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    login_as_admin
+    @user = create(:rescuer_admin)
+    @credentials = @user.create_token
+    @user.save
   end
 
   def test_create_success
     post users_pets_url,
       params: { pet: attributes_for(:pet, name: 'Josh') },
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
@@ -20,7 +22,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def test_create_error
     post users_pets_url,
       params: { pet: attributes_for(:pet, name: '') },
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
@@ -33,7 +35,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     pet = create(:pet, name: 'Josh')
 
     get users_pet_url(pet),
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
@@ -44,7 +46,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_error
     get users_pet_url(id: 2),
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     assert_response :not_found
   end
@@ -54,7 +56,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
 
     put users_pet_url(pet),
       params: { pet: { name: 'Tobby' } },
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
@@ -68,7 +70,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
 
     put users_pet_url(pet),
       params: { pet: { name: '' } },
-      headers: {'API-VERSION' => '1'}
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 

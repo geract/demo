@@ -2,11 +2,14 @@ require "test_helper"
 
 class Users::V1::CharacteristicsOptionsCntroller < ActionDispatch::IntegrationTest
   def setup
-    login_as_admin
+    @user = create(:rescuer_admin)
+    @credentials = @user.create_token
+    @user.save
   end
 
   def test_index
-    get users_characteristics_options_url, headers: {'API-VERSION' => '1'}
+    get users_characteristics_options_url,
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
