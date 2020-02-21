@@ -1,4 +1,7 @@
 class Pet < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   store_accessor :personality, :good_with_dogs
   store_accessor :personality, :good_with_cats
   store_accessor :personality, :good_with_children
@@ -13,4 +16,12 @@ class Pet < ApplicationRecord
 
   has_many_attached :images
 
+  def long_url
+    host = ENV['host'] || "http://www.petparenthub.dev.com"
+    Rails.application.routes.url_helpers.users_pet_url(name, host: host)
+  end
+
+  def update_short_url(short_url)
+    update(short_url: short_url)
+  end
 end
