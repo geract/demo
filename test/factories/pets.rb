@@ -8,6 +8,7 @@ FactoryBot.define do
     price { 100.00 }
     sex { 'Male' }
     size { 'Large' }
+    status { 'created' }
     personality {
       {
         good_with_children: true,

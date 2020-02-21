@@ -1,5 +1,7 @@
 class Pet < ApplicationRecord
+  include Pets::StateManager
   extend FriendlyId
+  
   friendly_id :name, use: :slugged
 
   store_accessor :personality, :good_with_dogs
@@ -13,8 +15,11 @@ class Pet < ApplicationRecord
   validates :size, presence: true
   validates :age, presence: true
   validates :name, presence: true
+  validates :status, presence: true
+  validates :reason_code, presence: true, if: ->(user) { user.status == 'archived' }
 
   has_many_attached :images
+  enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   def long_url
     host = ENV['host'] || "http://www.petparenthub.dev.com"

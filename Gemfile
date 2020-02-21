@@ -26,6 +26,7 @@ gem 'haml'
 gem 'simple_segment'
 gem 'bitly', '~> 2.0.0.beta.1'
 gem 'friendly_id'
+gem 'aasm'
 
 group :development, :test do
   gem 'pry'

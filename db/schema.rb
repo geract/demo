@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_062435) do
+ActiveRecord::Schema.define(version: 2020_02_21_061637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_062435) do
     t.jsonb "personality", default: "{}", null: false
     t.string "slug"
     t.string "short_url"
+    t.string "status", default: "created"
+    t.integer "reason_code"
     t.index ["external_type"], name: "index_pets_on_external_type"
     t.index ["pet_type"], name: "index_pets_on_pet_type"
     t.index ["slug"], name: "index_pets_on_slug", unique: true
