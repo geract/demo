@@ -33,4 +33,11 @@ class PetTest < ActiveSupport::TestCase
     assert_includes @pet.errors, :reason_code
     assert_includes @pet.errors[:reason_code], 'can\'t be blank'
   end
+
+  def test_not_archived_scope
+    archived_pet = create(:pet, status: 'archived', reason_code: 'pet_died')
+
+    assert_includes Pet.all, archived_pet
+    assert_not_includes Pet.not_archived, archived_pet
+  end
 end

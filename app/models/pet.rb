@@ -21,8 +21,10 @@ class Pet < ApplicationRecord
   has_many_attached :images
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
+  scope :not_archived, -> { where.not(status: 'archived') }
+
   def long_url
-    host = ENV['host'] || "http://www.petparenthub.dev.com"
+    host = ENV['host'] || Rails.application.config_for(:config)[:bitly][:app_url]
     Rails.application.routes.url_helpers.users_pet_url(name, host: host)
   end
 

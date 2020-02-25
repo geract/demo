@@ -44,11 +44,23 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert api_response['pet']['name'], pet.name
   end
 
-  def test_show_error
-    skip # Solved in another MR
-    get users_pet_url(id: 2),
-      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
-
+  def test_show_archived_pet_error
+    pet = create(:pet, status: 'archived', reason_code: 'pet_died')
+    
+    get users_pet_url(pet),
+    headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+    
+    api_response = JSON.parse(response.body)
+    
+    assert_response :gone
+    assert api_response.include?('errors')
+    assert_includes api_response['errors'].first, 'Doggo is no longer available. Look for more pets like Doggo'
+  end
+  
+  def test_show_no_pet_error
+    get users_pet_url(id: 'pikachu'),
+    headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+    
     assert_response :not_found
   end
 
@@ -78,5 +90,19 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert api_response.include?('pet')
     assert api_response['pet']['name'], pet.name
+  end
+  
+  def test_index
+    pet = create(:pet, name: 'Josh')
+    
+    get users_pets_path,
+    headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+    
+    api_response = JSON.parse(response.body)
+    pet_hash = JSON.parse(pet.to_json)
+
+    assert_response :success
+    assert api_response.include?('pets')
+    assert_includes api_response['pets'], pet_hash
   end
 end

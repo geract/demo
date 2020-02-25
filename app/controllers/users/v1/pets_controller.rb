@@ -23,13 +23,15 @@ class Users::V1::PetsController < Users::BaseController
   end
 
   def show
-    pet = Pet.friendly.find(params[:id])
+    response, status = Pet::Show.perform(params[:id])
 
-    if pet
-      render json: { pet: pet }
-    else
-      render json: { pet: {}, errors: [] }, status: :not_found
-    end
+    render json: response, status: status
+  end
+
+  def index
+    pets = Pet.not_archived
+
+    render json: {pets: pets}, status: :ok
   end
 
   private
