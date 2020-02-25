@@ -34,6 +34,12 @@ class Users::V1::PetsController < Users::BaseController
     render json: {pets: pets}, status: :ok
   end
 
+  def index
+    pets = Pet::Search.perform(status: [:published, :archived, :adopted])
+
+    render json: {pets: pets}, status: 200
+  end
+
   private
 
   def pet_params

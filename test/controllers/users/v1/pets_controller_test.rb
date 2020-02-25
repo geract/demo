@@ -93,16 +93,18 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   end
   
   def test_index
-    pet = create(:pet, name: 'Josh')
+    published_pet = create(:pet, name: 'Pancho', status: 'published')
+    archived_pet = create(:pet, name: 'Archi', status: 'archived', reason_code: 'pet_died')
+    adopted_pet = create(:pet, name: 'Aldo', status: 'adopted')
     
-    get users_pets_path,
-    headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+    get users_pets_url,
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
     
-    api_response = JSON.parse(response.body)
-    pet_hash = JSON.parse(pet.to_json)
-
+    api_response = JSON.parse(response.body)['pets']
+ 
     assert_response :success
-    assert api_response.include?('pets')
-    assert_includes api_response['pets'], pet_hash
+    assert api_response[0]['name'], published_pet.name
+    assert api_response[1]['name'], archived_pet.name
+    assert api_response[2]['name'], adopted_pet.name
   end
 end
