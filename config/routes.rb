@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :pets
       resources :pets_statuses, only: [:update]
       resources :characteristics_options, only: %i(index)
+      resources :organizations, only: %i(show update)
     end
   end
 end

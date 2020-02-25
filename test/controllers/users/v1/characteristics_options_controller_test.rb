@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::CharacteristicsOptionsCntroller < ActionDispatch::IntegrationTest
+class Users::V1::CharacteristicsOptionsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = create(:rescuer_admin)
     @credentials = @user.create_token

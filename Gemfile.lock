@@ -80,6 +80,7 @@ GEM
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.4)
+    cancancan (3.0.2)
     capistrano (3.11.2)
       airbrussh (>= 1.0.0)
       i18n
@@ -339,6 +340,7 @@ DEPENDENCIES
   activerecord-import
   bitly (~> 2.0.0.beta.1)
   bootsnap (>= 1.4.2)
+  cancancan
   capistrano
   capistrano-bundler
   capistrano-rails
