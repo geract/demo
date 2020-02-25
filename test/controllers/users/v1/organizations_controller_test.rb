@@ -87,8 +87,8 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert api_response['errors'], "Name can't be blank"
   end
 
-  def test_user_cannot_update
-    user = create(:user)
+  def test_rescuer_cannot_update
+    user = create(:rescuer)
     credentials = user.create_token
     user.save
 
@@ -116,7 +116,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_user_show
-    user = create(:user)
+    user = create(:rescuer)
     credentials = user.create_token
     user.save
 

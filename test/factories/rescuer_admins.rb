@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :rescuer_admin do
-    name               { "Juan" }
+    first_name         { "Juan" }
     email              { "rescuer@pph.com" }
     password           { "TopS3cr3t" }
     type               { "RescuerAdmin" }

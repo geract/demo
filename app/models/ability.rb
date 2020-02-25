@@ -4,7 +4,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.class == User
+    if user.class == Rescuer
       cannot :manage, Organization
     end
 
@@ -12,6 +12,7 @@ class Ability
       can :update, Organization
       can :read, Organization
       can :manage, Pet
+      can :manage, Rescuer
     end
   end
 end
