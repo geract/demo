@@ -1,4 +1,6 @@
 class Users::V1::OrganizationsController < Users::BaseController
+  load_and_authorize_resource
+
   def update
     @organization = Organization.find_by(id: params[:id])
 

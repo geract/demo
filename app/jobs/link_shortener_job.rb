@@ -4,8 +4,7 @@ class LinkShortenerJob < ApplicationJob
 
   def perform(pet_id)
     @pet = Pet.find(pet_id)
-
-    LinkShortener.new.shorten(pet.long_url)
+    @short_url = LinkShortener.new.shorten(pet.long_url)
   end
 
   private

@@ -14,7 +14,15 @@ class User::SavePet
     attr_reader :pet
 
     def saved_callbacks
-      ::LinkShortenerJob.perform_later(pet.id)
+      shorten_url
+    end
+    
+    def shorten_url
+      if Rails.env.production?
+        ::LinkShortenerJob.perform_later(pet.id)
+      else
+        ::LinkShortenerJob.perform_now(pet.id)
+      end
     end
   end
 end

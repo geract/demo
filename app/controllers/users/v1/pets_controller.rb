@@ -13,7 +13,7 @@ class Users::V1::PetsController < Users::BaseController
   end
 
   def update
-    pet = Pet.find_by(id: params[:id])
+    pet = Pet.friendly.find(params[:id])
 
     if pet.update(pet_params)
       render json: { pet: pet }
@@ -23,7 +23,7 @@ class Users::V1::PetsController < Users::BaseController
   end
 
   def show
-    pet = Pet.find_by(id: params[:id])
+    pet = Pet.friendly.find(params[:id])
 
     if pet
       render json: { pet: pet }

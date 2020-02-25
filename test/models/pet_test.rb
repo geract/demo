@@ -17,8 +17,9 @@ class PetTest < ActiveSupport::TestCase
   def test_new_pet_can_be_archived
     assert_equal @pet.status, 'created'
 
-    @pet.archive
+    status_updated = Pet::UpdateStatus.perform(@pet, 'archive', reason_code: 'pet_adopted')
 
+    assert status_updated
     assert_equal @pet.status, 'archived'
   end
   
@@ -26,7 +27,7 @@ class PetTest < ActiveSupport::TestCase
     assert @pet.reason_code.nil?
     assert_not_includes @pet.errors[:reason_code], 'can\'t be blank'
 
-    @pet.archive
+    @pet.status = 'archived'
 
     refute @pet.valid?
     assert_includes @pet.errors, :reason_code

@@ -23,7 +23,7 @@ class Users::V1::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
 
   def test_update_error
     pet = create(:pet)
-
+    
     put users_pets_status_path(pet),
       params: { pet: { status: 'archive'} },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
