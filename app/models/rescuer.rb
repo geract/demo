@@ -1,4 +1,4 @@
-class RescuerAdmin < User
+class Rescuer < User
   include PasswordSetup
 
   devise :database_authenticatable, :recoverable,
