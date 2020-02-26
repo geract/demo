@@ -22,10 +22,11 @@ Rails.application.routes.draw do
   namespace :users, path: 'user' do
     api_version(module: 'v1', header: {name: 'API-VERSION', value: '1'}) do
       resources :pets
-      resources :pets_statuses, only: [:update]
+      resources :pets_statuses, only: %i(update)
       resources :characteristics_options, only: %i(index)
       resources :organizations, only: %i(show update)
       resources :rescuers, only: %i(create show update)
+      resource :pet_bulk, only: %i(update)
     end
   end
 end

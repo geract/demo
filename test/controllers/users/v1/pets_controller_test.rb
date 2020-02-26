@@ -46,12 +46,12 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
 
   def test_show_archived_pet_error
     pet = create(:pet, status: 'archived', reason_code: 'pet_died')
-    
+
     get users_pet_url(pet),
     headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
-    
+
     api_response = JSON.parse(response.body)
-    
+
     assert_response :gone
     assert api_response.include?('errors')
     assert_includes api_response['errors'].first, 'Doggo is no longer available. Look for more pets like Doggo'
