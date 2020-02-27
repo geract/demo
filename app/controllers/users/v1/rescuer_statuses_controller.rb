@@ -1,0 +1,17 @@
+class Users::V1::RescuerStatusesController < ApplicationController
+  def update
+    rescuer = Rescuer.find(params[:id])
+
+    if Rescuer::UpdateStatus.perform(rescuer, rescuer_params[:status])
+      render json: { rescuer: rescuer }
+    else
+      render json: { rescuer: rescuer, errors: rescuer.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def rescuer_params
+    params.require(:rescuer).permit(:status)
+  end
+end
