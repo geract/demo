@@ -1,4 +1,4 @@
-class Users::V1::PetsStatusesController < Users::BaseController
+class Users::V1::Rescuers::PetsStatusesController < Users::BaseController
   def update
     pet = Pet.friendly.find(params[:id])
 

@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :pet do
-    age { 'Puppy' }
-    breed { 'Shiba Inu' }
-    description { 'Happy dog' }
-    housed { 'Shelter' }
-    name { 'Doggo' }
-    price { 100.00 }
-    sex { 'Male' }
-    size { 'Large' }
-    status { 'created' }
+    age               { 'Puppy' }
+    breed             { 'Shiba Inu' }
+    description       { 'Happy dog' }
+    housed            { 'Shelter' }
+    name              { 'Doggo' }
+    price             { 100.00 }
+    sex               { 'Male' }
+    size              { 'Large' }
+    status            { 'created' }
     personality {
       {
         good_with_children: true,

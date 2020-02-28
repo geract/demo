@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = create(:rescuer_admin)
     @credentials = @user.create_token
@@ -12,7 +12,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_update_success
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { name: 'happy paws' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -26,7 +26,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_cannot_update_email
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { email: 'happy@paws.com' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -40,7 +40,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_cannot_update_5013
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { '5013': 'this is a test' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -52,7 +52,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_required_director
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { name: ' ' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -64,7 +64,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_required_phone
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { phone: ' ' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -76,7 +76,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_required_name
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { name: ' ' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -92,7 +92,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     credentials = user.create_token
     user.save
 
-    put users_organization_url(@organization),
+    put users_rescuers_organization_url(@organization),
       params: { organization: { 'name': 'happy tails' } },
       headers: headers_v1(user.uid, credentials.token, credentials.client)
 
@@ -102,7 +102,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_rescuer_admin_show
-    get users_organization_url(@organization),
+    get users_rescuers_organization_url(@organization),
       params: { organization: { 'name': 'happy tails' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -120,7 +120,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     credentials = user.create_token
     user.save
 
-    get users_organization_url(@organization),
+    get users_rescuers_organization_url(@organization),
       headers: headers_v1(user.uid, credentials.token, credentials.client)
 
     api_response = JSON.parse(response.body)

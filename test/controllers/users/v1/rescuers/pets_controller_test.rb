@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = create(:rescuer_admin)
     @credentials = @user.create_token
@@ -8,7 +8,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_success
-    post users_pets_url,
+    post users_rescuers_pets_url,
       params: { pet: attributes_for(:pet, name: 'Josh') },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -20,7 +20,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_error
-    post users_pets_url,
+    post users_rescuers_pets_url,
       params: { pet: attributes_for(:pet, name: '') },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -34,7 +34,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def test_show_success
     pet = create(:pet, name: 'Josh')
 
-    get users_pet_url(pet),
+    get users_rescuers_pet_url(pet),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
@@ -47,7 +47,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def test_show_archived_pet_error
     pet = create(:pet, status: 'archived', reason_code: 'pet_died')
 
-    get users_pet_url(pet),
+    get users_rescuers_pet_url(pet),
     headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
@@ -58,7 +58,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   end
   
   def test_show_no_pet_error
-    get users_pet_url(id: 'pikachu'),
+    get users_rescuers_pet_url(id: 'pikachu'),
     headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
     
     assert_response :not_found
@@ -67,7 +67,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def test_update_success
     pet = create(:pet, name: 'Josh')
 
-    put users_pet_url(pet),
+    put users_rescuers_pet_url(pet),
       params: { pet: { name: 'Tobby' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -81,7 +81,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def test_update_error
     pet = create(:pet, name: 'Josh')
 
-    put users_pet_url(pet),
+    put users_rescuers_pet_url(pet),
       params: { pet: { name: '' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -97,7 +97,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     archived_pet = create(:pet, name: 'Archi', status: 'archived', reason_code: 'pet_died')
     adopted_pet = create(:pet, name: 'Aldo', status: 'adopted')
     
-    get users_pets_url,
+    get users_rescuers_pets_url,
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
     
     api_response = JSON.parse(response.body)['pets']

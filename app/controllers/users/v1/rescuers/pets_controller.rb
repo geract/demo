@@ -1,4 +1,4 @@
-class Users::V1::PetsController < Users::BaseController
+class Users::V1::Rescuers::PetsController < Users::BaseController
   def new
   end
 

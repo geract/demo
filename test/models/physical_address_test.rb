@@ -2,10 +2,8 @@ require "test_helper"
 
 class PhysicalAddressTest < ActiveSupport::TestCase
   def setup
-    @physical = build(:physical_addresses, :admin)
+    @physical = build(:legal_address)
   end
 
-  def physical_address_association
-    must belong_to :organization
-  end
+  should belong_to :organization
 end

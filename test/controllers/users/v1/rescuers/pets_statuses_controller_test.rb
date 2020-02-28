@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = create(:rescuer_admin)
     @credentials = @user.create_token
@@ -10,7 +10,7 @@ class Users::V1::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
   def test_update_success
     pet = create(:pet)
 
-    put users_pets_status_path(pet),
+    put users_rescuers_pets_status_path(pet),
       params: { pet: { status: 'archive', reason_code: 'pet_adopted' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -24,7 +24,7 @@ class Users::V1::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
   def test_update_error
     pet = create(:pet)
     
-    put users_pets_status_path(pet),
+    put users_rescuers_pets_status_path(pet),
       params: { pet: { status: 'archive'} },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 

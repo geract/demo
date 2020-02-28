@@ -5,6 +5,8 @@ class OrganizationTest < ActiveSupport::TestCase
     @organization = build(:organization)
   end
 
+  should have_many(:rescuer_profiles)
+  should have_many(:rescuers)
   should have_many(:physical_addresses)
   should have_one(:legal_address)
 

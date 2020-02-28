@@ -1,4 +1,4 @@
-class Users::V1::PetBulksController < Users::BaseController
+class Users::V1::Rescuers::PetBulksController < Users::BaseController
   def update
     pets, errors = Pet::UpdateBulk.perform(params['pets'], params['status'])
 

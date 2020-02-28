@@ -5,6 +5,8 @@ class RescuerAdminTest < ActiveSupport::TestCase
     @admin = build(:rescuer_admin)
   end
 
+  should have_one(:profile)
+
   def test_set_password
     Rails.application.stub(:credentials, OpenStruct.new(rescuer_admin_default_password: 'iFyRAB53n')) {}
 

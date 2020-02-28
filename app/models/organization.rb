@@ -1,6 +1,8 @@
 class Organization < ApplicationRecord
   has_one :legal_address
   has_many :physical_addresses
+  has_many :rescuer_profiles 
+  has_many :rescuers, through: :rescuer_profiles
   has_one_attached :logo
 
   validates :name, presence: true

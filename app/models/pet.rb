@@ -16,7 +16,6 @@ class Pet < ApplicationRecord
   validates :age, presence: true
   validates :name, presence: true
   validates :status, presence: true
-  validates :reason_code, presence: true, if: ->(user) { user.status == 'archived' }
 
   has_many_attached :images
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
@@ -25,7 +24,7 @@ class Pet < ApplicationRecord
 
   def long_url
     host = ENV['host'] || Rails.application.config_for(:config)[:bitly][:app_url]
-    Rails.application.routes.url_helpers.users_pet_url(name, host: host)
+    Rails.application.routes.url_helpers.pet_url(name, host: host)
   end
 
   def update_short_url(short_url)

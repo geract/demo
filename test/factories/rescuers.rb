@@ -1,13 +1,14 @@
 FactoryBot.define do
   factory :rescuer do
-    first_name         { 'Juan' }
-    last_name          { 'Rescuer' }
-    email              { "#{first_name}@pph.com" }
+    email              { 'rescueruser@pph.com' }
     password           { 'TopS3cr3t' }
     type               { 'Rescuer' }
-    confirmation_token { "#{first_name}1234" }
+    confirmation_token { 'token1234' }
     uid                { 'rescueruser@pph.com' }
-    phone              { '888999222' }
     status             { 'created' }
+
+    trait :complete do
+      profile { build(:rescuer_profile, :complete) }
+    end
   end
 end

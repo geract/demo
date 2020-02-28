@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::PetBulksControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = create(:rescuer_admin)
     @credentials = @user.create_token
@@ -11,7 +11,7 @@ class Users::V1::PetBulksControllerTest < ActionDispatch::IntegrationTest
     create(:pet, name: 'GoodBoy17')
     create(:pet, name: 'Doge')
 
-    put users_pet_bulk_path,
+    put users_rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'publish' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -27,7 +27,7 @@ class Users::V1::PetBulksControllerTest < ActionDispatch::IntegrationTest
     create(:pet, name: 'GoodBoy17', reason_code: nil)
     create(:pet, name: 'Doge', reason_code: nil)
     
-    put users_pet_bulk_path,
+    put users_rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'archive' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -40,7 +40,7 @@ class Users::V1::PetBulksControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_failed_update_due_pets_param_missing
-    put users_pet_bulk_path,
+    put users_rescuers_pet_bulk_path,
       params: { pets: [], status: 'publish' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 

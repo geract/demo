@@ -1,5 +1,4 @@
-class Users::V1::RescuersController < Users::BaseController
-
+class Users::V1::Rescuers::RescuersController < Users::BaseController
   def index
     @rescuers = Rescuer.by_name_and_status(params[:status])
 
@@ -30,7 +29,18 @@ class Users::V1::RescuersController < Users::BaseController
   end
 
   private
+
   def rescuer_params
-    params.require(:rescuer).permit(:first_name, :last_name, :email, :phone, :status)
+    prepare_params
+    params.require(:rescuer).permit(:email, 
+                                    profile_attributes: [:first_name, :last_name, :phone, :status])
+  end
+
+  def prepare_params
+    params[:rescuer][:profile_attributes] ||= {
+        first_name: params[:rescuer][:first_name],
+        last_name: params[:rescuer][:last_name],
+        phone: params[:rescuer][:phone],
+      }
   end
 end

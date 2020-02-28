@@ -7,7 +7,7 @@ class UpdateStatusTest < ActiveSupport::TestCase
 
   def test_it_updates_user_status_and_reason_code
     assert_equal @pet.status, 'created'
-    assert_equal @pet.reason_code, nil
+    assert_nil @pet.reason_code
 
     Pet::UpdateStatus.perform(@pet, 'archive', reason_code: 'pet_adopted')
 

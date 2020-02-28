@@ -1,4 +1,4 @@
-class Users::V1::OrganizationsController < Users::BaseController
+class Users::V1::Rescuers::OrganizationsController < Users::BaseController
   load_and_authorize_resource
 
   def update
