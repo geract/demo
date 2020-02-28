@@ -1,5 +1,11 @@
 class Users::V1::RescuersController < Users::BaseController
 
+  def index
+    @rescuers = Rescuer.by_name_and_status(params[:status])
+
+    render json: { rescuers: @rescuers }
+  end
+
   def create
     @rescuer = Rescuer.new(rescuer_params)
     unless @rescuer.save
@@ -25,6 +31,6 @@ class Users::V1::RescuersController < Users::BaseController
 
   private
   def rescuer_params
-    params.require(:rescuer).permit(:first_name, :last_name, :email, :phone)
+    params.require(:rescuer).permit(:first_name, :last_name, :email, :phone, :status)
   end
 end

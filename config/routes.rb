@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       resources :pets_statuses, only: %i(update)
       resources :characteristics_options, only: %i(index)
       resources :organizations, only: %i(show update)
-      resources :rescuers, only: %i(create show update)
+      resources :rescuers, only: %i(index create show update)
       resource :pet_bulk, only: %i(update)
       resources :rescuer_statuses, only: %i(update)
     end

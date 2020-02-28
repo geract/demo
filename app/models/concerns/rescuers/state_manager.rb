@@ -6,7 +6,8 @@ module Rescuers::StateManager
 
     aasm(column: 'status', whiny_transitions: false) do
       state :created, initial: true
-      state :archived, initial: true
+      state :activated
+      state :archived
 
       event :archive do
         transitions from: :created, to: :archived

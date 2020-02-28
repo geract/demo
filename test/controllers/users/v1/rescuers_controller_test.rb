@@ -65,4 +65,34 @@ class Users::V1::RescuersControllerTest < ActionDispatch::IntegrationTest
     assert api_response['rescuer']['phone'], '888999222'
     assert api_response['rescuer']['email'], 'joane@doe.com'
   end
+
+  def test_rescuer_admin_index_activated_status
+    create(:rescuer, first_name: 'Albert', status: 'activated')
+    create(:rescuer, first_name: 'Claudia', status: 'archived')
+    create(:rescuer, first_name: 'Xavier', status: 'activated')
+
+    get users_rescuers_url, params: { status: 'activated' },
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+
+    api_response = JSON.parse(response.body)
+
+    assert_response :success
+    assert api_response['rescuers'].size, 2
+    assert api_response['rescuers'][0]['first_name'], 'Alert'
+    assert api_response['rescuers'][1]['first_name'], 'Xavier'
+  end
+
+  def test_rescuer_admin_index_empty_status
+    create(:rescuer, first_name: 'Albert', status: 'activated')
+    create(:rescuer, first_name: 'Claudia', status: 'archived')
+    create(:rescuer, first_name: 'Xavier', status: 'activated')
+
+    get users_rescuers_url, params: { status: '' },
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+
+    api_response = JSON.parse(response.body)
+
+    assert_response :success
+    assert api_response['rescuers'].size, 0
+  end
 end
