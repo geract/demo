@@ -2,7 +2,7 @@ require "test_helper"
 
 class UpdateStatusTest < ActiveSupport::TestCase
   setup do
-    @pet = create(:pet)
+    @pet = create(:pet, :complete)
   end
 
   def test_it_updates_user_status_and_reason_code

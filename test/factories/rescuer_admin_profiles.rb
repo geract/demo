@@ -4,9 +4,10 @@ FactoryBot.define do
     last_name          { 'Rescuer' }
     phone              { '888999222' }
     title              { 'dev' }
-  end
 
-  trait :complete do
-    rescuer { build(:rescuer) }
+    trait :complete do
+      rescuer       { build(:rescuer_admin) }
+      organization  { build(:organization) }
+    end
   end
 end

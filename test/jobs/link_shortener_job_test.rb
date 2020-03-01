@@ -4,7 +4,7 @@ class LinkShortenerJobrailsTest < ActiveJob::TestCase
   include ActiveJob::TestHelper
 
   setup do
-    build(:pet).save
+    create(:pet, :complete)
   end
 
   def test_it_updates_pet_short_url_attribute

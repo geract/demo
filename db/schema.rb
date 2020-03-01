@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_26_230007) do
+ActiveRecord::Schema.define(version: 2020_02_29_204610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,7 +116,10 @@ ActiveRecord::Schema.define(version: 2020_02_26_230007) do
     t.string "short_url"
     t.string "status", default: "created"
     t.integer "reason_code"
+    t.bigint "organization_id"
+    t.integer "added_by_id"
     t.index ["external_type"], name: "index_pets_on_external_type"
+    t.index ["organization_id"], name: "index_pets_on_organization_id"
     t.index ["pet_type"], name: "index_pets_on_pet_type"
     t.index ["slug"], name: "index_pets_on_slug", unique: true
   end
@@ -163,6 +166,7 @@ ActiveRecord::Schema.define(version: 2020_02_26_230007) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "organization_addresses", "organizations"
+  add_foreign_key "pets", "organizations"
   add_foreign_key "rescuer_profiles", "organizations"
   add_foreign_key "rescuer_profiles", "users"
 end

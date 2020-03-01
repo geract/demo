@@ -1,6 +1,6 @@
-class Users::V1::RescuerStatusesController < ApplicationController
+class Users::V1::Rescuers::RescuerStatusesController < Users::BaseController
   def update
-    rescuer = Rescuer.find(params[:id])
+    rescuer = current_user.organization.rescuers.find(params[:id])
 
     if Rescuer::UpdateStatus.perform(rescuer, rescuer_params[:status])
       render json: { rescuer: rescuer }

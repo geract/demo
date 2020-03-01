@@ -1,8 +1,8 @@
-class Users::V1::Rescuers::OrganizationsController < Users::BaseController
+class Users::V1::Rescuers::OrganizationsController < Users::V1::Rescuers::BaseController
   load_and_authorize_resource
 
   def update
-    @organization = Organization.find_by(id: params[:id])
+    @organization = current_user.organization
 
     unless @organization.update(organization_params)
       render json: { errors: @organization.errors.full_messages }, status: :unprocessable_entity
@@ -10,7 +10,7 @@ class Users::V1::Rescuers::OrganizationsController < Users::BaseController
   end
 
   def show
-    @organization = Organization.find_by(id: params[:id])
+    @organization = current_user.organization
 
     unless @organization
       render status: :not_found

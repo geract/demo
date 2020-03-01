@@ -1,19 +1,19 @@
-class Users::V1::Rescuers::RescuersController < Users::BaseController
+class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseController
   def index
-    @rescuers = Rescuer.by_name_and_status(params[:status])
-
-    render json: { rescuers: @rescuers }
+    @rescuers = current_user.organization.rescuers.by_status(params[:status]).order_by_name
   end
 
   def create
     @rescuer = Rescuer.new(rescuer_params)
+    @rescuer.profile.organization_id = current_user.organization.id
+
     unless @rescuer.save
       render json: { errors: @rescuer.errors.full_messages }, status: :bad_request
     end
   end
 
   def show
-    @rescuer = Rescuer.find_by(id: params[:id])
+    @rescuer = current_user.organization.rescuers.find_by(id: params[:id])
 
     unless @rescuer
       render status: :not_found
@@ -21,7 +21,7 @@ class Users::V1::Rescuers::RescuersController < Users::BaseController
   end
 
   def update
-    @rescuer = Rescuer.find_by(id: params[:id])
+    @rescuer = current_user.organization.rescuers.find_by(id: params[:id])
 
     unless @rescuer.update(rescuer_params)
       render json: { errors: @rescuer.errors.full_messages }, status: :unprocessable_entity

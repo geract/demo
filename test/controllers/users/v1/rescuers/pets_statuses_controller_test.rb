@@ -2,13 +2,14 @@ require "test_helper"
 
 class Users::V1::Rescuers::PetsStatusesControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = create(:rescuer_admin)
+    @user = create(:rescuer_admin, :complete)
     @credentials = @user.create_token
     @user.save
+    @organization = create(:organization, :complete, rescuer_admin_profile: @user.profile)
   end
 
   def test_update_success
-    pet = create(:pet)
+    pet = create(:pet, :complete, organization: @organization)
 
     put users_rescuers_pets_status_path(pet),
       params: { pet: { status: 'archive', reason_code: 'pet_adopted' } },
@@ -22,7 +23,7 @@ class Users::V1::Rescuers::PetsStatusesControllerTest < ActionDispatch::Integrat
   end
 
   def test_update_error
-    pet = create(:pet)
+    pet = create(:pet, :complete, organization: @organization)
     
     put users_rescuers_pets_status_path(pet),
       params: { pet: { status: 'archive'} },

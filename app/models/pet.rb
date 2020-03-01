@@ -1,8 +1,11 @@
 class Pet < ApplicationRecord
   include Pets::StateManager
   extend FriendlyId
-  
+
   friendly_id :name, use: :slugged
+
+  belongs_to :organization
+  belongs_to :added_by, class_name: 'User'
 
   store_accessor :personality, :good_with_dogs
   store_accessor :personality, :good_with_cats

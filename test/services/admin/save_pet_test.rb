@@ -4,7 +4,7 @@ class SavePetTest < ActiveSupport::TestCase
   VALID_SHORT_URL = /http:\/\/bit\.ly/
 
   setup do
-    @pet = create(:pet)
+    @pet = create(:pet, :complete)
   end
 
   def test_it_sets_pet_short_url_attribute

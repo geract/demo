@@ -24,12 +24,12 @@ Rails.application.routes.draw do
       namespace :rescuers, path: 'rescuer' do
         resources :pets
         resources :pets_statuses, only: %i(update)
-        resources :organizations, only: %i(show update)
+        resource :organizations, only: %i(show update)
         resources :rescuers, only: %i(index create show update)
         resource :pet_bulk, only: %i(update)
+        resources :rescuer_statuses, only: %i(update)
       end
       resources :characteristics_options, only: %i(index)
-      resources :rescuer_statuses, only: %i(update)
     end
   end
 

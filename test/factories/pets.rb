@@ -16,5 +16,10 @@ FactoryBot.define do
         good_with_cats: true
       }
     }
+
+    trait :complete do
+      organization   { build(:organization, :complete) }
+      added_by       { build(:rescuer, :complete) }
+    end
   end
 end

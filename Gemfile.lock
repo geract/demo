@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: d13a99ffe924936b061bef638885fa2d4e6dedfe
+  branch: master
+  specs:
+    faker (2.10.2)
+      i18n (>= 1.6, < 2)
+
+GIT
   remote: https://github.com/petparent/rescue_groups.git
   revision: 5fca1cce0b38493c7bf1d21f28394b76c3087326
   branch: petparent-raw-data
@@ -351,6 +359,7 @@ DEPENDENCIES
   devise
   devise_token_auth
   factory_bot_rails
+  faker!
   friendly_id
   haml
   jbuilder (~> 2.7)

@@ -2,14 +2,15 @@ require "test_helper"
 
 class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @user = create(:rescuer_admin)
+    @user = create(:rescuer_admin, :complete)
     @credentials = @user.create_token
     @user.save
+    @organization = create(:organization, :complete, rescuer_admin_profile: @user.profile)
   end
 
   def test_can_update_several_pets_at_once
-    create(:pet, name: 'GoodBoy17')
-    create(:pet, name: 'Doge')
+    create(:pet, :complete, name: 'GoodBoy17', organization: @organization, added_by: @user)
+    create(:pet, :complete, name: 'Doge', organization: @organization, added_by: @user)
 
     put users_rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'publish' },
@@ -24,8 +25,8 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_failed_update
-    create(:pet, name: 'GoodBoy17', reason_code: nil)
-    create(:pet, name: 'Doge', reason_code: nil)
+    create(:pet, :complete, name: 'GoodBoy17', reason_code: nil, organization: @organization)
+    create(:pet, :complete, name: 'Doge', reason_code: nil, organization: @organization)
     
     put users_rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'archive' },

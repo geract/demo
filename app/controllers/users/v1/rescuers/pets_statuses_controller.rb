@@ -1,6 +1,6 @@
-class Users::V1::Rescuers::PetsStatusesController < Users::BaseController
+class Users::V1::Rescuers::PetsStatusesController < Users::V1::Rescuers::BaseController
   def update
-    pet = Pet.friendly.find(params[:id])
+    pet = current_user.organization.pets.friendly.find(params[:id])
 
     if Pet::UpdateStatus.perform(pet, pet_params[:status], pet_params)
       render json: { pet: pet }

@@ -2,8 +2,11 @@ require 'test_helper'
 
 class PetTest < ActiveSupport::TestCase
   def setup
-    @pet = build(:pet)
+    @pet = build(:pet, :complete)
   end
+
+  should belong_to(:organization)
+  should belong_to(:added_by)
 
   should validate_presence_of :description
   should validate_presence_of :breed
@@ -32,14 +35,7 @@ class PetTest < ActiveSupport::TestCase
   end
 
   def test_not_archived_scope
-    archived_pet = create(:pet, status: 'archived', reason_code: 'pet_died')
-
-    assert_includes Pet.all, archived_pet
-    assert_not_includes Pet.not_archived, archived_pet
-  end
-
-  def test_not_archived_scope
-    archived_pet = create(:pet, status: 'archived', reason_code: 'pet_died')
+    archived_pet = create(:pet, :complete, status: 'archived', reason_code: 'pet_died')
 
     assert_includes Pet.all, archived_pet
     assert_not_includes Pet.not_archived, archived_pet

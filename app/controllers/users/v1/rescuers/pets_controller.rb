@@ -1,9 +1,11 @@
-class Users::V1::Rescuers::PetsController < Users::BaseController
+class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   def new
   end
 
   def create
     pet = Pet.new(pet_params)
+    pet.added_by = current_user
+    pet.organization = current_user.organization
 
     if pet.save
       render json: { pet: pet }
@@ -13,7 +15,7 @@ class Users::V1::Rescuers::PetsController < Users::BaseController
   end
 
   def update
-    pet = Pet.friendly.find(params[:id])
+    pet = current_user.organization.pets.friendly.find(params[:id])
 
     if pet.update(pet_params)
       render json: { pet: pet }
@@ -23,19 +25,19 @@ class Users::V1::Rescuers::PetsController < Users::BaseController
   end
 
   def show
-    response, status = Pet::Show.perform(params[:id])
+    pet = Pet::Search.perform(organization_id: current_user.organization.id,
+                               slug: params[:id]).first
 
-    render json: response, status: status
+    if pet
+      render json: { pet: pet }
+    else
+      render json: {}, status: :not_found
+    end
   end
 
   def index
-    pets = Pet.not_archived
-
-    render json: {pets: pets}, status: :ok
-  end
-
-  def index
-    pets = Pet::Search.perform(status: [:published, :archived, :adopted])
+    pets = Pet::Search.perform(organization_id: current_user.organization.id,
+                               status: [:published, :archived, :adopted])
 
     render json: {pets: pets}, status: 200
   end

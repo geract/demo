@@ -2,11 +2,14 @@ require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
   def setup
-    @organization = build(:organization)
+    @organization = build(:organization, :complete)
   end
 
+  should have_many(:pets)
   should have_many(:rescuer_profiles)
   should have_many(:rescuers)
+  should have_one(:rescuer_admin_profile)
+  # should have_one(:rescuer_admin)
   should have_many(:physical_addresses)
   should have_one(:legal_address)
 
