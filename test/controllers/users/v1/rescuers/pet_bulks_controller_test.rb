@@ -12,7 +12,7 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
     create(:pet, :complete, name: 'GoodBoy17', organization: @organization, added_by: @user)
     create(:pet, :complete, name: 'Doge', organization: @organization, added_by: @user)
 
-    put users_rescuers_pet_bulk_path,
+    put rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'publish' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -28,7 +28,7 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
     create(:pet, :complete, name: 'GoodBoy17', reason_code: nil, organization: @organization)
     create(:pet, :complete, name: 'Doge', reason_code: nil, organization: @organization)
     
-    put users_rescuers_pet_bulk_path,
+    put rescuers_pet_bulk_path,
       params: { pets: Pet.ids, status: 'archive' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -41,7 +41,7 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_failed_update_due_pets_param_missing
-    put users_rescuers_pet_bulk_path,
+    put rescuers_pet_bulk_path,
       params: { pets: [], status: 'publish' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 

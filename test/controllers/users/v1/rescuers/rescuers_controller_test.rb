@@ -11,7 +11,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_admin_create_success
-    post users_rescuers_rescuers_url,
+    post rescuers_rescuers_url,
       params: {
         rescuer: {
           first_name: 'Joane',
@@ -33,7 +33,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_admin_update
-    patch users_rescuers_rescuer_url(@rescuer),
+    patch rescuers_rescuer_url(@rescuer),
       params: {
         rescuer: {
           first_name: 'Michael',
@@ -55,7 +55,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_admin_show
-    get users_rescuers_rescuer_url(@rescuer),
+    get rescuers_rescuer_url(@rescuer),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
@@ -72,7 +72,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     create(:rescuer, :complete, status: 'archived', profile: build(:rescuer_profile, first_name: 'Claudia', organization: @organization))
     create(:rescuer, :complete, status: 'activated', profile: build(:rescuer_profile, first_name: 'Xavier', organization: @organization))
 
-    get users_rescuers_rescuers_url, params: { status: 'activated' },
+    get rescuers_rescuers_url, params: { status: 'activated' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
@@ -88,7 +88,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     create(:rescuer, :complete, status: 'archived', profile: build(:rescuer_profile, first_name: 'Claudia', organization: @organization))
     create(:rescuer, :complete, status: 'activated', profile: build(:rescuer_profile, first_name: 'Xavier', organization: @organization))
 
-    get users_rescuers_rescuers_url, params: { status: '' },
+    get rescuers_rescuers_url, params: { status: '' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)

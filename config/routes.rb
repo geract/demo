@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :organizations
   end
 
-  namespace :users, path: 'user' do
+  scope module: 'users' do
     api_version(module: 'v1', header: {name: 'API-VERSION', value: '1'}) do
       namespace :rescuers, path: 'rescuer' do
         resources :pets

@@ -15,7 +15,7 @@ class Users::V1::Rescuers::RecuerStatusesControllerTest < ActionDispatch::Integr
   def test_update_success
     profile = create(:rescuer_profile, :complete, organization: @organization)
 
-    put users_rescuers_rescuer_status_path(profile.rescuer),
+    put rescuers_rescuer_status_path(profile.rescuer),
       params: { rescuer: { status: 'archive' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
