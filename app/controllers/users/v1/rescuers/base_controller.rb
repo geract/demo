@@ -1,4 +1,4 @@
-class Users::V1::Rescuers::BaseController < Users::BaseController
+class Users::V1::Rescuers::BaseController < Users::V1::BaseController
   before_action :authenticate_rescuer!
 
   def authenticate_rescuer!

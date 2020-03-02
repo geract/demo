@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   devise_for :admins, only: :sessions, path: '/admin',
              path_names: { sign_in: 'login', sign_out: 'logout' },
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         resources :rescuer_statuses, only: %i(update)
       end
       resources :characteristics_options, only: %i(index)
+      resources :pets, only: %i(index show)
     end
   end
 
