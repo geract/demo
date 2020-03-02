@@ -1,6 +1,6 @@
 set :stage, :staging
 set :rails_env, :staging
-set :branch, 'feature/add-capistrano'
+set :branch, 'master'
 
 server '52.200.18.242',
   user: 'ubuntu',
