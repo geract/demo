@@ -14,3 +14,11 @@ test:
     front_url: http://localhost:3001/
   facebook:
     redirect_url: https://localhost:3000/auth/facebook/callback
+staging:
+  bitly:
+    app_url: 'http://www.petparenthub.com'
+  segment:
+    app_url: http://localhost:3000/
+    front_url: http://localhost:3001/
+  facebook:
+    redirect_url: https://0a6e0327.ngrok.io/auth/facebook/callback
