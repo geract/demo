@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         resources :rescuer_statuses, only: %i(update)
       end
       resources :characteristics_options, only: %i(index)
+      resources :pets, only: %i(index show)
     end
   end
 

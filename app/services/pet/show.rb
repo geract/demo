@@ -1,3 +1,6 @@
+# Note we have to use this in v1/pets and v1/rescuers/pets
+# but we need to refactor it first
+
 class Pet::Show
   class << self
     def perform(friendly_id)

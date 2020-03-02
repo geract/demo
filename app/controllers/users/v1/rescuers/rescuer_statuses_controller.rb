@@ -1,4 +1,4 @@
-class Users::V1::Rescuers::RescuerStatusesController < Users::BaseController
+class Users::V1::Rescuers::RescuerStatusesController < Users::V1::Rescuers::BaseController
   def update
     rescuer = current_user.organization.rescuers.find(params[:id])
 

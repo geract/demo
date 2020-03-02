@@ -1,5 +1,11 @@
 module ApiHeadersHelper
-  def headers_v1(uid, token, client)
-    {'API-VERSION' => '1', 'uid' => uid, 'access-token' => token, 'client' => client, 'Accept' => 'application/json' }
+  def headers_v1(uid = nil, token = nil, client = nil)
+    header = {
+        'API-VERSION': 1,
+        'Accept': 'application/json'
+      }
+    return header unless uid || token || client
+
+    header.merge({ 'uid': uid , 'access-token': token, 'client': client })
   end
 end
