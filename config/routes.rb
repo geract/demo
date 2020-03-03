@@ -28,6 +28,7 @@ Rails.application.routes.draw do
         resources :rescuers, only: %i(index create show update)
         resource :pet_bulk, only: %i(update)
         resources :rescuer_statuses, only: %i(update)
+        resource :profile, only: %i(show update)
       end
       resources :characteristics_options, only: %i(index)
       resources :pets, only: %i(index show)

@@ -4,4 +4,6 @@ class RescuerProfile < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :title, presence: true, on: :update
+  validates :phone, presence: true
 end

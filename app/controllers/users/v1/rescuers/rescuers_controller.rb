@@ -32,14 +32,15 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
 
   def rescuer_params
     prepare_params
-    params.require(:rescuer).permit(:email, 
-                                    profile_attributes: [:first_name, :last_name, :phone, :status])
+    params.require(:rescuer).permit(:email,
+                                    profile_attributes: [:first_name, :last_name, :phone, :title])
   end
 
   def prepare_params
     params[:rescuer][:profile_attributes] ||= {
         first_name: params[:rescuer][:first_name],
         last_name: params[:rescuer][:last_name],
+        title: params[:rescuer][:title],
         phone: params[:rescuer][:phone],
       }
   end
