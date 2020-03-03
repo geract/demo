@@ -30,6 +30,11 @@ Rails.application.routes.draw do
         resources :rescuer_statuses, only: %i(update)
         resource :profile, only: %i(show update)
       end
+
+      namespace :adopters, path: 'adopter' do
+        resource :searches, only: %i[update]
+      end
+
       resources :characteristics_options, only: %i(index)
       resources :pets, only: %i(index show)
     end
