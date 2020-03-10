@@ -174,4 +174,37 @@ FactoryBot.define do
 
     initialize_with { ActiveSupport::HashWithIndifferentAccess.new(attributes[:body]) }
   end
+
+  factory :rescue_groups_organization_response, class: Hash do
+    body do
+      { 'orgAbout': 'description',
+        'orgAdoptionProcess': '',
+        'orgAdoptionUrl': '',
+        'orgCommonapplicationAccept': 'No',
+        'orgDonationUrl': '',
+        'orgEmail': 'info@animalrelieffund.org',
+        'orgFacebookUrl': '',
+        'orgFax': '',
+        'orgID': '16',
+        'orgLocation': '20636',
+        'orgAddress': 'P.O. Box 184',
+        'orgCity': 'Hollywood',
+        'orgCountry': 'United States',
+        'orgLocationDistance': '',
+        'orgPostalcode': '20636',
+        'orgState': 'MD',
+        'orgPlus4': '',
+        'orgMeetPets': 'Most Saturdays from 11-2 at the Well Pet Clinic',
+        'orgName': 'Animal Relief Fund',
+        'orgPhone': '',
+        'orgServeAreas': '',
+        'orgServices': '',
+        'orgSponsorshipUrl': '',
+        'orgType': 'Rescue',
+        'orgWebsiteUrl': 'webUrl'
+      }
+    end
+
+    initialize_with { ActiveSupport::HashWithIndifferentAccess.new(attributes[:body]) }
+  end
 end

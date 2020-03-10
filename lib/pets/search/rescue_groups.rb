@@ -1,11 +1,13 @@
 class Pets::Search::RescueGroups
-  attr_accessor :filters
+  attr_accessor :params
 
-  def initialize(**args)
-    @filters = args.merge({ animalSpecies: 'Dog' })
+  def initialize(args)
+    @params = Pets::Search::RescueGroups::ParamsFormater.new(args).execute
+    @params.merge!({ species: 'Dog', limit: 20, sort: 'breedName' })
   end
   
   def execute
-    RescueGroups::Animal.where(filters)
+    response = RescueGroups::Animal.where(params)
+    Pets::Search::RescueGroups::ResponseFormater.new(response).execute
   end
 end

@@ -1,4 +1,4 @@
-class Users::V1::Adopters::BaseController < Users::BaseController
+class Users::V1::Adopters::BaseController < Users::V1::BaseController
   before_action :authenticate_adopter!
 
   def authenticate_adopter!

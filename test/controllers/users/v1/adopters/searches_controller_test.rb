@@ -2,7 +2,7 @@ require "test_helper"
 
 class Users::V1::Adopters::SearchesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @adopter = create(:adopter)
+    @adopter = build(:adopter)
     @credentials = @adopter.create_token
     @adopter.save
   end

@@ -28,7 +28,6 @@ gem 'turbolinks', '~> 5'
 gem 'versionist'
 gem 'webpacker', '~> 4.0'
 gem 'whenever', require: false
-gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 
 group :development, :test do
   gem 'pry'
@@ -54,8 +53,10 @@ group :test do
   gem 'minitest-reporters', '>= 0.5.0'
   gem 'shoulda'
   gem 'shoulda-matchers'
+  gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

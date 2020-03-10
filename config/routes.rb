@@ -33,10 +33,12 @@ Rails.application.routes.draw do
 
       namespace :adopters, path: 'adopter' do
         resource :searches, only: %i[update]
+        resource :pets, only: %i[update]
       end
 
       resources :characteristics_options, only: %i(index)
       resources :pets, only: %i(index show)
+      resources :organizations, only: %i(show)
     end
   end
 

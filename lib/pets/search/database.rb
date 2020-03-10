@@ -1,7 +1,7 @@
 class Pets::Search::Database
   attr_accessor :filters
 
-  def initialize(**args)
+  def initialize(args)
     @filters = args
   end
 

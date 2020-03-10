@@ -1,5 +1,4 @@
 class Users::V1::CharacteristicsOptionsController < Users::BaseController
-
   def index
     render json: options
   end

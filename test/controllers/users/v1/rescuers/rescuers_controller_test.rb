@@ -39,6 +39,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
           first_name: 'Michael',
           last_name: 'Doe',
           phone: '888999222',
+          title: 'director',
           email: 'joane@doe.com'
         }
       },
@@ -51,6 +52,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['rescuer']['first_name'], 'Michael'
     assert_equal api_response['rescuer']['last_name'], 'Doe'
     assert_equal api_response['rescuer']['phone'], '888999222'
+    assert_equal api_response['rescuer']['title'], 'director'
     assert_equal api_response['rescuer']['email'], 'joane@doe.com'
   end
 

@@ -383,6 +383,7 @@ DEPENDENCIES
   rescue_groups!
   sass-rails (~> 5)
   shoulda
+  shoulda-context
   shoulda-matchers
   sidekiq
   simple_form
