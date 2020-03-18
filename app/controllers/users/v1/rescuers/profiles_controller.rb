@@ -1,7 +1,7 @@
 class Users::V1::Rescuers::ProfilesController < Users::V1::Rescuers::BaseController
   def update
     if current_user.update(profile_params)
-      render partial: 'users/v1/rescuers/rescuers/rescuer', locals: { rescuer: current_user }
+      render json: Rescuers::Profiles::ShowPresenter.new(current_user)
     else
       render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
     end

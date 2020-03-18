@@ -5,6 +5,6 @@ class Users::V1::Rescuers::PetBulksController < Users::V1::Rescuers::BaseControl
 
     status = errors.empty? ? :ok : :unprocessable_entity
 
-    render json: { pets: pets, errors: errors }, status: status
+    render json: { pets: Rescuers::Pets::IndexPresenter.new(pets), errors: errors }, status: status
   end
 end

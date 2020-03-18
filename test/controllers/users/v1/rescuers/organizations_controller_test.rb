@@ -21,7 +21,7 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert api_response.include?('organization')
-    assert api_response['organization']['name'], 'happy paws'
+    assert_equal api_response['organization']['name'], 'happy paws'
     assert api_response['organization']['legal_address']
     assert api_response['organization']['physical_addresses']
   end
@@ -35,7 +35,7 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert api_response.include?('organization')
-    assert api_response['organization']['email'], 'happytails@pph.com'
+    assert_equal api_response['organization']['email'], 'happytails@pph.com'
     assert api_response['organization']['legal_address']
     assert api_response['organization']['physical_addresses']
   end
@@ -49,19 +49,19 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert api_response.include?('organization')
-    assert api_response['organization']['n5013c'], 'random number'
+    assert_equal api_response['organization']['5013c'], 'random number'
   end
 
   def test_rescuer_admin_required_director
     put rescuers_organizations_url,
-      params: { organization: { name: ' ' } },
+      params: { organization: { director: ' ' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)
 
     assert_response :unprocessable_entity
     assert api_response.include?('errors')
-    assert api_response['errors'], "Director can't be blank"
+    assert_equal api_response['errors'], ["Director can't be blank"]
   end
 
   def test_rescuer_admin_required_phone
@@ -73,7 +73,7 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :unprocessable_entity
     assert api_response.include?('errors')
-    assert api_response['errors'], "Phone can't be blank"
+    assert_equal api_response['errors'], ["Phone can't be blank"]
   end
 
   def test_rescuer_admin_required_name
@@ -85,7 +85,7 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :unprocessable_entity
     assert api_response.include?('errors')
-    assert api_response['errors'], "Name can't be blank"
+    assert_equal api_response['errors'], ["Name can't be blank"]
   end
 
   def test_rescuer_cannot_update
@@ -111,7 +111,7 @@ class Users::V1::Rescuers::OrganizationsControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert api_response.include?('organization')
-    assert api_response['organization']['name'], 'Happy tails'
+    assert_equal api_response['organization']['name'], 'Happy tails'
     assert api_response['organization']['legal_address']
     assert api_response['organization']['physical_addresses']
   end
