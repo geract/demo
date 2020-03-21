@@ -29,11 +29,13 @@ Rails.application.routes.draw do
         resource :pet_bulk, only: %i(update)
         resources :rescuer_statuses, only: %i(update)
         resource :profile, only: %i(show update)
+        resources :messages, only: %i(index create)
       end
 
       namespace :adopters, path: 'adopter' do
-        resource :searches, only: %i[update]
-        resource :pets, only: %i[update]
+        resource :searches, only: %i(update)
+        resource :pets, only: %i(update)
+        resources :messages, only: %i(index create)
       end
 
       resources :characteristics_options, only: %i(index)
