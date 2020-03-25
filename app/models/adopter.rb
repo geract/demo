@@ -1,5 +1,7 @@
 class Adopter < User
-  store_accessor :settings, :search
+  has_one :application, class_name: "PetApplication"
+  has_one :profile, class_name: "AdopterProfile"
+
   has_many :messages, foreign_key: 'sender_id'
   has_many :searches, class_name: 'Search', foreign_key: 'user_id'
   has_and_belongs_to_many :favorite_pets, -> { distinct }, foreign_key: 'user_id', class_name: 'Pet',  join_table: 'favorites' do
@@ -8,5 +10,20 @@ class Adopter < User
     rescue ActiveRecord::RecordNotUnique
       false
     end
+  end
+
+  accepts_nested_attributes_for :profile
+
+  validates :password, presence: true, if: :password_required?
+
+  store_accessor :settings, :search
+  delegate :address, :employment, to: :profile
+
+  attr_accessor :skip_password_required
+
+  private
+
+  def password_required?
+    !skip_password_required
   end
 end
