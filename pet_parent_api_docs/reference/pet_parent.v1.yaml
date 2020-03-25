@@ -1,0 +1,1602 @@
+openapi: 3.0.0
+info:
+  title: pet_parent
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /auth/sign_in:
+    post:
+      summary: Sign in a rescuer
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      email:
+                        type: string
+                      provider:
+                        type: string
+                      uid:
+                        type: string
+                      allow_password_change:
+                        type: boolean
+                      image:
+                        type: 'null'
+                      status:
+                        type: 'null'
+                      settings:
+                        type: 'null'
+              examples:
+                Response success:
+                  value:
+                    data:
+                      id: 5
+                      email: test1@test.com
+                      provider: email
+                      uid: test1@test.com
+                      allow_password_change: false
+                      image: null
+                      status: null
+                      settings: null
+          headers:
+            access-token:
+              schema:
+                type: string
+            uid:
+              schema:
+                type: string
+            client:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  errors:
+                    type: array
+                    items: {}
+              examples:
+                Error:
+                  value:
+                    success: false
+                    errors:
+                      - Invalid login credentials. Please try again.
+      operationId: post-auth-sign_in
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+            examples:
+              example-1:
+                value:
+                  email: test1@test.com
+                  password: TopS3cr3t
+      description: Allows a rescuer to sign in
+  /characteristics_options:
+    get:
+      summary: Get catalogs data for pet registration
+      tags:
+        - catalog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sex:
+                    type: array
+                    items:
+                      type: string
+                  size:
+                    type: array
+                    items:
+                      type: string
+                  age:
+                    type: array
+                    items:
+                      type: string
+                  housed:
+                    type: array
+                    items:
+                      type: string
+                  breed:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                Success:
+                  value:
+                    sex:
+                      - Male
+                      - Female
+                    size:
+                      - Extra Small
+                      - Small
+                      - Large
+                      - Extra Large
+                    age:
+                      - Puppy
+                      - Young
+                      - Adult
+                      - Senior
+                    housed:
+                      - Shelter
+                      - Foster
+                    breed:
+                      - Affenpinscher
+                      - Afghan Hound
+                      - Airedale Terrier
+                      - Akita
+                      - Alaskan Klee Kai
+                      - Alaskan Malamute
+                      - American Bulldog
+                      - American English Coonhound
+                      - American Eskimo Dog
+                      - American Foxhound
+                      - American Pit Bull Terrier
+                      - American Staffordshire Terrier
+                      - American Water Spaniel
+                      - Anatolian Shepherd Dog
+                      - Appenzeller Sennenhunde
+                      - Australian Cattle Dog
+                      - Australian Kelpie
+                      - Australian Shepherd
+                      - Australian Terrier
+                      - Azawakh
+                      - Barbet
+                      - Basenji
+                      - Basset Hound
+                      - Beagle
+                      - Bearded Collie
+                      - Bedlington Terrier
+                      - Belgian Malinois
+                      - Belgian Sheepdog
+                      - Belgian Tervuren
+                      - Berger Picard
+                      - Bernedoodle
+                      - Bernese Mountain Dog
+                      - Bichon Frise
+                      - Black and Tan Coonhound
+                      - Black Mouth Cur
+                      - Black Russian Terrier
+                      - Bloodhound
+                      - Blue Lacy
+                      - Bluetick Coonhound
+                      - Boerboel
+                      - Bolognese
+                      - Border Collie
+                      - Border Terrier
+                      - Borzoi
+                      - Boston Terrier
+                      - Bouvier des Flandres
+                      - Boxer
+                      - Boykin Spaniel
+                      - Bracco Italiano
+                      - Briard
+                      - Brittany
+                      - Brussels Griffon
+                      - Bull Terrier
+                      - Bulldog
+                      - Bullmastiff
+                      - Cairn Terrier
+                      - Canaan Dog
+                      - Cane Corso
+                      - Cardigan Welsh Corgi
+                      - Catahoula Leopard Dog
+                      - Caucasian Shepherd Dog
+                      - Cavalier King Charles Spaniel
+                      - Cesky Terrier
+                      - Chesapeake Bay Retriever
+                      - Chihuahua
+                      - Chinese Crested
+                      - Chinese Shar-Pei
+                      - Chinook
+                      - Chow Chow
+                      - Clumber Spaniel
+                      - Cockapoo
+                      - Cocker Spaniel
+                      - Collie
+                      - Coton de Tulear
+                      - Curly-Coated Retriever
+                      - Dachshund
+                      - Dalmatian
+                      - Dandie Dinmont Terrier
+                      - Doberman Pinscher
+                      - Dogo Argentino
+                      - Dogue de Bordeaux
+                      - Dutch Shepherd
+                      - English Cocker Spaniel
+                      - English Foxhound
+                      - English Setter
+                      - English Springer Spaniel
+                      - English Toy Spaniel
+                      - Entlebucher Mountain Dog
+                      - Field Spaniel
+                      - Finnish Lapphund
+                      - Finnish Spitz
+                      - Flat-Coated Retriever
+                      - Fox Terrier
+                      - French Bulldog
+                      - German Pinscher
+                      - German Shepherd Dog
+                      - German Shorthaired Pointer
+                      - German Wirehaired Pointer
+                      - Giant Schnauzer
+                      - Glen of Imaal Terrier
+                      - Goldador
+                      - Golden Retriever
+                      - Goldendoodle
+                      - Gordon Setter
+                      - Great Dane
+                      - Great Pyrenees
+                      - Greater Swiss Mountain Dog
+                      - Greyhound
+                      - Harrier
+                      - Havanese
+                      - Ibizan Hound
+                      - Icelandic Sheepdog
+                      - Irish Red and White Setter
+                      - Irish Setter
+                      - Irish Terrier
+                      - Irish Water Spaniel
+                      - Irish Wolfhound
+                      - Italian Greyhound
+                      - Jack Russell Terrier
+                      - Japanese Chin
+                      - Japanese Spitz
+                      - Karelian Bear Dog
+                      - Keeshond
+                      - Kerry Blue Terrier
+                      - Komondor
+                      - Kooikerhondje
+                      - Korean Jindo Dog
+                      - Kuvasz
+                      - Labradoodle
+                      - Labrador Retriever
+                      - Lagotto Romagnolo
+                      - Lakeland Terrier
+                      - Lancashire Heeler
+                      - Leonberger
+                      - Lhasa Apso
+                      - Lowchen
+                      - Maltese
+                      - Maltese Shih Tzu
+                      - Maltipoo
+                      - Manchester Terrier
+                      - Mastiff
+                      - Miniature Pinscher
+                      - Miniature Schnauzer
+                      - Mudi
+                      - Mutt
+                      - Neapolitan Mastiff
+                      - Newfoundland
+                      - Norfolk Terrier
+                      - Norwegian Buhund
+                      - Norwegian Elkhound
+                      - Norwegian Lundehund
+                      - Norwich Terrier
+                      - Nova Scotia Duck Tolling Retriever
+                      - Old English Sheepdog
+                      - Otterhound
+                      - Papillon
+                      - Peekapoo
+                      - Pekingese
+                      - Pembroke Welsh Corgi
+                      - Petit Basset Griffon Vendeen
+                      - Pharaoh Hound
+                      - Plott
+                      - Pocket Beagle
+                      - Pointer
+                      - Polish Lowland Sheepdog
+                      - Pomeranian
+                      - Pomsky
+                      - Poodle
+                      - Portuguese Water Dog
+                      - Pug
+                      - Puggle
+                      - Puli
+                      - Pyrenean Shepherd
+                      - Rat Terrier
+                      - Redbone Coonhound
+                      - Rhodesian Ridgeback
+                      - Rottweiler
+                      - Saint Bernard
+                      - Saluki
+                      - Samoyed
+                      - Schipperke
+                      - Schnoodle
+                      - Scottish Deerhound
+                      - Scottish Terrier
+                      - Sealyham Terrier
+                      - Shetland Sheepdog
+                      - Shiba Inu
+                      - Shih Tzu
+                      - Siberian Husky
+                      - Silken Windhound
+                      - Silky Terrier
+                      - Skye Terrier
+                      - Sloughi
+                      - Small Munsterlander Pointer
+                      - Soft Coated Wheaten Terrier
+                      - Stabyhoun
+                      - Staffordshire Bull Terrier
+                      - Standard Schnauzer
+                      - Sussex Spaniel
+                      - Swedish Vallhund
+                      - Tibetan Mastiff
+                      - Tibetan Spaniel
+                      - Tibetan Terrier
+                      - Toy Fox Terrier
+                      - Treeing Tennessee Brindle
+                      - Treeing Walker Coonhound
+                      - Vizsla
+                      - Weimaraner
+                      - Welsh Springer Spaniel
+                      - Welsh Terrier
+                      - West Highland White Terrier
+                      - Whippet
+                      - Wirehaired Pointing Griffon
+                      - Xoloitzcuintli
+                      - Yorkipoo
+                      - Yorkshire Terrier
+      operationId: get-characteristics_options
+      description: 'Returns catalogs data for pet registration such as breed, sex, age, housed'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: ' API-VERSION: 1'
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: 'Accept: application/json'
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: 'uid: test1@test.com'
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: 'access-token: Rw6XFMRR2bBWMGk0ECh-kw'
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: 'client: LtAygNQ6gRBU81jkq7FEsQ'
+          required: true
+        - schema:
+            type: string
+          in: header
+  /rescuer/pets:
+    post:
+      summary: Pets create
+      tags:
+        - 'pets '
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pet:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      sex:
+                        type: string
+                      breed:
+                        type: string
+                      price:
+                        type: string
+                      age:
+                        type: string
+                      microchip_provider:
+                        type: string
+                      microchip_number:
+                        type: string
+                      reason_code:
+                        type: string
+                      status:
+                        type: string
+                      short_url:
+                        type: string
+                      slug:
+                        type: string
+                      personality:
+                        good_with_dogs:
+                          type: boolean
+                        good_with_cats:
+                          type: boolean
+                        good_with_children:
+                          type: boolean
+                        type: object
+                        properties: null
+                      mix_breed:
+                        type: boolean
+                      public:
+                        type: boolean
+                      foster_family:
+                        type: string
+                      medical_history:
+                        type: string
+                      description:
+                        type: string
+                      second_breed:
+                        type: string
+                      housed:
+                        type: string
+                      pet_type:
+                        type: string
+              examples:
+                Success:
+                  value:
+                    pet:
+                      id: 8
+                      name: string
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_dogs: true
+                        good_with_cats: true
+                        good_with_children: true
+                      slug: string
+                      short_url: null
+                      status: created
+                      reason_code: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pet:
+                    type: object
+                  errors:
+                    type: array
+                    items: {}
+              examples:
+                Error:
+                  value:
+                    pet:
+                      id: null
+                      name: null
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_dogs: true
+                        good_with_cats: true
+                        good_with_children: true
+                      slug: null
+                      short_url: null
+                      status: created
+                      reason_code: null
+                    errors:
+                      - "Name can't be blank"
+      operationId: post-rescuer-pets
+      description: Creates a pet
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Content-Type
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet:
+                  type: object
+                  required:
+                    - personality
+                    - age
+                    - sex
+                    - breed
+                    - price
+                    - name
+                    - size
+                  properties:
+                    personality:
+                      type: object
+                      properties:
+                        good_with_dogs:
+                          type: boolean
+                        good_with_cats:
+                          type: boolean
+                        good_with_children:
+                          type: boolean
+                    mix_breed:
+                      type: boolean
+                    public:
+                      type: boolean
+                    foster_family:
+                      type: string
+                    medical_history:
+                      type: string
+                    description:
+                      type: string
+                    age:
+                      type: string
+                    sex:
+                      type: string
+                    second_breed:
+                      type: string
+                    breed:
+                      type: string
+                    housed:
+                      type: string
+                    microchip_number:
+                      type: string
+                    microchip_provider:
+                      type: string
+                    price:
+                      type:
+                        - number
+                    name:
+                      type: string
+                    size:
+                      type: string
+              required:
+                - pet
+            examples:
+              Success:
+                value:
+                  pet:
+                    name: Doggo
+                    price: 100
+                    age: Puppy
+                    breed: Shiba Inu
+                    description: Happy dog
+                    housed: Shelter
+                    sex: Male
+                    size: Large
+                    personality:
+                      good_with_children: true
+                      good_with_dogs: true
+                      good_with_cats: true
+    parameters: []
+  '/rescuer/pets/{slug}':
+    parameters:
+      - schema:
+          type: string
+        name: slug
+        in: path
+        required: true
+        description: |
+          Slug is the name of the pet
+    patch:
+      summary: ''
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Success:
+                  value:
+                    pet:
+                      id: 8
+                      name: string
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_dogs: true
+                        good_with_cats: true
+                        good_with_children: true
+                      slug: string
+                      short_url: null
+                      status: created
+                      reason_code: null
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Error:
+                  value:
+                    pet:
+                      id: 8
+                      name: ''
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_dogs: true
+                        good_with_cats: true
+                        good_with_children: true
+                      slug: string
+                      short_url: null
+                      status: created
+                      reason_code: null
+                    errors:
+                      - "Name can't be blank"
+      operationId: patch-rescuers-pets-id
+      description: Updates a pet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet:
+                  type: object
+                  required:
+                    - name
+                    - sex
+                    - breed
+                    - price
+                    - age
+                    - personality
+                  properties:
+                    name:
+                      type: string
+                    sex:
+                      type: string
+                    breed:
+                      type: string
+                    price:
+                      type: number
+                    age:
+                      type: string
+                    microchip_provider:
+                      type: string
+                    microchip_number:
+                      type: string
+                    personality:
+                      type: object
+                      properties:
+                        good_with_dogs:
+                          type: boolean
+                        good_with_cats:
+                          type: boolean
+                        good_with_children:
+                          type: boolean
+                    mix_breed:
+                      type: boolean
+                    public:
+                      type: boolean
+                    foster_family:
+                      type: string
+                    medical_history:
+                      type: string
+                    description:
+                      type: string
+                    second_breed:
+                      type: string
+                    housed:
+                      type: string
+                    pet_type:
+                      type: string
+              required:
+                - pet
+            examples:
+              example-1: {}
+    get:
+      summary: Pets show
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pet:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      sex:
+                        type: string
+                      breed:
+                        type: string
+                      price:
+                        type: string
+                      age:
+                        type: string
+                      microchip_provider:
+                        type: string
+                      microchip_number:
+                        type: string
+                      reason_code:
+                        type: string
+                      status:
+                        type: string
+                      short_url:
+                        type: string
+                      slug:
+                        type: string
+                      personality:
+                        type: object
+                        properties:
+                          good_with_dogs:
+                            type: boolean
+                          good_with_children:
+                            type: boolean
+                          good_with_cats:
+                            type: boolean
+                      public:
+                        type: boolean
+                      foster_family:
+                        type: string
+                      medical_history:
+                        type: string
+                      description:
+                        type: string
+                      second_breed:
+                        type: string
+                      housed:
+                        type: string
+                      pet_type:
+                        type: string
+                      id:
+                        type: integer
+              examples:
+                Success:
+                  value:
+                    pet:
+                      id: 8
+                      name: string
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_cats: true
+                        good_with_dogs: true
+                        good_with_children: true
+                      slug: string
+                      short_url: null
+                      status: created
+                      reason_code: null
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                description: |
+                  Empty object
+      operationId: get-rescuers-pets-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: Accept
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+  '/rescuer/pets_statuses/{id}':
+    patch:
+      summary: Pets staus update
+      tags:
+        - 'pets '
+        - status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example:
+                  value:
+                    pet:
+                      id: 8
+                      name: string
+                      sex: string
+                      breed: string
+                      age: string
+                      price: '0.0'
+                      microchip_provider: string
+                      microchip_number: string
+                      pet_type: null
+                      housed: string
+                      second_breed: string
+                      description: string
+                      medical_history: string
+                      foster_family: string
+                      public: true
+                      mix_breed: true
+                      personality:
+                        good_with_cats: true
+                        good_with_dogs: true
+                        good_with_children: true
+                      slug: string
+                      short_url: null
+                      status: archived
+                      reason_code: pet_adopted
+      operationId: 'patch-rescuer-pets_statuses-:id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      enum:
+                        - archive
+                        - publish
+                    reason_code:
+                      type: string
+                      enum:
+                        - pet_adopted
+                        - pet_died
+                        - no_longer_available
+                  required:
+                    - status
+                    - reason_code
+            examples:
+              Example:
+                value:
+                  pet:
+                    status: archive
+                    reason_code: pet_adopted
+        description: ''
+      parameters:
+        - schema:
+            type: integer
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  /rescuer/pet_bulk:
+    patch:
+      summary: Pets staus bulk update
+      tags:
+        - 'pets '
+        - status
+        - bulk
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Success:
+                  value:
+                    pets:
+                      - id: 8
+                        name: string
+                        sex: string
+                        breed: string
+                        age: string
+                        price: '0.0'
+                        microchip_provider: string
+                        microchip_number: string
+                        pet_type: null
+                        housed: string
+                        second_breed: string
+                        description: string
+                        medical_history: string
+                        foster_family: string
+                        public: true
+                        mix_breed: true
+                        personality:
+                          good_with_cats: true
+                          good_with_dogs: true
+                          good_with_children: true
+                        slug: string
+                        short_url: null
+                        status: published
+                        reason_code: pet_adopted
+                    errors: []
+      operationId: patch-rescuer-pet_bulk
+      description: Pet status bulk update
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+        - schema:
+            type: string
+          in: header
+          name: access-token
+        - schema:
+            type: string
+          in: header
+          name: client
+        - schema:
+            type: string
+          in: header
+          name: uid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pets:
+                  type: array
+                  items:
+                    type: integer
+                status:
+                  type: string
+            examples:
+              Example:
+                value:
+                  pets:
+                    - 8
+                    - 9
+                  status: publish
+        description: ''
+  /rescuer/rescuers:
+    post:
+      summary: Rescuer admin creates a rescuer
+      tags:
+        - profile
+        - rescuer_admin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Success:
+                  value:
+                    rescuer:
+                      first_name: John
+                      last_name: Snow
+                      phone: 1-333-333-3333
+                      title: Doctor
+                      email: profile@test.com
+                      status: created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Error:
+                  value:
+                    errors:
+                      - Email has already been taken
+      operationId: post-rescuer-profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rescuer:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    title:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+            examples:
+              Example:
+                value:
+                  rescuer:
+                    email: profile@test.com
+                    first_name: John
+                    last_name: Snow
+                    title: Doctor
+                    phone: 1-333-333-3333
+      description: Creates a rescuer
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+    parameters: []
+  '/rescuer/rescuers/{id}':
+    parameters:
+      - schema:
+          type: number
+        name: id
+        in: path
+        required: true
+        description: Rescuer id
+    patch:
+      summary: Updates recuer
+      tags:
+        - rescuer_admin
+        - rescuers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Success:
+                  value:
+                    rescuer:
+                      first_name: Jane
+                      last_name: Dee
+                      phone: '3333333'
+                      title: Manager
+                      email: test@test2.com
+                      status: created
+        '400':
+          description: Bad Request
+      operationId: patch-rescuer-rescuer-id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+        - schema:
+            type: string
+          in: header
+          name: access-token
+        - schema:
+            type: string
+          in: header
+          name: client
+        - schema:
+            type: string
+          in: header
+          name: uid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rescuer:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    title:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+            examples:
+              Sucess:
+                value:
+                  rescuer:
+                    first_name: Jane
+                    last_name: Dee
+                    phone: '3333333'
+                    title: Manager
+                    email: test@test2.com
+                    status: created
+    get:
+      summary: Shows rescuer
+      tags:
+        - rescuer_admin
+        - rescuers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rescuer:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                      phone:
+                        type: string
+                      title:
+                        type: string
+                      status:
+                        type: string
+              examples:
+                Success:
+                  value:
+                    rescuer:
+                      first_name: John
+                      last_name: Snow
+                      phone: 1-333-333-3333
+                      title: Doctor
+                      email: profile@test.com
+                      status: created
+        '404':
+          description: Not Found
+      operationId: get-rescuer-rescuer-id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            examples: {}
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+        - schema:
+            type: string
+          in: header
+          name: uid
+        - schema:
+            type: string
+          in: header
+          name: client
+  /rescuer/profile:
+    patch:
+      summary: Updates current rescuer profile
+      tags:
+        - rescuers
+        - profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rescuer:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      title:
+                        type: string
+                      phone:
+                        type: string
+                      email:
+                        type: string
+                      status:
+                        type: string
+              examples:
+                Success:
+                  value:
+                    rescuer:
+                      first_name: Johny
+                      last_name: Snowie
+                      phone: 1-333-333-3333
+                      title: Doctor
+                      email: profile@test44.com
+                      status: created
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                Error:
+                  value:
+                    errors:
+                      - Email is not an email
+      operationId: patch-rescuer-profile
+      description: Updates current recuer profile
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rescuer:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+                    title:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+            examples:
+              Success:
+                value:
+                  rescuer:
+                    first_name: John
+                    last_name: Snow
+                    phone: 1-333-333-3333
+                    title: Doctor
+                    email: profile@test.com
+  '/rescuer/rescuer_statuses/{id}':
+    patch:
+      summary: Updates current recuer status
+      tags:
+        - rescuers
+        - status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rescuer:
+                    type: object
+                    properties:
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      status:
+                        type: string
+                      email:
+                        type: string
+                      title:
+                        type: string
+                      phone:
+                        type: string
+              examples:
+                Success:
+                  value:
+                    rescuer:
+                      first_name: John
+                      last_name: Snow
+                      phone: 1-333-333-3333
+                      title: Doctor
+                      email: profile@test44.com
+                      status: archived
+        '400':
+          description: Bad Request
+      operationId: patch-rescuer-rescuer_statuses
+      parameters:
+        - schema:
+            type: number
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+        - schema:
+            type: string
+          in: header
+          name: client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rescuer:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      enum:
+                        - archive
+                        - active
+            examples:
+              Success:
+                value:
+                  rescuer:
+                    status: archive
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Rescuer id
+  /adopter/searches:
+    patch:
+      summary: Updates adopter search
+      tags:
+        - adopters
+        - search
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+      operationId: patch-adopters-searches
+      parameters:
+        - schema:
+            type: integer
+          in: header
+          name: API-VERSION
+          description: ''
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: object
+                  properties:
+                    sex:
+                      type: string
+                    age:
+                      type: string
+                    size:
+                      type: string
+                    breed:
+                      type: string
+                    zipcode:
+                      type: string
+            examples:
+              Success:
+                value:
+                  search:
+                    sex: female
+                    age: puppy
+                    size: large
+                    breed: dalmatian
+                    zipcode: '90210'
+    parameters: []
+components:
+  schemas: {}
