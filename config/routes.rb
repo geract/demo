@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         resource :searches, only: %i(update)
         resource :pets, only: %i(update)
         resources :messages, only: %i(index create)
+        resource :favorite_pets, only: %i(create)
       end
 
       resources :characteristics_options, only: %i(index)

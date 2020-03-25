@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 2020_03_06_023117) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_admins_on_uid_and_provider", unique: true
+  end
+
+  create_table "favorites", id: false, force: :cascade do |t|
+    t.bigint "pet_id"
+    t.bigint "user_id"
+    t.index ["pet_id", "user_id"], name: "index_favorites_on_pet_id_and_user_id", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
