@@ -18,12 +18,4 @@ class Adopter < User
 
   store_accessor :settings, :search
   delegate :address, :employment, to: :profile
-
-  attr_accessor :skip_password_required
-
-  private
-
-  def password_required?
-    !skip_password_required
-  end
 end

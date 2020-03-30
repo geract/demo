@@ -30,7 +30,6 @@ class Users::V1::Adopters::Applications::PersonalCoAdoptersControllerTest < Acti
 
     @application = PetApplication.last
 
-
     assert_response :success
     assert @application.filling?
     assert @application.co_adopter.present?

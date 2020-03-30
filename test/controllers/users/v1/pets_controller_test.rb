@@ -24,7 +24,6 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show
-    skip 'This test was broken in master'
     api_key = Rails.application.credentials.rescue_groups_key
 
     stub_request(:post, "https://api.rescuegroups.org/http/json").

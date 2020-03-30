@@ -10,7 +10,7 @@ class Pets::Search::RescueGroups::ParamsFormater
     {
       id: params[:id],
       location: params[:location],
-      radius: params[:radius],
+      location_distance: params[:radius],
       breed: params[:breed],
       general_size_potential: params[:size],
       sex: params[:sex], 
