@@ -1615,5 +1615,117 @@ paths:
                     breed: dalmatian
                     zipcode: '90210'
     parameters: []
+  /rescuer/organizations:
+    put:
+      summary: ''
+      operationId: put-rescuer-organizations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                organization:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                    director:
+                      type: string
+                    description:
+                      type: string
+                    facebook:
+                      type: string
+                    twitter:
+                      type: string
+                    instagram:
+                      type: string
+                    5013c:
+                      type: string
+                    sheltered:
+                      type: string
+                    foster_based:
+                      type: string
+                    url:
+                      type: string
+                    email:
+                      type: string
+                    phone:
+                      type: string
+                    legal_address:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        address:
+                          type: string
+                        city:
+                          type: string
+                        state:
+                          type: string
+                        zip_code:
+                          type: string
+                        main_location:
+                          type: string
+                        '':
+                          type: string
+                    physical_addresses:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          address:
+                            type: string
+                          city:
+                            type: string
+                          state:
+                            type: string
+                          zip_code:
+                            type: string
+                          main_location:
+                            type: string
+            examples:
+              Success:
+                value:
+                  organization:
+                    id: 1
+                    name: Org
+                    director: none
+                    description: null
+                    facebook: null
+                    twitter: null
+                    instagram: null
+                    5013c: null
+                    sheltered: true
+                    foster_based: null
+                    url: null
+                    email: gct@pph.com
+                    phone: '3333'
+                    legal_address:
+                      name: test
+                      address: unknow
+                      city: cali
+                      state: cali
+                      zip_code: '55555'
+                      main_location: null
+                    physical_addresses:
+                      - name: test
+                        address: unknow
+                        city: cali
+                        state: cali
+                        zip_code: '55555'
+                        main_location: null
 components:
   schemas: {}
