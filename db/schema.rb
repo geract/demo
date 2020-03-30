@@ -214,6 +214,13 @@ ActiveRecord::Schema.define(version: 2020_03_18_011745) do
     t.index ["slug"], name: "index_pets_on_slug", unique: true
   end
 
+  create_table "pets_users", id: false, force: :cascade do |t|
+    t.bigint "pet_id"
+    t.bigint "user_id"
+    t.index ["pet_id", "user_id"], name: "index_pets_users_on_pet_id_and_user_id", unique: true
+    t.index ["user_id", "pet_id"], name: "index_pets_users_on_user_id_and_pet_id", unique: true
+  end
+    
   create_table "references", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
