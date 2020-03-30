@@ -23,6 +23,7 @@ class Users::V1::Rescuers::ProfilesController < Users::V1::Rescuers::BaseControl
         last_name: params[:rescuer][:last_name],
         title: params[:rescuer][:title],
         phone: params[:rescuer][:phone],
+        photo: params[:rescuer][:photo],
       }
   end
 end

@@ -8,7 +8,9 @@ paths:
   /auth/sign_in:
     post:
       summary: Sign in a rescuer
-      tags: []
+      tags:
+        - users
+        - auth
       responses:
         '200':
           description: OK
@@ -1129,6 +1131,7 @@ paths:
                       title: Doctor
                       email: profile@test.com
                       status: created
+                      photo: ''
         '400':
           description: Bad Request
           content:
@@ -1319,7 +1322,8 @@ paths:
           application/json:
             schema:
               type: object
-            examples: {}
+            examples:
+              example-1: {}
       parameters:
         - schema:
             type: string
@@ -1330,14 +1334,17 @@ paths:
             type: string
           in: header
           name: access-token
+          required: true
         - schema:
             type: string
           in: header
           name: uid
+          required: true
         - schema:
             type: string
           in: header
           name: client
+          required: true
   /rescuer/profile:
     patch:
       summary: Updates current rescuer profile
@@ -1367,6 +1374,8 @@ paths:
                         type: string
                       status:
                         type: string
+                      photo:
+                        type: string
               examples:
                 Success:
                   value:
@@ -1377,6 +1386,7 @@ paths:
                       title: Doctor
                       email: profile@test44.com
                       status: created
+                      photo: ''
         '422':
           description: Unprocessable Entity
           content:
@@ -1439,6 +1449,8 @@ paths:
                       type: string
                     password_confirmation:
                       type: string
+                    photo:
+                      type: string
             examples:
               Success:
                 value:
@@ -1477,6 +1489,8 @@ paths:
                         type: string
                       phone:
                         type: string
+                      photo:
+                        type: string
               examples:
                 Success:
                   value:
@@ -1487,6 +1501,7 @@ paths:
                       title: Doctor
                       email: profile@test44.com
                       status: archived
+                      photo: ''
         '400':
           description: Bad Request
       operationId: patch-rescuer-rescuer_statuses
@@ -1505,10 +1520,12 @@ paths:
             type: string
           in: header
           name: uid
+          required: true
         - schema:
             type: string
           in: header
           name: client
+          required: true
       requestBody:
         content:
           application/json:

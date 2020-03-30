@@ -30,6 +30,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['rescuer']['last_name'], 'Doe'
     assert_equal api_response['rescuer']['phone'], '888999222'
     assert_equal api_response['rescuer']['email'], 'joane@doe.com'
+    assert_equal api_response['rescuer']['photo'], ''
   end
 
   def test_rescuer_admin_update
@@ -54,6 +55,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['rescuer']['phone'], '888999222'
     assert_equal api_response['rescuer']['title'], 'director'
     assert_equal api_response['rescuer']['email'], 'joane@doe.com'
+    assert_equal api_response['rescuer']['photo'], ''
   end
 
   def test_rescuer_admin_show

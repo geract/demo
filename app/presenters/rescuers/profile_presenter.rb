@@ -9,7 +9,8 @@ module Rescuers
         first_name: profile.first_name,
         last_name: profile.last_name,
         phone: profile.phone,
-        title: profile.title
+        title: profile.title,
+        photo: (profile.photo.attached? ? Rails.application.routes.url_helpers.rails_blob_url(profile.photo, only_path: true) : '')
       }
     end
 
