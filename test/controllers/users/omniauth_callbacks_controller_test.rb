@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::OmniauthCallbacksController < ActionDispatch::IntegrationTest
+class Users::OmniauthCallbacksControllerTest < ActionDispatch::IntegrationTest
   GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth'
   FACEBOOK_AUTH_URL = 'https://www.facebook.com/v3.0/dialog/oauth'
 

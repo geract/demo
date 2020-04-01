@@ -33,25 +33,26 @@ Rails.application.routes.draw do
       end
 
       namespace :adopters, path: 'adopter' do
-        resource :searches, only: %i[update]
-        resource :pets, only: %i[update]
+        resource :searches, only: %i(update)
+        resource :pets, only: %i(update)
         resources :messages, only: %i(index create)
         resource :favorite_pets, only: %i(create)
 
         namespace :applications do
-          resource :personal_info, only: %i[show update]
-          resource :personal_co_adopter, only: %i[show update]
-          resource :personal_final, only: %i[show update]
-          resource :home, only: %i[show update]
-          resource :lifestyle, only: %i[show update]
-          resource :agreements, only: %i[show update]
-          resource :references, only: %i[update], as: :add_references
+          resource :personal_info, only: %i(show update)
+          resource :personal_co_adopter, only: %i(show update)
+          resource :personal_final, only: %i(show update)
+          resource :home, only: %i(show update)
+          resource :lifestyle, only: %i(show update)
+          resource :agreements, only: %i(show update)
+          resource :references, only: %i(update), as: :add_references
         end
       end
 
       resources :characteristics_options, only: %i(index)
       resources :pets, only: %i(index show)
       resources :organizations, only: %i(show)
+      resources :newsletter, only: %i(create)
       resources :inqueries, only: %i(create)
     end
   end
