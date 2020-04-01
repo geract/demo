@@ -14,11 +14,15 @@ class User::SaveNewsletter
     attr_reader :newsletter
 
     def saved_callbacks
-      send_welcome_email
+      send_newsletter_welcome_email
     end
     
-    def send_welcome_email
-      # Pending
+    def send_newsletter_welcome_email
+      Tracker.identify(newsletter)
+      Tracker.track(
+        newsletter,
+        event: 'Newsletter subscribtion',
+      )
     end
   end
 end
