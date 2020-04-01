@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       resources :characteristics_options, only: %i(index)
       resources :pets, only: %i(index show)
       resources :organizations, only: %i(show)
+      resources :inqueries, only: %i(create)
     end
   end
 
