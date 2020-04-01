@@ -6,7 +6,6 @@ class Pet < ApplicationRecord
 
   belongs_to :organization
   belongs_to :added_by, class_name: 'User'
-  has_many :inqueries
   has_and_belongs_to_many :favorites, -> { distinct }, join_table: 'favorites', class_name: 'User'
 
   store_accessor :personality, :good_with_dogs

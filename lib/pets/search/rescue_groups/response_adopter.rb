@@ -48,7 +48,7 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def organization_name
-    RescueGroups::Organization.find(item['animalOrgID'].to_i).first['orgName'] || ''
+    RescueGroups::Organization.find(item['animalOrgID'].to_i).first.try('orgName') || ''
   end
 
   def status

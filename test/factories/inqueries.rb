@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :inquery do
-    pet
+    pet_id { Faker::Number.number(digits: 5) }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     phone_number { Faker::Internet.email }
@@ -20,7 +20,7 @@ FactoryBot.define do
           city: Faker::Address.city,
           state: Faker::Address.state,
           reasons: Faker::Lorem.sentence(word_count: 10),
-          pet_id: create(:pet, :complete).id
+          pet_id: Faker::Number.number(digits: 5)
         }
       }
     end
@@ -39,3 +39,4 @@ FactoryBot.define do
     initialize_with { ActiveSupport::HashWithIndifferentAccess.new(attributes[:body]) }
   end
 end
+ 
