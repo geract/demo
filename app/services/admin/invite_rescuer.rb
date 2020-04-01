@@ -8,19 +8,9 @@ class Admin::InviteRescuer
         rescuer,
         event: 'Rescuer User Invited',
         properties: {
-          invitation_url: invitation_url(token)
+          invitation_url: invitation_url(token),
           first_name: rescuer.profile.first_name,
           last_name: rescuer.profile.last_name
-        }
-      )
-      Tracker.identify(rescuer)
-      Tracker.track(
-        rescuer,
-        event: 'Rescuer User Invited',
-        properties: {
-          invitation_url: "#{Rails.application.config_for(:config)[:segment][:app_url]}/auth/confirmation/test123",
-          first_name: "Juan",
-          last_name: "Test"
         }
       )
 
