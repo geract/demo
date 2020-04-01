@@ -1,24 +1,24 @@
 development:
   bitly:
-    app_url: 'http://www.petparenthub.com'
+    app_url: http://localhost:3001
   segment:
-    app_url: http://localhost:3000/
-    front_url: http://localhost:3001/
+    app_url: http://localhost:3000
+    front_url: http://localhost:3001
   facebook:
-    redirect_url: https://0a6e0327.ngrok.io/auth/facebook/callback
+    redirect_url: https://localhost:3001/auth/facebook/callback
 test:
   bitly:
-    app_url: 'http://www.petparenthub.com'
+    app_url: http://localhost:3001
   segment:
-    app_url: http://localhost:3000/
-    front_url: http://localhost:3001/
+    app_url: http://localhost:3000
+    front_url: http://localhost:3001
   facebook:
-    redirect_url: https://localhost:3000/auth/facebook/callback
+    redirect_url: https://localhost:3001/auth/facebook/callback
 staging:
   bitly:
-    app_url: 'http://www.petparenthub.com'
+    app_url: 'https://staging.petparenthub.com'
   segment:
-    app_url: http://localhost:3000/
-    front_url: http://localhost:3001/
+    app_url: https://staging-api.petparenthub.com
+    front_url: https://staging.petparenthub.com
   facebook:
-    redirect_url: https://0a6e0327.ngrok.io/auth/facebook/callback
+    redirect_url: https://staging.petparenthub.com/facebook/callback

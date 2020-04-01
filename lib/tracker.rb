@@ -14,8 +14,8 @@ class Tracker
     )
   end
 
-  def self.identify(user, token)
-    instance.identify(user, token)
+  def self.identify(user)
+    instance.identify(user)
   end
 
   private

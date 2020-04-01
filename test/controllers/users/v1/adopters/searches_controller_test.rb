@@ -8,7 +8,6 @@ class Users::V1::Adopters::SearchesControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_update_success
-    skip message: "Factories problem, password not persisting"
     patch adopters_searches_path,
       params: { search: search_params },
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)

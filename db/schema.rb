@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_011745) do
+ActiveRecord::Schema.define(version: 2020_03_30_202303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,12 +106,32 @@ ActiveRecord::Schema.define(version: 2020_03_18_011745) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "inqueries", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "city"
+    t.string "state"
+    t.text "reasons"
+    t.bigint "pet_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pet_id"], name: "index_inqueries_on_pet_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "sender_type"
     t.bigint "sender_id"
     t.bigint "pet_id"
     t.bigint "organization_id"
     t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "newsletters", force: :cascade do |t|
+    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

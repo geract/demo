@@ -6,26 +6,22 @@ module Trackers
 
     def initialize
       @segment_key = Rails.application.credentials.segment_key
-      @app_url = Rails.application.config_for(:config)[:segment][:app_url]
-      @frontend_url = Rails.application.config_for(:config)[:segment][:front_url]
+      @app_url = Rails.application.config_for(:config)[:segment][:front_url]
     end
 
-    def identify(user, token)
+    def identify(user)
       client.identify(
         user_id: user.id,
         traits: {
-          name: user.name,
           email: user.email,
-          created_at: user.created_at.to_i,
-          app_url: app_url,
-          invitation_url: invitation_url(token)
+          app_url: app_url
         }
       )
     end
 
     private
 
-    attr_reader :segment_key, :app_url, :frontend_url
+    attr_reader :segment_key, :app_url
 
     def client
       @client ||= if Rails.env.production?
@@ -38,8 +34,8 @@ module Trackers
       else
         SimpleSegment::Client.new(write_key: 'STUBBED', stub: true, logger: Rails.logger)
       end
-      # If you are on development and want to test customer.io
-      # , comment the code above, and uncomment this one
+      ## If you are on development and want to receive customer.io notifications
+      ## comment the code above, and uncomment the following code:
       # @client ||=
       #   SimpleSegment::Client.new({
       #     write_key: segment_key,
@@ -47,10 +43,6 @@ module Trackers
       #       raise exception
       #     }
       #   })
-    end
-
-    def invitation_url(token)
-      "#{frontend_url}auth/confirmation/#{token}"
     end
   end
 end

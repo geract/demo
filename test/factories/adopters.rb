@@ -80,7 +80,6 @@ FactoryBot.define do
 
     after :build do |adopter|
       adopter.profile = build(:co_adopter_profile)
-      adopter.skip_password_required = true
     end
   end
 end

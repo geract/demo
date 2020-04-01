@@ -33,8 +33,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   end
 
   def index
-    pets = Pet::Search.perform(organization_id: current_user.organization.id,
-                               status: [:published, :archived, :adopted])
+    pets = Pet::Search.perform(organization_id: current_user.organization.id)
 
     render json: { pets: Rescuers::Pets::IndexPresenter.new(pets) }, status: :ok
   end

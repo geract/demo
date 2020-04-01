@@ -6,6 +6,7 @@ module Rescuers
 
     def response
       {
+        id: profile.id,
         first_name: profile.first_name,
         last_name: profile.last_name,
         phone: profile.phone,

@@ -28,6 +28,9 @@ gem 'turbolinks', '~> 5'
 gem 'versionist'
 gem 'webpacker', '~> 4.0'
 gem 'whenever', require: false
+gem 'aws-sdk-s3', require: false
+gem 'redis'
+gem 'hiredis'
 
 group :development, :test do
   gem 'pry'
