@@ -16,7 +16,7 @@ class PetTest < ActiveSupport::TestCase
   should validate_presence_of :price
   should validate_presence_of :name
   should validate_presence_of :status
-  should have_and_belong_to_many(:favorites)
+  should have_and_belong_to_many :favorites
 
   def test_pet_can_be_published
     assert_equal @pet.status, 'created'

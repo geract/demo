@@ -11,6 +11,8 @@ class Users::V1::Rescuers::ProfilesControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_update_success
+    refute @rescuer.profile.photo.attached?
+
     patch rescuers_profile_url,
       params: {
         rescuer: {
@@ -18,7 +20,8 @@ class Users::V1::Rescuers::ProfilesControllerTest < ActionDispatch::IntegrationT
           last_name: 'Doe',
           phone: '888999222',
           email: 'joane@doe.com',
-          title: 'veterinarian'
+          title: 'veterinarian',
+          photo: fixture_file_upload("files/test_attachment.jpg", "image/jpg")
         }
       },
       headers: headers_v1(@rescuer.uid, @credentials.token, @credentials.client)
@@ -31,6 +34,7 @@ class Users::V1::Rescuers::ProfilesControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['phone'], '888999222'
     assert_equal api_response['email'], 'joane@doe.com'
     assert_equal api_response['title'], 'veterinarian'
+    assert @rescuer.reload.profile.photo.attached?
   end
 
   def test_rescuer_update_password_success

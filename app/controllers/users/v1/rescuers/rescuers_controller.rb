@@ -45,7 +45,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
   def rescuer_params
     prepare_params
     params.require(:rescuer).permit(:email,
-                                    profile_attributes: [:first_name, :last_name, :phone, :title])
+                                    profile_attributes: [:first_name, :last_name, :phone, :title, :photo])
   end
 
   def prepare_params
@@ -54,6 +54,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
         last_name: params[:rescuer][:last_name],
         title: params[:rescuer][:title],
         phone: params[:rescuer][:phone],
+        photo: params[:rescuer][:photo]
       }
   end
 end

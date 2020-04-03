@@ -43,7 +43,7 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
     assert api_response.include?('pet')
     assert api_response['pet']['name'], pet.name
   end
-  
+
   def test_show_no_pet_error
     get rescuers_pet_url(id: 'pikachu'),
     headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
