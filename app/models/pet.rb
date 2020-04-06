@@ -1,5 +1,6 @@
 class Pet < ApplicationRecord
   include Pets::StateManager
+  include ImagePath
   extend FriendlyId
 
   friendly_id :name, use: :slugged
@@ -22,6 +23,8 @@ class Pet < ApplicationRecord
   validates :status, presence: true
 
   has_many_attached :images
+  image_field_name :images
+
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   scope :not_archived, -> { where.not(status: 'archived') }

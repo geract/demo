@@ -9,7 +9,7 @@ class Pets::Search::RescueGroups::ParamsFormater
     return {} if params.blank?
     {
       id: params[:id],
-      location: params[:location],
+      location: params[:zipCode],
       location_distance: params[:radius],
       breed: params[:breed],
       general_size_potential: params[:size],

@@ -10,13 +10,14 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
 
   def test_create_success
     post rescuers_pets_url,
-      params: { pet: attributes_for(:pet, name: 'Josh') },
+      params: { pet: attributes_for(:pet, name: 'Josh').merge(images: [fixture_file_upload("files/test_attachment.jpg", "image/jpg")]) },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
     api_response = JSON.parse(response.body)
 
     assert_response :success
     assert api_response.include?('pet')
     assert api_response['pet']['name'], 'Josh'
+    assert api_response['pet']['images'].any?
   end
 
   def test_create_error

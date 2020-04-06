@@ -28,7 +28,7 @@ module Rescuers
         status: pet.status,
         reason_code: pet.reason_code,
         size: pet.size,
-        images: pet.images
+        images: pet.images_url,
       }
     end
 
