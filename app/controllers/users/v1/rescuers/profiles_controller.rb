@@ -1,4 +1,12 @@
 class Users::V1::Rescuers::ProfilesController < Users::V1::Rescuers::BaseController
+  def show
+    if current_user.profile
+      render json: Rescuers::Profiles::ShowPresenter.new(current_user)
+    else
+      head :not_found
+    end
+  end
+
   def update
     if current_user.update(profile_params)
       render json: Rescuers::Profiles::ShowPresenter.new(current_user)
