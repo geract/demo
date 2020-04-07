@@ -22,7 +22,7 @@ module Rescuers
     def profile_photo
       return '' unless profile.photo.attached?
 
-      if Rails.env.production?
+      if Rails.env.production? || Rails.env.staging?
         profile.photo.service_url
       else
         Rails.application.routes.url_helpers.rails_blob_url(profile.photo, only_path: true)

@@ -8,7 +8,7 @@ module ImagePath
 
         return images if images.empty?
 
-        if Rails.env.production? && Rails.env.staging?
+        if Rails.env.production? || Rails.env.staging?
           images.map(&:service_url)
         else
           images.map do |image|

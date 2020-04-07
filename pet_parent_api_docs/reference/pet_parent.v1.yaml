@@ -67,8 +67,6 @@ paths:
                           type: string
                         main_location:
                           type: string
-                        '':
-                          type: string
                     physical_addresses:
                       type: array
                       items:
@@ -1895,6 +1893,344 @@ paths:
                         - integer
               required:
                 - inquery
+  /adopter/applications/personal_co_adopter:
+    patch:
+      summary: ''
+      operationId: patch-adopter-applications-personal_info
+      responses:
+        '200':
+          description: OK
+          parameters:
+            - schema: null
+              type: string
+              in: header
+              name: ' API-VERSION: 1'
+              required: true
+            - schema: null
+              type: boolean
+              in: header
+              name: 'Accept: application/json'
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: uid
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: access-token
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: client
+              required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  application:
+                    type: object
+                    description: The same `application` object that was sent in the request.
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  application:
+                    type: object
+                    description: The same `application` object that was sent in the request.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                application:
+                  type:
+                    - string
+                    - object
+                  properties:
+                    applicationable_attributes:
+                      type:
+                        - string
+                        - object
+                      required:
+                        - pet_info_attributes
+                      properties:
+                        pet_info_attributes:
+                          type:
+                            - string
+                            - object
+                          required:
+                            - personal
+                          properties:
+                            personal:
+                              type: object
+                              required:
+                                - pet_relation_change_owner
+                              properties:
+                                co_adopter_relation:
+                                  type: string
+                                  enum:
+                                    - Spouse/Partner
+                                    - Parent
+                                    - Sibling
+                                    - Friend
+                                    - Roomate
+                                pet_relation_change_owner:
+                                  type: string
+                    is_address_same_as_adopter:
+                      type: boolean
+                    co_adopter_attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                        profile_attributes:
+                          type: object
+                          properties:
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                            phone_number:
+                              type: string
+                              example: '1234567890'
+                              minLength: 10
+                              maxLength: 10
+                            birthday:
+                              type: string
+                              default: '2000-00-00'
+                              format: date
+                              example: '1968-10-03'
+                            address_attributes:
+                              type: object
+                              required:
+                                - street_line_1
+                                - street_line_2
+                                - city
+                                - state
+                                - zip_code
+                                - country
+                              properties:
+                                street_line_1:
+                                  type: string
+                                street_line_2:
+                                  type: string
+                                city:
+                                  type: string
+                                state:
+                                  type: string
+                                zip_code:
+                                  type: string
+                                country:
+                                  type: string
+                                  enum:
+                                    - United States
+                            employment_attributes:
+                              type: object
+                              properties:
+                                status:
+                                  type: string
+                                  enum:
+                                    - Self-Employed
+                                    - Employed
+                                    - Unemployed
+                                    - Retired
+                                years:
+                                  type: string
+                                  enum:
+                                    - <1 year
+                                    - 1-2 years
+                                    - 3+ years
+                                company:
+                                  type: string
+                                address_attributes:
+                                  type:
+                                    - object
+                                  required:
+                                    - street_line_1
+                                    - street_line_2
+                                    - city
+                                    - state
+                                    - zip_code
+                                    - country
+                                  properties:
+                                    street_line_1:
+                                      type: string
+                                    street_line_2:
+                                      type: string
+                                    city:
+                                      type: string
+                                    state:
+                                      type: string
+                                    zip_code:
+                                      type: string
+                                    country:
+                                      type: string
+                                      enum:
+                                        - United States
+                              required:
+                                - address_attributes
+                          required:
+                            - phone_number
+                            - address_attributes
+                  required:
+                    - applicationable_attributes
+                    - is_address_same_as_adopter
+        description: ''
+      description: ''
+    get:
+      summary: ''
+      operationId: get-adopter-applications-personal_co_adopter
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  application:
+                    type:
+                      - string
+                      - object
+                    required:
+                      - applicationable_attributes
+                      - is_address_same_as_adopter
+                    properties:
+                      applicationable_attributes:
+                        type:
+                          - string
+                          - object
+                        required:
+                          - pet_info_attributes
+                        properties:
+                          pet_info_attributes:
+                            type:
+                              - string
+                              - object
+                            required:
+                              - personal
+                            properties:
+                              personal:
+                                type: object
+                                required:
+                                  - pet_relation_change_owner
+                                properties:
+                                  co_adopter_relation:
+                                    type: string
+                                    enum:
+                                      - Spouse/Partner
+                                      - Parent
+                                      - Sibling
+                                      - Friend
+                                      - Roomate
+                                  pet_relation_change_owner:
+                                    type: string
+                      is_address_same_as_adopter:
+                        type: boolean
+                      co_adopter_attributes:
+                        type: object
+                        properties:
+                          email:
+                            type: string
+                            format: email
+                          profile_attributes:
+                            type: object
+                            properties:
+                              first_name:
+                                type: string
+                              last_name:
+                                type: string
+                              phone_number:
+                                type: string
+                                example: '1234567890'
+                                minLength: 10
+                                maxLength: 10
+                              birthday:
+                                type: string
+                                default: '2000-00-00'
+                                format: date
+                                example: '1968-10-03'
+                              address_attributes:
+                                type: object
+                                required:
+                                  - street_line_1
+                                  - street_line_2
+                                  - city
+                                  - state
+                                  - zip_code
+                                  - country
+                                properties:
+                                  street_line_1:
+                                    type: string
+                                  street_line_2:
+                                    type: string
+                                  city:
+                                    type: string
+                                  state:
+                                    type: string
+                                  zip_code:
+                                    type: string
+                                  country:
+                                    type: string
+                                    enum:
+                                      - United States
+                              employment_attributes:
+                                type: object
+                                properties:
+                                  status:
+                                    type: string
+                                    enum:
+                                      - Self-Employed
+                                      - Employed
+                                      - Unemployed
+                                      - Retired
+                                  years:
+                                    type: string
+                                    enum:
+                                      - <1 year
+                                      - 1-2 years
+                                      - 3+ years
+                                  company:
+                                    type: string
+                                  address_attributes:
+                                    type:
+                                      - object
+                                    required:
+                                      - street_line_1
+                                      - street_line_2
+                                      - city
+                                      - state
+                                      - zip_code
+                                      - country
+                                    properties:
+                                      street_line_1:
+                                        type: string
+                                      street_line_2:
+                                        type: string
+                                      city:
+                                        type: string
+                                      state:
+                                        type: string
+                                      zip_code:
+                                        type: string
+                                      country:
+                                        type: string
+                                        enum:
+                                          - United States
+                                required:
+                                  - address_attributes
+                            required:
+                              - phone_number
+                              - address_attributes
   /adopter/applications/personal_info:
     parameters: []
     get:
@@ -2250,179 +2586,5 @@ paths:
                         - is_military
         description: 'Patch the `PetApplication::PersonalInfo` for current user'
       description: ''
-  /adopter/applications/personal_co_adopter:
-    patch:
-      summary: ''
-      operationId: patch-adopter-applications-personal_info
-      responses:
-        '200':
-          description: OK
-          parameters:
-            - schema: null
-              type: string
-              in: header
-              name: ' API-VERSION: 1'
-              required: true
-            - schema: null
-              type: boolean
-              in: header
-              name: 'Accept: application/json'
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: uid
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: access-token
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: client
-              required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                application:
-                  type:
-                    - string
-                    - object
-                  properties:
-                    applicationable_attributes:
-                      type:
-                        - string
-                        - object
-                      required:
-                        - pet_info_attributes
-                      properties:
-                        pet_info_attributes:
-                          type:
-                            - string
-                            - object
-                          required:
-                            - personal
-                          properties:
-                            personal:
-                              type: object
-                              required:
-                                - pet_relation_change_owner
-                              properties:
-                                co_adopter_relation:
-                                  type: string
-                                  enum:
-                                    - Spouse/Partner
-                                    - Parent
-                                    - Sibling
-                                    - Friend
-                                    - Roomate
-                                pet_relation_change_owner:
-                                  type: string
-                    is_address_same_as_adopter:
-                      type: boolean
-                    co_adopter_attributes:
-                      type: object
-                      properties:
-                        email:
-                          type: string
-                          format: email
-                        profile_attributes:
-                          type: object
-                          properties:
-                            first_name:
-                              type: string
-                            last_name:
-                              type: string
-                            phone_number:
-                              type: string
-                              example: '1234567890'
-                              minLength: 10
-                              maxLength: 10
-                            birthday:
-                              type: string
-                              default: '2000-00-00'
-                              format: date
-                              example: '1968-10-03'
-                            address_attributes:
-                              type: object
-                              required:
-                                - street_line_1
-                                - street_line_2
-                                - city
-                                - state
-                                - zip_code
-                                - country
-                              properties:
-                                street_line_1:
-                                  type: string
-                                street_line_2:
-                                  type: string
-                                city:
-                                  type: string
-                                state:
-                                  type: string
-                                zip_code:
-                                  type: string
-                                country:
-                                  type: string
-                                  enum:
-                                    - United States
-                            employment_attributes:
-                              type: object
-                              properties:
-                                status:
-                                  type: string
-                                  enum:
-                                    - Self-Employed
-                                    - Employed
-                                    - Unemployed
-                                    - Retired
-                                years:
-                                  type: string
-                                  enum:
-                                    - <1 year
-                                    - 1-2 years
-                                    - 3+ years
-                                company:
-                                  type: string
-                                address_attributes:
-                                  type:
-                                    - object
-                                  required:
-                                    - street_line_1
-                                    - street_line_2
-                                    - city
-                                    - state
-                                    - zip_code
-                                    - country
-                                  properties:
-                                    street_line_1:
-                                      type: string
-                                    street_line_2:
-                                      type: string
-                                    city:
-                                      type: string
-                                    state:
-                                      type: string
-                                    zip_code:
-                                      type: string
-                                    country:
-                                      type: string
-                                      enum:
-                                        - United States
-                              required:
-                                - address_attributes
-                          required:
-                            - phone_number
-                            - address_attributes
-                  required:
-                    - applicationable_attributes
-                    - is_address_same_as_adopter
-        description: ''
 components:
   schemas: {}
