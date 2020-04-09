@@ -1,6 +1,6 @@
 require "test_helper"
 
-class UpdateStatusTest < ActiveSupport::TestCase
+class Rescuer::UpdateStatusTest < ActiveSupport::TestCase
   setup do
     @pet = create(:pet, :complete)
   end
@@ -9,7 +9,7 @@ class UpdateStatusTest < ActiveSupport::TestCase
     assert_equal @pet.status, 'created'
     assert_nil @pet.reason_code
 
-    Pet::UpdateStatus.perform(@pet, 'archive', reason_code: 'pet_adopted')
+    Rescuer::UpdatePetStatus.perform(@pet, 'archive', reason_code: 'pet_adopted')
 
     assert_equal @pet.status, 'archived'
     assert_equal @pet.reason_code, 'pet_adopted'

@@ -1,4 +1,4 @@
-class Pet::Search
+class Shared::SearchPet
   def self.perform(args)
     if args[:provider] == 'RescueOrganization'
       searcher = Pets::Search::RescueGroups.new(args)

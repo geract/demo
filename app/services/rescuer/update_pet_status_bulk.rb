@@ -1,4 +1,4 @@
-class Pet::UpdateStatusBulk
+class Rescuer::UpdatePetStatusBulk
   class << self
     def perform(pet_ids, status, **conditionals)
       return [[], []] if pet_ids.blank?
@@ -22,7 +22,7 @@ class Pet::UpdateStatusBulk
       Pet.where(where_conditionals).find_in_batches(batch_size: 20) do |pets|
         pets.each do |pet|
           pets_results << pet
-          next if Pet::UpdateStatus.perform(pet, status) && pet.valid?
+          next if Rescuer::UpdatePetStatus.perform(pet, status) && pet.valid?
 
           pets_errors << { id: pet.id, errors: pet.errors.messages }
         end

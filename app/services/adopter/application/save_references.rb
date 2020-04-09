@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User::Adopter::Application::SaveReferences
+class Adopter::Application::SaveReferences
   MIN_REFERENCES = 3
 
   attr_reader :application

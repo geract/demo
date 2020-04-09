@@ -2,7 +2,7 @@ class Users::V1::OrganizationsController < Users::BaseController
   def show
     organization = RescueGroups::Organization.find(params[:id].to_i).first
     
-    pets = Pet::Search.perform(provider: 'RescueOrganization',
+    pets = Shared::SearchPet.perform(provider: 'RescueOrganization',
                                organization_id: params[:id])
 
     if organization
