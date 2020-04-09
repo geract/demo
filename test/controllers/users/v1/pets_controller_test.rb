@@ -27,11 +27,11 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     api_key = Rails.application.credentials.rescue_groups_key
 
     stub_request(:post, "https://api.rescuegroups.org/http/json").
-          with(
-             body: "{\"objectAction\":\"publicView\",\"objectType\":\"orgs\",\"fields\":[\"orgAbout\",\"orgAdoptionProcess\",\"orgAdoptionUrl\",\"orgCommonapplicationAccept\",\"orgDonationUrl\",\"orgEmail\",\"orgFacebookUrl\",\"orgFax\",\"orgID\",\"orgLocation\",\"orgAddress\",\"orgCity\",\"orgCountry\",\"orgLocationDistance\",\"orgPostalcode\",\"orgState\",\"orgPlus4\",\"orgMeetPets\",\"orgName\",\"orgPhone\",\"orgServeAreas\",\"orgServices\",\"orgSponsorshipUrl\",\"orgType\",\"orgWebsiteUrl\"],\"values\":[{\"orgID\":13}],\"apikey\":\"#{api_key}\"}").
+          with(body: hash_including('objectType': 'orgs')).
           to_return(status: 200, body: { data: [build(:rescue_groups_organization_response)] }.to_json)
 
     stub_request(:post, 'https://api.rescuegroups.org/http/json').
+      with(body: hash_including('objectType': 'animals')).
       to_return(status: 200, body: { data: build(:rescue_groups_response) }.to_json)
 
     get pet_url(id: '320'),
@@ -47,6 +47,12 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Young', api_response['pet']['age']
     assert_equal 'Bowie, MD', api_response['pet']['location']
     assert_equal 'https://s3.amazonaws.com/filestore.rescuegroups.org/13/pictures/animals/0/320/181_350x216.jpg', api_response['pet']['image']
+    assert_equal 'Adopted', api_response['pet']['status']
+    assert_equal '', api_response['pet']['birthdate']
+    assert_equal '13.00', api_response['pet']['fee']
+    assert_equal 'description', api_response['pet']['description']
+    assert_equal '13', api_response['pet']['organization_id']
+    assert_equal 'Animal Relief Fund', api_response['pet']['organization_name']
   end
 end
 

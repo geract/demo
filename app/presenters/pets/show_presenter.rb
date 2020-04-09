@@ -9,6 +9,7 @@ class Pets::ShowPresenter
       status: pet.status,
       birthdate: pet.birthdate,
       fee: pet.fee,
+      description: pet.description,
       organization_id: pet.organization_id,
       organization_name: pet.organization_name,
     })

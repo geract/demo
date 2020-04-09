@@ -40,7 +40,7 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def description
-    item['animalDescription']
+    item['animalDescription'].gsub(/<\/?[^>]*>/, "")
   end
 
   def organization_id
@@ -48,7 +48,12 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def organization_name
-    RescueGroups::Organization.find(item['animalOrgID'].to_i).first.try('orgName') || ''
+    return '' unless organization
+    organization['orgName']
+  end
+
+  def organization
+    @org ||= RescueGroups::Organization.find(organization_id.to_i).first
   end
 
   def status
