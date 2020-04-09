@@ -8,6 +8,7 @@ class Adopter::Application::SavePersonalInfo
     @profile_attributes = params[:profile_attributes].merge(id: @adopter.profile.id)
     @applicationable_attributes = params[:applicationable_attributes]
     @has_co_adopter = params[:has_co_adopter]
+    @pet_id = params[:pet_id]
   end
 
   def perform
@@ -38,6 +39,7 @@ class Adopter::Application::SavePersonalInfo
 
   def initialize_attributes
     {
+      pet_id: @pet_id,
       adopter: @adopter,
       profile_attributes: @profile_attributes,
     }

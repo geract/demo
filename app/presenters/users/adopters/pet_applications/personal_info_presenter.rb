@@ -7,6 +7,7 @@ class Users::Adopters::PetApplications::PersonalInfoPresenter
 
   def response
     { application: { 
+        pet_id: application.pet.id,
         has_co_adopter: application.co_adopter_id.present?,
         profile_attributes: {
           pronoun: profile.pronoun,

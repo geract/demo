@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "applicationable_type"
     t.bigint "applicationable_id"
     t.bigint "veterinarian_id"
+    t.bigint "pet_id"
     t.string "state", null: false
     t.boolean "home_visit_agreement"
     t.boolean "adoption_fee_agreement"
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.index ["adopter_id"], name: "index_pet_applications_on_adopter_id"
     t.index ["applicationable_type", "applicationable_id"], name: "index_applications_on_applicationable_type_and_id"
     t.index ["co_adopter_id"], name: "index_pet_applications_on_co_adopter_id"
+    t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
     t.index ["veterinarian_id"], name: "index_pet_applications_on_veterinarian_id"
   end
 
@@ -301,6 +303,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopter_profiles", "users", column: "adopter_id"
   add_foreign_key "organization_addresses", "organizations"
+  add_foreign_key "pet_applications", "pets"
   add_foreign_key "pet_applications", "users", column: "adopter_id"
   add_foreign_key "pet_applications", "users", column: "co_adopter_id"
   add_foreign_key "pet_applications", "veterinarians"

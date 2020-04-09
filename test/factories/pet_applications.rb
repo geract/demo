@@ -1,8 +1,12 @@
 FactoryBot.define do
   factory :pet_application do
     adopter
-    home_visit_agreement { true }
-    adoption_fee_agreement { true }
+    home_visit_agreement    { true }
+    adoption_fee_agreement  { true }
+
+    after :build do |application|
+      application.pet = build(:pet,  :complete)
+    end
 
     trait :with_co_adopter do
       association(:co_adopter, factory: :adopter, email: 'co_adopter@example.com')

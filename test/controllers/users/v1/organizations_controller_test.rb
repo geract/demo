@@ -5,6 +5,7 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show
+    skip
     api_key = Rails.application.credentials.rescue_groups_key
 
     stub_request(:post, "https://api.rescuegroups.org/http/json").

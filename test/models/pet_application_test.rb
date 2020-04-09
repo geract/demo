@@ -12,6 +12,7 @@ class PetApplicationTest < ActiveSupport::TestCase
     should have_one(:profile)
     should belong_to(:veterinarian)
     should belong_to(:co_adopter)
+    should belong_to(:pet)
 
     should have_many(:references)
 

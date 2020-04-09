@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :personal_info_params, class: Hash do
     body do
       { application: { 
+          pet_id: Pet.last.id,
           has_co_adopter: false,
           profile_attributes: {
             pronoun: 'She',

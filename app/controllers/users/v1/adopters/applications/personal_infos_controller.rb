@@ -21,7 +21,7 @@ module Users
 
         private
         def application_params
-          params.require(:application).permit(:has_co_adopter,
+          params.require(:application).permit(:pet_id, :has_co_adopter,
                                               profile_attributes: [:id, :pronoun, :family_status, :birthday,
                                                 address_attributes: %i[street_line_1 street_line_2 city state zip_code country id],
                                                 employment_attributes: [:id, :status, :years, :company, :pet_costs,

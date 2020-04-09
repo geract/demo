@@ -7,6 +7,7 @@ class PetApplication < ApplicationRecord
   belongs_to :veterinarian, optional: true
   belongs_to :co_adopter, class_name: 'Adopter', optional: true, foreign_key: :co_adopter_id
   belongs_to :applicationable, polymorphic: true
+  belongs_to :pet
 
   has_one :pet_info, through: :applicationable
   has_one :profile, through: :adopter

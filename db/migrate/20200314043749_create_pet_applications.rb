@@ -5,6 +5,7 @@ class CreatePetApplications < ActiveRecord::Migration[6.0]
       t.belongs_to :co_adopter, foreign_key: { to_table: :users }
       t.belongs_to :applicationable, polymorphic: true, index: { name: :index_applications_on_applicationable_type_and_id }
       t.belongs_to :veterinarian, foreign_key: true
+      t.belongs_to :pet, foreign_key: true
 
       t.string :state, null: false
 

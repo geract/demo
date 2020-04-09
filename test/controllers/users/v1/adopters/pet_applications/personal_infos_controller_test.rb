@@ -23,6 +23,7 @@ class Users::V1::Adopters::Applications::PersonalInfosControllerTest < ActionDis
   end
 
   def test_update
+    create(:pet, :complete)
     patch adopters_applications_personal_info_path,
       params: build(:personal_info_params),
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)

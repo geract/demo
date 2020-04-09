@@ -32,6 +32,14 @@ module Rescuers
       }
     end
 
+    def short_response
+      {
+        id: pet.id,
+        name: pet.name,
+        address: 'TBD'
+      }
+    end
+
     private
 
     attr_reader :pet
