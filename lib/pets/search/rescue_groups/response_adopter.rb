@@ -40,7 +40,7 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def description
-    item['animalDescription'].gsub(/<\/?[^>]*>/, "")
+    ActionController::Base.helpers.strip_tags(item['animalDescription'])
   end
 
   def organization_id
