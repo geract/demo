@@ -15,7 +15,7 @@ class Pets::Search::RescueGroups::ParamsFormater
     rg_params[:breed] = params[:breed] unless params[:breed].blank?
     rg_params[:general_size_potential] = params[:size] unless params[:size].blank?
     rg_params[:sex] = params[:sex] unless params[:sex].blank?
-    rg_params[:age] = params[:age] unless params[:age].blank?
+    rg_params[:general_age] = params[:age] unless params[:age].blank?
     rg_params[:organization_id] = params[:organization_id] unless params[:organization_id].blank?
     rg_params
   end
