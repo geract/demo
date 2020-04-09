@@ -12,10 +12,18 @@ class Pets::Search::RescueGroups
 
   private
 
-  ANIMAL_STATUS = %w(available foster returned hold pending sponsorship intake).freeze
-
   def build_params(args)
     params = Pets::Search::RescueGroups::ParamsFormater.new(args).execute
-    params.merge({ species: 'Dog', limit: 20, sort: 'breedName', status: ANIMAL_STATUS })
+    params.merge(base_params)
+  end
+
+  def base_params
+    {
+      species: 'Dog', 
+      updated_date: { greater_than: '2020-01-09'}, 
+      status: 'Available', 
+      limit: 100, 
+      sort: 'animalLocationDistance'
+    }
   end
 end
