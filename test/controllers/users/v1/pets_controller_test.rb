@@ -27,8 +27,8 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     api_key = Rails.application.credentials.rescue_groups_key
 
     stub_request(:post, "https://api.rescuegroups.org/http/json").
-          with(body: hash_including('objectType': 'orgs')).
-          to_return(status: 200, body: { data: [build(:rescue_groups_organization_response)] }.to_json)
+      with(body: hash_including('objectType': 'orgs')).
+      to_return(status: 200, body: { data: [build(:rescue_groups_organization_response)] }.to_json)
 
     stub_request(:post, 'https://api.rescuegroups.org/http/json').
       with(body: hash_including('objectType': 'animals')).
