@@ -1,7 +1,8 @@
 class AdopterProfile < ApplicationRecord
   include AASM
 
-  STATES = ['filling', 'agreements', 'add_references', 'completed'].freeze
+  STATES = ['personal_info', 'personal_co_adopter', 'personal_final', 'home', 'lifestyle',
+            'agreements', 'add_references', 'agreements', 'add_references', 'completed'].freeze
 
   has_one :address, class_name: "AdopterAddress", as: :addressable, dependent: :destroy
   has_one :employment, as: :employmentable, dependent: :destroy
@@ -12,14 +13,13 @@ class AdopterProfile < ApplicationRecord
   belongs_to :co_adopter, class_name: 'Adopter', optional: true, foreign_key: :co_adopter_id
   belongs_to :applicationable, polymorphic: true, optional: true
 
-  validates :phone_number, :adopter, presence: true
+  validates :phone_number, :adopter, :family_status, :pronoun, presence: true
   validates :terms, acceptance: { message: 'must be accepted' }, unless: :is_from_co_adopter
   validates :home_visit_agreement, :adoption_fee_agreement, acceptance: { message: 'must be accepted' }, if: :agreements?
   has_many :references, foreign_key: :application_id
 
-  accepts_nested_attributes_for :co_adopter, :applicationable,
-                                :pet_info, :veterinarian, :references,
-                                :employment, :address
+  accepts_nested_attributes_for :co_adopter, :applicationable, :pet_info,
+                                :veterinarian, :references, :employment, :address
 
   delegate :continue_application, :continue_application!, :skip_co_adopter!, to: :applicationable, allow_nil: true
 
@@ -34,9 +34,12 @@ class AdopterProfile < ApplicationRecord
       transitions from: :personal_final, to: :home
       transitions from: :home, to: :lifestyle
       transitions from: :lifestyle, to: :agreements
-      transitions from: :filling, to: :agreements
       transitions from: :agreements, to: :add_references, guard: -> { accepted_agreements? }
       transitions from: :add_references, to: :completed
+    end
+
+    event :skip_co_adopter do
+      transitions from: :personal_info, to: :personal_final
     end
   end
 

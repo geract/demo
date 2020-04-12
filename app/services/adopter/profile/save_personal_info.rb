@@ -1,56 +1,28 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SavePersonalInfo
-  attr_reader :application
+  attr_reader :profile
 
   def initialize(adopter, params)
-    @adopter = adopter
-    @profile_attributes = params[:profile_attributes].merge(id: @adopter.profile.id)
-    @applicationable_attributes = params[:applicationable_attributes]
-    @has_co_adopter = params[:has_co_adopter]
+    @profile = adopter.profile
+    @attributes = params
+    @pet_info_attributes = attributes.delete(:pet_info_attributes)
+    @has_co_adopter = attributes.delete(:has_co_adopter)
   end
 
   def perform
-    @adopter.transaction do
-      if @adopter.application.present?
-        @application = @adopter.application
-        @application.assign_attributes(attributes)
-      else
-        @application = ::PetApplication.new(initialize_attributes)
-      end
+    profile.transaction do
+      profile.assign_attributes(attributes)
 
-      @application.applicationable = applicationable
-
-      @application.transaction do
-        if @profile_attributes[:pronoun].blank? || @profile_attributes[:family_status].blank?
-          @application.errors.add(:pronoun, "can't be blank") if @profile_attributes[:pronoun].blank?
-          @application.errors.add(:family_status, "can't be blank") if @profile_attributes[:family_status].blank?
-          return false
-        end
-
-        @has_co_adopter && @application.continue_application! || @application.skip_co_adopter!
-        @application.save
-      end
+      PetInfo.find_or_initialize_by(adopter_profile_id: profile.id).
+              assign_attributes(pet_info_attributes)
+      
+      has_co_adopter && profile.continue! || profile.skip_co_adopter!
+      profile.save
     end
   end
 
   private
 
-  def initialize_attributes
-    {
-      adopter: @adopter,
-      profile_attributes: @profile_attributes,
-    }
-  end
-
-  def attributes
-    {
-      profile_attributes: @profile_attributes
-    }
-  end
-
-  def applicationable
-    return PetApplication::Dog.new(@applicationable_attributes) unless @application.applicationable
-    @application.applicationable.tap { |a| a.assign_attributes(@applicationable_attributes) }
-  end
+  attr_reader :attributes, :pet_info_attributes, :has_co_adopter
 end

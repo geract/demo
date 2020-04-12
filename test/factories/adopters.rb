@@ -12,61 +12,61 @@ FactoryBot.define do
 
     trait :with_application_personal_info do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :personal_info))
+        adopter.profile = build(:adopter_profile, :personal_info)
       end
     end
 
     trait :with_application_co_adopter do
       after :build do |adopter|
-        adopter.application = build(:pet_application, :with_co_adopter, applicationable: build(:pet_application_dog, :personal_co_adopter))
+        adopter.profile = build(:adopter_profile, :personal_co_adopter)
       end
     end
 
     trait :with_application_personal_co_adopter do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :personal_co_adopter))
+        adopter.profile = build(:adopter_profile, :personal_co_adopter)
       end
     end
 
     trait :with_application_personal_final do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :personal_final))
+        adopter.profile = build(:adopter_profile, :personal_final)
       end
     end
 
     trait :with_application_home do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :home))
+        adopter.profile = build(:adopter_profile, :home)
       end
     end
 
     trait :with_application_lifestyle do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :lifestyle))
+        adopter.profile = build(:adopter_profile, :lifestyle)
       end
     end
 
     trait :with_application_completed do
       after :build do |adopter|
-        adopter.application = build(:pet_application, applicationable: build(:pet_application_dog, :completed))
+        adopter.profile = build(:adopter_profile, :completed)
       end
     end
 
     trait :with_application_agreements do
       after :build do |adopter|
-        adopter.application = build(:pet_application, :with_agreements, applicationable: build(:pet_application_dog, :completed))
+        adopter.profile = build(:adopter_profile)
       end
     end
 
     trait :with_application_references do
       after :build do |adopter|
-        adopter.application = build(:pet_application, :with_references, applicationable: build(:pet_application_dog, :completed))
+        adopter.profile = build(:adopter_profile)
       end
     end
 
     trait :with_completed_application do
       after :build do |adopter|
-        adopter.application = build(:pet_application, :completed, applicationable: build(:pet_application_dog, :completed))
+        adopter.profile = build(:adopter_profile)
       end
     end
   end

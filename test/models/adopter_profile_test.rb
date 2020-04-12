@@ -27,6 +27,8 @@ class AdopterProfileTest < ActiveSupport::TestCase
   context 'validations' do
     should validate_presence_of(:phone_number)
     should validate_presence_of(:adopter)
+    should validate_presence_of(:pronoun)
+    should validate_presence_of(:family_status)
 
     should_not validate_presence_of(:adoption_fee_agreement)
     should_not validate_presence_of(:home_visit_agreement)
