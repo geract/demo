@@ -5,8 +5,7 @@ class AdopterProfile < ApplicationRecord
 
   has_one :address, class_name: "AdopterAddress", as: :addressable, dependent: :destroy
   has_one :employment, as: :employmentable, dependent: :destroy
-  has_one :pet_info, through: :applicationable
-  has_one :profile, through: :adopter
+  has_one :pet_info
 
   belongs_to :adopter, inverse_of: :profile
   belongs_to :veterinarian, optional: true
@@ -24,13 +23,18 @@ class AdopterProfile < ApplicationRecord
 
   delegate :continue_application, :continue_application!, :skip_co_adopter!, to: :applicationable, allow_nil: true
 
-
   aasm(column: 'state', whiny_transactions: false) do
-    state :filling, initial: true
-    state :agreements, :add_references, :completed
+    state :personal_info, initial: true
+    state :personal_co_adopter, :personal_final, :home, :lifestyle,
+          :agreements, :add_references, :completed
 
     event :continue do
-      transitions from: :filling, to: :agreements, guard: -> { applicationable&.completed? }
+      transitions from: :personal_info, to: :personal_co_adopter
+      transitions from: :personal_co_adopter, to: :personal_final
+      transitions from: :personal_final, to: :home
+      transitions from: :home, to: :lifestyle
+      transitions from: :lifestyle, to: :agreements
+      transitions from: :filling, to: :agreements
       transitions from: :agreements, to: :add_references, guard: -> { accepted_agreements? }
       transitions from: :add_references, to: :completed
     end

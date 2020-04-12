@@ -2,7 +2,8 @@ require "test_helper"
 
 class EmploymentTest < ActiveSupport::TestCase
   setup do
-    @employment = build(:employment)
+    @adopter = build(:adopter)
+    @employment = build(:employment, employmentable: @adopter.profile)
   end
 
   context 'validations' do

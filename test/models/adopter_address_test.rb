@@ -2,7 +2,8 @@ require "test_helper"
 
 class AdopterAddressTest < ActiveSupport::TestCase
   setup do
-    @address = build(:adopter_address, addressable: build(:pet_application))
+    @adopter = build(:adopter)
+    @address = build(:adopter_address, addressable: @adopter.profile)
   end
 
   context 'validations' do

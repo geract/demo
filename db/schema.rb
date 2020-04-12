@@ -177,20 +177,16 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "pet_application_dogs", force: :cascade do |t|
-    t.string "state", default: "personal_info", null: false
-  end
-
   create_table "pet_infos", force: :cascade do |t|
     t.jsonb "home"
     t.jsonb "animal_history"
     t.jsonb "lifestyle"
     t.jsonb "personal"
     t.jsonb "veterinarian_extra"
-    t.bigint "dog_id"
+    t.bigint "adopter_profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["dog_id"], name: "index_pet_infos_on_dog_id"
+    t.index ["adopter_profile_id"], name: "index_pet_infos_on_adopter_profile_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -296,7 +292,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
   add_foreign_key "adopter_profiles", "users", column: "co_adopter_id"
   add_foreign_key "adopter_profiles", "veterinarians"
   add_foreign_key "organization_addresses", "organizations"
-  add_foreign_key "pet_infos", "pet_application_dogs", column: "dog_id"
+  add_foreign_key "pet_infos", "adopter_profiles"
   add_foreign_key "pets", "organizations"
   add_foreign_key "references", "adopter_profiles", column: "profile_id"
   add_foreign_key "rescuer_profiles", "organizations"

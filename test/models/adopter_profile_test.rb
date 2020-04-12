@@ -8,8 +8,11 @@ class AdopterProfileTest < ActiveSupport::TestCase
   context 'associations' do
     should have_one(:address)
     should have_one(:employment)
+    should have_one(:pet_info)
     
     should belong_to(:adopter)
+    should belong_to(:co_adopter)
+    should belong_to(:veterinarian)
     should belong_to(:applicationable)
 
     should accept_nested_attributes_for(:co_adopter)

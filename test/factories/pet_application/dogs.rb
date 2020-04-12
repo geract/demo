@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :pet_application_dog, class: 'PetApplication::Dog' do
-    pet_info
-    association(:application, factory: :pet_application)
+    after :build do |pet_application_dog|
+      adopter = build(:adopter)
+      pet_application_dog.profile = adopter.profile
+    end
 
     trait :personal_info do
       state { 'personal_info' }

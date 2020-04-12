@@ -2,7 +2,12 @@ require "test_helper"
 
 class PetInfoTest < ActiveSupport::TestCase
   setup do
-    @pet_info = build(:pet_info)
+    @adopter = build(:adopter)
+    @pet_info = build(:pet_info, adopter_profile: @adopter.profile)
+  end
+
+  context 'associations' do
+    should belong_to(:adopter_profile)
   end
 
   context 'stores' do
