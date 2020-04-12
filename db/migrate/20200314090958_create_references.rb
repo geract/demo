@@ -6,7 +6,7 @@ class CreateReferences < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :phone_number
       t.string :relationship
-      t.belongs_to :application, foreign_key: { to_table: :pet_applications }
+      t.belongs_to :profile, foreign_key: { to_table: :adopter_profiles }
 
       t.timestamps
     end
