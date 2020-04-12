@@ -3,13 +3,13 @@
 module Users
   module V1
     module Adopters
-      class Applications::PersonalInfosController < PetApplicationController
+      class PersonalInfosController < PetApplicationController
         def show
-          render json: Users::Adopters::PetApplications::PersonalInfoPresenter.new(current_user).response, status: :ok
+          render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user).response, status: :ok
         end
 
         def update
-          service = Adopter::Application::SavePersonalInfo.new(current_user, application_params)
+          service = Adopter::Profile::SavePersonalInfo.new(current_user, application_params)
 
           if service.perform
             render json: {application: {}}, status: :ok
