@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_application_step, unless: :adopter_profile?
-  before_action :redirect_to_next_application_step, unless: :agreements?
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_next_profile_step, unless: :agreements?
 
   def show
     render json: Users::Adopters::Profile::AgreementsPresenter.new(current_user).response, status: :ok

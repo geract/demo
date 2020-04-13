@@ -6,9 +6,11 @@ FactoryBot.define do
     relationship    { 'Sibling' }
     email           { 'juanito@bananas.com' }
 
-    after :build do |reference|
-      adopter = build(:adopter, :with_profile_references)
-      reference.profile = adopter.profile
+    trait :with_adopter do
+      after :build do |reference|
+        adopter = build(:adopter, :with_profile_references)
+        reference.adopter_profile = adopter.profile
+      end
     end
   end
 

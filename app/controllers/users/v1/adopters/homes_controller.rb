@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_application_step, unless: :adopter_profile?
-  before_action :redirect_to_next_application_step, unless: :home?
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_next_profile_step, unless: :home?
 
   def show
     render json: Users::Adopters::Profile::HomePresenter.new(current_user).response, status: :ok
   end
 
   def update
-    service = Adopter::Profile::SaveHome.new(current_user, application_params)
+    service = Adopter::Profile::SaveHome.new(current_user, adopter_profile_params)
     if service.perform
       render json: {application: {}}, status: :ok
     else
@@ -20,7 +20,7 @@ class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
 
   private
 
-  def application_params
+  def adopter_profile_params
     params.require(:profile).permit(:id,
       pet_info_attributes: [:id,
         home: %i[kind has_pool is_pool_fenced has_yard yard is_rent is_landlord_allow_pets

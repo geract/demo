@@ -1,34 +1,33 @@
 # frozen_string_literal: true
 
-module Users
-  module V1
-    module Adopters
-      class Applications::ReferencesController < PetApplicationController
-        before_action :redirect_to_first_application_step, unless: :adopter_profile?
-        before_action :redirect_to_next_application_step, unless: :references?
+class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseController
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_next_profile_step, unless: :references?
 
-        def update
-          service = Adopter::Application::SaveReferences.new(current_user, application_params)
-          if service.perform
-            render json: {application: {}}, status: :ok
-          else
-            errors = service.application.errors.full_messages
-            render json: errors, status: :unprocessable_entity
-          end
-        end
+  def show
+    render json: Users::Adopters::Profile::ReferencesPresenter.new(current_user).response, status: :ok
+  end
 
-        private
-
-        def application_params
-          params.require(:application).permit(
-            references_attributes: %i[first_name last_name email phone_number relationship]
-          )
-        end
-
-        def references?
-          current_user.application.completed_state?('add_references')
-        end
-      end
+  def update
+    service = Adopter::Profile::SaveReferences.new(current_user, adopter_profile_params)
+    if service.perform
+      render json: {profile: {}}, status: :ok
+    else
+      errors = service.profile.errors.full_messages
+      render json: errors, status: :unprocessable_entity
     end
   end
+
+  private
+
+  def adopter_profile_params
+    params.require(:profile).permit(
+      references_attributes: %i[id first_name last_name email phone_number relationship]
+    )
+  end
+
+  def references?
+    current_user.profile.completed_state?('add_references')
+  end
 end
+

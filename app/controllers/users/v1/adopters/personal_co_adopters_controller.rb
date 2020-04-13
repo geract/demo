@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_application_step, unless: :adopter_profile?
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
 
   def show
     render json: Users::Adopters::Profile::PersonalCoAdopterPresenter.new(current_user).response, status: :ok
   end
 
   def update
-    service = Adopter::Profile::SavePersonalCoAdopter.new(current_user, application_params)
+    service = Adopter::Profile::SavePersonalCoAdopter.new(current_user, adopter_profile_params)
 
     if service.perform
       render json: {profile: {}}, status: :ok
@@ -20,7 +20,7 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
 
   private
 
-  def application_params
+  def adopter_profile_params
     params.require(:profile).permit(
       :id, :is_address_same_as_adopter,
       co_adopter_attributes: [:id, :email,

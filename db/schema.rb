@@ -229,10 +229,10 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "email"
     t.string "phone_number"
     t.string "relationship"
-    t.bigint "profile_id"
+    t.bigint "adopter_profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_references_on_profile_id"
+    t.index ["adopter_profile_id"], name: "index_references_on_adopter_profile_id"
   end
 
   create_table "rescuer_profiles", force: :cascade do |t|
@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
   add_foreign_key "organization_addresses", "organizations"
   add_foreign_key "pet_infos", "adopter_profiles"
   add_foreign_key "pets", "organizations"
-  add_foreign_key "references", "adopter_profiles", column: "profile_id"
+  add_foreign_key "references", "adopter_profiles"
   add_foreign_key "rescuer_profiles", "organizations"
   add_foreign_key "rescuer_profiles", "users"
 end

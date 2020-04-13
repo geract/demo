@@ -94,13 +94,19 @@ FactoryBot.define do
 
     trait :agreements do
       state { 'agreements' }
+
+      home_visit_agreement   { true }
+      adoption_fee_agreement { true }
     end
 
     trait :references do
       state { 'add_references' }
 
-      home_visit_agreement   { true }
-      adoption_fee_agreement { true }
+      after :build do |profile|
+        3.times do
+          profile.references << build(:reference, adopter_profile: profile)
+        end
+      end
     end
 
     trait :completed do
@@ -111,6 +117,7 @@ FactoryBot.define do
     factory :adopter_profile_with_lifestyle, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle]
     factory :adopter_profile_with_agreements, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements]
     factory :adopter_profile_with_references, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements, :references]
+    factory :adopter_profile_completed, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements, :completed]
   end
 
   factory :co_adopter_profile, class: 'AdopterProfile' do

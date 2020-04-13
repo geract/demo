@@ -1,42 +1,40 @@
 # frozen_string_literal: true
 
-class Adopter::Application::SaveReferences
+class Adopter::Profile::SaveReferences
   MIN_REFERENCES = 3
 
-  attr_reader :application
+  attr_reader :profile
 
   def initialize(adopter, params)
-    @adopter = adopter
-    @application = adopter.application
-    @references_attributes = params[:references_attributes]
+    @profile = adopter.profile
+    @attributes = params
   end
 
   def perform
-    @application.assign_attributes(attributes)
+    profile.assign_attributes(attributes)
 
-    @application.transaction do
-      if MIN_REFERENCES > @application.references.size
-        @application.errors.add(:references, "must be at least #{MIN_REFERENCES}")
+    profile.transaction do
+      if MIN_REFERENCES > profile.references.size
+        profile.errors.add(:references, "must be at least #{MIN_REFERENCES}")
         return false
       end
 
-      save_references? && @application.continue!
+      profile.add_references? && profile.continue!
+      save_references?
     end
   end
 
   private
 
-  def attributes
-    { references_attributes: @references_attributes }
-  end
+  attr_reader :attributes
 
   def request_references_feedback
-    @application.references.each do |reference|
+    @profile.references.each do |reference|
       Users::Adopters::RequestReferenceFeedback.perform_later(reference)
     end
   end
   
   def save_references?
-    @application.references.all?(&:valid?) && @application.save
+    @profile.references.all?(&:valid?) && @profile.save
   end
 end

@@ -10,7 +10,7 @@ class AdopterProfile < ApplicationRecord
   has_one :employment, as: :employmentable, dependent: :destroy
   has_one :pet_info
 
-  has_many :references, foreign_key: :application_id
+  has_many :references
 
   belongs_to :adopter, inverse_of: :profile
   belongs_to :veterinarian, optional: true

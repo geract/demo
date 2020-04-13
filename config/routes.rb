@@ -44,7 +44,7 @@ Rails.application.routes.draw do
         resource :home, only: %i(show update)
         resource :lifestyle, only: %i(show update)
         resource :agreements, only: %i(show update)
-        resource :references, only: %i(update), as: :add_references
+        resource :references, only: %i(show update), as: :add_references
       end
 
       resources :characteristics_options, only: %i(index)

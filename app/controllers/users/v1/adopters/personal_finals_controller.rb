@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_application_step, unless: :adopter_profile?
-  before_action :redirect_to_next_application_step, unless: :personal_final?
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_next_profile_step, unless: :personal_final?
 
   def show
     render json: Users::Adopters::Profile::PersonalFinalPresenter.new(current_user).response, status: :ok
   end
 
   def update
-    service = Adopter::Profile::SavePersonalFinal.new(current_user, application_params)
+    service = Adopter::Profile::SavePersonalFinal.new(current_user, adopter_profile_params)
     if service.perform
       render json: {application: {}}, status: :ok
     else
@@ -20,7 +20,7 @@ class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseC
 
   private
 
-  def application_params
+  def adopter_profile_params
     params.require(:profile).permit(:id,
       pet_info_attributes: [
         personal: %i[has_children children_ages is_pet_allergic pet_allergic_plan],

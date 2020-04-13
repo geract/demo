@@ -6,7 +6,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
   end
 
   def update
-    service = Adopter::Profile::SavePersonalInfo.new(current_user, application_params)
+    service = Adopter::Profile::SavePersonalInfo.new(current_user, adopter_profile_params)
 
     if service.perform
       render json: {profile: {}}, status: :ok
@@ -18,7 +18,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
 
   private
 
-  def application_params
+  def adopter_profile_params
     params.require(:profile).permit( :id, :has_co_adopter, :pronoun, :family_status, :birthday,
                                       address_attributes: %i[id street_line_1 street_line_2 city state zip_code country id],
                                       employment_attributes: [:id, :status, :years, :company, :pet_costs,

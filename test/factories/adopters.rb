@@ -58,11 +58,11 @@ FactoryBot.define do
       end
     end
 
-    # trait :with_profile_completed do
-    #   after :build do |adopter|
-    #     adopter.profile = build(:adopter_profile_completed)
-    #   end
-    # end
+    trait :with_profile_completed do
+      after :build do |adopter|
+        adopter.profile = build(:adopter_profile_completed)
+      end
+    end
   end
 
   factory :co_adopter, class: 'Adopter' do
