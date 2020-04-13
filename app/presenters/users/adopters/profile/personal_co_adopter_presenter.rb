@@ -1,30 +1,32 @@
 class Users::Adopters::Profile::PersonalCoAdopterPresenter
   def initialize(adopter)
-    @application = adopter.application
     @profile = adopter.profile
-    @co_adopter = application.co_adopter
-    @personal = application.applicationable.pet_info.personal
+    @co_adopter = profile.co_adopter
+    @pet_info = profile.pet_info
   end
 
   def response
-    { application: { 
-      is_address_same_as_adopter: profile.address == application.co_adopter&.address,
-        applicationable_attributes: {
-          pet_info_attributes: {
-            personal: {
-              co_adopter_relation: personal[:co_adopter_relation],
-              pet_relation_change_owner: personal[:pet_relation_change_owner]
-            },
+    { profile: { 
+        id: profile.id,
+        is_address_same_as_adopter: profile.address == profile.co_adopter&.address,
+        pet_info_attributes: {
+          id: pet_info.id,
+          personal: {
+            co_adopter_relation: pet_info[:personal][:co_adopter_relation],
+            pet_relation_change_owner: pet_info[:personal][:pet_relation_change_owner]
           },
         },
         co_adopter_attributes: {
+          id: co_adopter&.id,
           email: co_adopter.email,
           profile_attributes: {
+            id: co_adopter.profile.id,
             first_name: co_adopter.profile.first_name,
             last_name: co_adopter.profile.last_name,
             phone_number: co_adopter.profile.phone_number,
             birthday: co_adopter.profile.birthday,
             address_attributes: {
+              id: co_adopter.address.id,
               street_line_1: co_adopter.address.street_line_1,
               street_line_2: co_adopter.address.street_line_2,
               city: co_adopter.address.city,
@@ -33,11 +35,13 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
               country: co_adopter.address.country,
             },
             employment_attributes: {
+              id: co_adopter.employment.id,
               status: co_adopter.employment.status,
               years: co_adopter.employment.years,
               company: co_adopter.employment.company,
               pet_costs: co_adopter.employment.pet_costs,
               address_attributes: {
+                id: co_adopter.employment.address.id,
                 street_line_1: co_adopter.employment.address.street_line_1,
                 street_line_2: co_adopter.employment.address.street_line_2,
                 city: co_adopter.employment.address.city,
@@ -54,5 +58,5 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
 
   private
 
-  attr_reader :application, :profile, :personal, :co_adopter
+  attr_reader :profile, :co_adopter, :pet_info
 end

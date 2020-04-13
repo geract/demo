@@ -7,7 +7,7 @@ class Adopter::Profile::SavePersonalInfo
     @profile = adopter.profile
     @attributes = params
     @pet_info_attributes = attributes.delete(:pet_info_attributes)
-    @has_co_adopter = attributes.delete(:has_co_adopter)
+    @has_co_adopter = (attributes.delete(:has_co_adopter) == 'true')
   end
 
   def perform
@@ -16,7 +16,7 @@ class Adopter::Profile::SavePersonalInfo
 
       PetInfo.find_or_initialize_by(adopter_profile_id: profile.id).
               assign_attributes(pet_info_attributes)
-      
+
       has_co_adopter && profile.continue! || profile.skip_co_adopter!
       profile.save
     end

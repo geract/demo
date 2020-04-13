@@ -22,6 +22,7 @@ FactoryBot.define do
     end
     
     trait :personal_co_adopter do
+      co_adopter
       state { 'personal_co_adopter' }
 
       after :build do |adopter_profile|

@@ -1,6 +1,8 @@
 class AdopterProfile < ApplicationRecord
   include AASM
 
+  attr_accessor :is_from_co_adopter
+
   STATES = ['personal_info', 'personal_co_adopter', 'personal_final', 'home', 'lifestyle',
             'agreements', 'add_references', 'agreements', 'add_references', 'completed'].freeze
 
@@ -8,20 +10,20 @@ class AdopterProfile < ApplicationRecord
   has_one :employment, as: :employmentable, dependent: :destroy
   has_one :pet_info
 
+  has_many :references, foreign_key: :application_id
+
   belongs_to :adopter, inverse_of: :profile
   belongs_to :veterinarian, optional: true
   belongs_to :co_adopter, class_name: 'Adopter', optional: true, foreign_key: :co_adopter_id
   belongs_to :applicationable, polymorphic: true, optional: true
 
-  validates :phone_number, :adopter, :family_status, :pronoun, presence: true
+  validates :phone_number, :adopter, presence: true
+  validates :family_status, :pronoun, presence: true, unless: :is_from_co_adopter
   validates :terms, acceptance: { message: 'must be accepted' }, unless: :is_from_co_adopter
   validates :home_visit_agreement, :adoption_fee_agreement, acceptance: { message: 'must be accepted' }, if: :agreements?
-  has_many :references, foreign_key: :application_id
 
   accepts_nested_attributes_for :co_adopter, :applicationable, :pet_info,
                                 :veterinarian, :references, :employment, :address
-
-  delegate :continue_application, :continue_application!, :skip_co_adopter!, to: :applicationable, allow_nil: true
 
   aasm(column: 'state', whiny_transactions: false) do
     state :personal_info, initial: true
@@ -52,6 +54,4 @@ class AdopterProfile < ApplicationRecord
   def accepted_agreements?
     home_visit_agreement && adoption_fee_agreement
   end
-
-  attr_accessor :is_from_co_adopter
 end

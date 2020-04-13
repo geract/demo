@@ -1,48 +1,38 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SavePersonalCoAdopter
-  attr_reader :application
+  attr_reader :profile
 
   def initialize(adopter, params)
-    @adopter = adopter
-    @application = @adopter.application
+    @profile = adopter.profile
 
     return false unless params[:co_adopter_attributes].present?
 
-    @co_adopter_attributes = params[:co_adopter_attributes].merge(password: generate_password)
+    @personal_attributes = params[:pet_info_attributes][:personal]
+    @co_adopter_attributes = params.delete(:co_adopter_attributes).merge(password: generate_password)
     @co_adopter_attributes[:profile_attributes][:is_from_co_adopter] = true
 
-    @is_address_same_as_adopter = params[:is_address_same_as_adopter]
-    @applicationable_attributes = params[:applicationable_attributes]
+    @is_address_same_as_adopter = (params.delete(:is_address_same_as_adopter) == 'true')
   end
   
   def perform
-    @application.transaction do
-      @application.assign_attributes(attributes)
-      @application.applicationable = applicationable
+    profile.transaction do
+      profile.pet_info.personal = profile.pet_info.personal.merge(personal_attributes)
 
-      @application.co_adopter.profile.address = @adopter.address if @is_address_same_as_adopter
+      if profile.co_adopter
+        profile.co_adopter.assign_attributes(co_adopter_attributes)
+      else
+        profile.co_adopter = Adopter.new(co_adopter_attributes)
+      end
 
-      employment = @application.co_adopter.profile.employment
-      employment.skip_costs_for_co_adopter = employment.without_address?
-
-      @application.continue_application && @application.save
+      profile.co_adopter.profile.address = profile.address if is_address_same_as_adopter
+      profile.continue! && profile.save && profile.co_adopter.save
     end
   end
 
   private
 
-  def attributes
-    attrs = {
-      co_adopter_attributes: @co_adopter_attributes,
-    }
-  end
-
-  def applicationable
-    @application.applicationable.tap do |a|
-      a.pet_info_attributes = @applicationable_attributes[:pet_info_attributes]
-    end
-  end
+  attr_reader :personal_attributes, :co_adopter_attributes, :is_address_same_as_adopter
 
   def generate_password
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)

@@ -1,14 +1,8 @@
 require "test_helper"
 
 class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @adopter = build(:adopter)
-    @credentials = @adopter.create_token
-    @adopter.save
-  end
-
   def test_show
-    @adopter = build(:adopter, :with_application_personal_info)
+    @adopter = build(:adopter, :with_personal_info)
     @credentials = @adopter.create_token
     @adopter.save
     
@@ -18,16 +12,20 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     api_response = JSON.parse(response.body)
 
     assert_response :success
-    assert api_response.present?
-    assert api_response['profile'].present?
-    refute api_response['profile']['has_co_adopter'].present?
-    assert api_response['profile']['address_attributes'].present?
-    assert api_response['profile']['employment_attributes'].present?
-    assert api_response['profile']['employment_attributes']['address_attributes'].present?
-    assert api_response['profile']['pet_info_attributes']['personal'].present?
+    assert api_response
+    assert api_response['profile']
+    refute api_response['profile']['has_co_adopter']
+    assert api_response['profile']['address_attributes']
+    assert api_response['profile']['employment_attributes']
+    assert api_response['profile']['employment_attributes']['address_attributes']
+    assert api_response['profile']['pet_info_attributes']['personal']
   end
 
-  def test_update
+  def test_create
+    @adopter = build(:adopter)
+    @credentials = @adopter.create_token
+    @adopter.save
+
     patch adopters_personal_info_path,
       params: build(:personal_info_params),
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
@@ -36,20 +34,30 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert @profile.personal_co_adopter?
-    assert @profile.address.present?
-    assert @profile.employment.present?
-    assert @profile.employment.address.present?
-    assert @profile.pet_info.personal.present?
+    assert @profile.address
+    assert @profile.employment
+    assert @profile.employment.address
+    assert @profile.pet_info.personal
   end
-  
-  def test_update_and_skip_personal_co_adopter
+
+  def test_update
+    @adopter = build(:adopter, :with_personal_info)
+    @credentials = @adopter.create_token
+    @adopter.save
+    params = build(:personal_info_params)
+    params[:profile][:has_co_adopter] = false
+
     patch adopters_personal_info_path,
-    params: build(:personal_info_params),
-    headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
-    
+      params: params,
+      headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
+
     @profile = @adopter.reload.profile
-    
+
     assert_response :success
-    refute @profile.personal_final?
+    assert @profile.personal_final?
+    assert @profile.address
+    assert @profile.employment
+    assert @profile.employment.address
+    assert @profile.pet_info.personal
   end
 end

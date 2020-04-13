@@ -9,7 +9,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
     service = Adopter::Profile::SavePersonalInfo.new(current_user, application_params)
 
     if service.perform
-      render json: {application: {}}, status: :ok
+      render json: {profile: {}}, status: :ok
     else
       errors = service.profile.errors.full_messages
       render json: errors, status: :unprocessable_entity

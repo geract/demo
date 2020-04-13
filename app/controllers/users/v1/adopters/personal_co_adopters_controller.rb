@@ -11,9 +11,9 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
     service = Adopter::Profile::SavePersonalCoAdopter.new(current_user, application_params)
 
     if service.perform
-      render json: {application: {}}, status: :ok
+      render json: {profile: {}}, status: :ok
     else
-      errors = service.application.errors.full_messages
+      errors = service.profile.errors.full_messages
       render json: errors, status: :unprocessable_entity
     end
   end

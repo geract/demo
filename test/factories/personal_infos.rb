@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :personal_info_params, class: Hash do
     body do
       { profile: { 
-          has_co_adopter: false,
+          has_co_adopter: true,
           pronoun: 'She',
           family_status: 'Single',
           birthday: '2020-03-14',
