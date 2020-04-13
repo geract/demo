@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_202303) do
+ActiveRecord::Schema.define(version: 2020_04_13_183911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,16 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "pet_applications", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.bigint "adopter_profile_id", null: false
+    t.string "state"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["adopter_profile_id"], name: "index_pet_applications_on_adopter_profile_id"
+    t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
+  end
+
   create_table "pet_infos", force: :cascade do |t|
     t.jsonb "home"
     t.jsonb "animal_history"
@@ -290,6 +300,8 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
   add_foreign_key "adopter_profiles", "users", column: "co_adopter_id"
   add_foreign_key "adopter_profiles", "veterinarians"
   add_foreign_key "organization_addresses", "organizations"
+  add_foreign_key "pet_applications", "adopter_profiles"
+  add_foreign_key "pet_applications", "pets"
   add_foreign_key "pet_infos", "adopter_profiles"
   add_foreign_key "pets", "organizations"
   add_foreign_key "references", "adopter_profiles"
