@@ -5,12 +5,16 @@ FactoryBot.define do
     phone_number    { '3157863467' }
     relationship    { 'Sibling' }
     email           { 'juanito@bananas.com' }
-    association(:application, factory: :pet_application)
+
+    after :build do |reference|
+      adopter = build(:adopter, :with_profile_references)
+      reference.profile = adopter.profile
+    end
   end
 
-  factory :references_params, class: Hash do
+  factory :adopter_profile_references_params, class: Hash do
     body do
-      { application: { 
+      { profile: { 
           references_attributes: [
             {
               first_name: 'String',

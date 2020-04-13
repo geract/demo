@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :agreements_params, class: Hash do
+  factory :adopter_profile_agreements_params, class: Hash do
     body do
-      { application: { 
+      { profile: { 
           home_visit_agreement: true,
           adoption_fee_agreement: true,
         }

@@ -1,17 +1,18 @@
-class Users::Adopters::PetApplications::AgreementsPresenter
+class Users::Adopters::Profile::AgreementsPresenter
   def initialize(adopter)
-    @application = adopter.application
+    @profile = adopter.profile
   end
 
   def response
-    { application: { 
-        home_visit_agreement: application.home_visit_agreement,
-        adoption_fee_agreement: application.adoption_fee_agreement,
+    { profile: { 
+        id: profile.id,
+        home_visit_agreement: profile.home_visit_agreement,
+        adoption_fee_agreement: profile.adoption_fee_agreement,
       }
     }
   end
 
   private
 
-  attr_reader :application
+  attr_reader :profile
 end

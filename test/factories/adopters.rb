@@ -52,11 +52,11 @@ FactoryBot.define do
       end
     end
 
-    # trait :with_profile_references do
-    #   after :build do |adopter|
-    #     adopter.profile = build(:adopter_profile_with_references)
-    #   end
-    # end
+    trait :with_profile_references do
+      after :build do |adopter|
+        adopter.profile = build(:adopter_profile_with_references)
+      end
+    end
 
     # trait :with_profile_completed do
     #   after :build do |adopter|

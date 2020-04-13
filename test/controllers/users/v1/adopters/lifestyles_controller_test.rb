@@ -24,7 +24,7 @@ class Users::V1::Adopters::LifestylesControllerTest < ActionDispatch::Integratio
     @adopter.save
 
     patch adopters_lifestyle_path,
-      params: build(:adopter_profile_home_params),
+      params: build(:adopter_profile_lifestyle_params),
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     @profile = @adopter.reload.profile
@@ -40,7 +40,7 @@ class Users::V1::Adopters::LifestylesControllerTest < ActionDispatch::Integratio
     @adopter.save
 
     patch adopters_lifestyle_path,
-      params: build(:adopter_profile_home_params),
+      params: build(:adopter_profile_lifestyle_params),
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     @profile = @adopter.reload.profile

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :application_lifestyle_params, class: Hash do
+  factory :adopter_profile_lifestyle_params, class: Hash do
     body do
       { profile: { 
           pet_info_attributes: {
