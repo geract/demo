@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
-class Adopter::Application::SaveHome
-  attr_reader :application
+class Adopter::Profile::SaveHome
+  attr_reader :profile
 
   def initialize(adopter, params)
-    @adopter = adopter
-    @application = @adopter.application
-    @home_attributes = params[:applicationable_attributes][:pet_info_attributes][:home]
+    @profile = adopter.profile
+    @home_attributes = params[:pet_info_attributes][:home]
   end
 
   def perform
-    @application.transaction do
-      @application.applicationable.tap do |a|
-        a.pet_info_attributes = @home_attributes
-      end
+    @profile.transaction do
+      profile.pet_info.personal = profile.pet_info.personal.merge(home_attributes)
 
-      @application.continue_application && @application.save
+      profile.home? && profile.continue!
+      profile.save
     end
   end
+
+  private
+
+  attr_reader :home_attributes
 end

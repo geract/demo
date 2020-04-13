@@ -97,6 +97,7 @@ FactoryBot.define do
     end
 
     factory :adopter_profile_with_home, traits: [:personal_info, :personal_co_adopter, :personal_final, :home]
+    factory :adopter_profile_with_lifestyle, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle]
   end
 
   factory :co_adopter_profile, class: 'AdopterProfile' do

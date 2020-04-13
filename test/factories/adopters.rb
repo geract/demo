@@ -40,9 +40,9 @@ FactoryBot.define do
       end
     end
 
-    trait :with_application_lifestyle do
+    trait :with_profile_lifestyle do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :lifestyle)
+        adopter.profile = build(:adopter_profile_with_lifestyle)
       end
     end
 
