@@ -46,29 +46,23 @@ FactoryBot.define do
       end
     end
 
-    trait :with_application_completed do
+    trait :with_profile_agreements do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :completed)
+        adopter.profile = build(:adopter_profile_with_agreements)
       end
     end
 
-    trait :with_application_agreements do
-      after :build do |adopter|
-        adopter.profile = build(:adopter_profile)
-      end
-    end
+    # trait :with_profile_references do
+    #   after :build do |adopter|
+    #     adopter.profile = build(:adopter_profile_with_references)
+    #   end
+    # end
 
-    trait :with_application_references do
-      after :build do |adopter|
-        adopter.profile = build(:adopter_profile)
-      end
-    end
-
-    trait :with_completed_application do
-      after :build do |adopter|
-        adopter.profile = build(:adopter_profile)
-      end
-    end
+    # trait :with_profile_completed do
+    #   after :build do |adopter|
+    #     adopter.profile = build(:adopter_profile_completed)
+    #   end
+    # end
   end
 
   factory :co_adopter, class: 'Adopter' do

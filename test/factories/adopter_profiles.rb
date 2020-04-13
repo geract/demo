@@ -92,12 +92,17 @@ FactoryBot.define do
       end
     end
 
+    trait :agreements do
+      state { 'agreements' }
+    end
+
     trait :completed do
       state { 'completed' }
     end
 
     factory :adopter_profile_with_home, traits: [:personal_info, :personal_co_adopter, :personal_final, :home]
     factory :adopter_profile_with_lifestyle, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle]
+    factory :adopter_profile_with_agreements, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements]
   end
 
   factory :co_adopter_profile, class: 'AdopterProfile' do
