@@ -17,16 +17,11 @@ class Adopter::Profile::SavePersonalCoAdopter
   
   def perform
     profile.transaction do
-      profile.pet_info.personal = profile.pet_info.personal.merge(personal_attributes)
+      set_co_adopter
+      set_pet_info
 
-      if profile.co_adopter
-        profile.co_adopter.assign_attributes(co_adopter_attributes)
-      else
-        profile.co_adopter = Adopter.new(co_adopter_attributes)
-      end
-
-      profile.co_adopter.profile.address = profile.address if is_address_same_as_adopter
-      profile.continue! && profile.save && profile.co_adopter.save
+      profile.personal_co_adopter? && profile.continue!
+      profile.save
     end
   end
 
@@ -37,5 +32,19 @@ class Adopter::Profile::SavePersonalCoAdopter
   def generate_password
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate("#{Time.now}").first(20)
+  end
+
+  def set_co_adopter
+    if profile.co_adopter
+      profile.co_adopter.assign_attributes(co_adopter_attributes)
+    else
+      profile.co_adopter = Adopter.new(co_adopter_attributes)
+    end
+    
+    profile.co_adopter.profile.address = profile.address if is_address_same_as_adopter
+  end
+
+  def set_pet_info
+    profile.pet_info.personal = profile.pet_info.personal.merge(personal_attributes)
   end
 end

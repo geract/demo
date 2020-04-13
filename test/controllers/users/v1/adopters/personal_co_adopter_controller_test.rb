@@ -14,7 +14,6 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert_response :success
     assert api_response
     assert api_response['profile']
-    refute api_response['profile']['is_address_same_as_adopter']
     assert api_response['profile']['co_adopter_attributes']
     assert api_response['profile']['co_adopter_attributes']['profile_attributes']
     assert api_response['profile']['co_adopter_attributes']['profile_attributes']['employment_attributes']
@@ -45,8 +44,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
   end
 
   def test_update
-    @adopter = build(:adopter, :with_personal_info)
-    @adopter.profile.continue!
+    @adopter = build(:adopter, :with_personal_final)
     @credentials = @adopter.create_token
     @adopter.save
 

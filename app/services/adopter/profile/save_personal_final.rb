@@ -1,39 +1,44 @@
 # frozen_string_literal: true
 
-class Adopter::Application::SavePersonalFinal
-  attr_reader :application
+class Adopter::Profile::SavePersonalFinal
+  attr_reader :profile
 
   def initialize(adopter, params)
-    @adopter = adopter
-    @application = @adopter.application
-    @veterinarian_attributes = params[:veterinarian_attributes]
-    @applicationable_attributes = params[:applicationable_attributes]
+    @profile = adopter.profile
+    @attributes = params
+    @veterinarian_attributes = attributes.delete(:veterinarian_attributes)
+    @has_veterinarian = (attributes[:pet_info_attributes][:veterinarian_extra][:has_veterinarian] == 'true')
   end
 
   def perform
-    @application.transaction do
-      @application.assign_attributes(attributes)
-      @application.applicationable = applicationable
+    profile.transaction do
+      set_veterinarian
+      set_pet_info
 
-      @application.veterinarian = nil unless veterinarian?
-
-      @application.continue_application && @application.save
+      profile.personal_final? && profile.continue!
+      profile.save
     end
   end
 
   private
 
-  def attributes
-    { veterinarian_attributes: @veterinarian_attributes }
-  end
+  attr_reader :attributes, :veterinarian_attributes, :has_veterinarian
 
-  def applicationable
-    @application.applicationable.tap do |a|
-      a.pet_info_attributes = @applicationable_attributes[:pet_info_attributes]
+  def set_veterinarian
+    if has_veterinarian
+      if profile.veterinarian
+        profile.veterinarian.assign_attributes(veterinarian_attributes)
+      else
+        profile.veterinarian = Veterinarian.new(veterinarian_attributes)
+      end
+    else
+      profile.veterinarian = nil
     end
   end
 
-  def veterinarian?
-    @application.applicationable.pet_info.veterinarian_extra[:has_veterinarian]
+  def set_pet_info
+    profile.pet_info.personal = profile.pet_info.personal.merge(attributes[:pet_info_attributes][:personal])
+    profile.pet_info.animal_history = profile.pet_info.animal_history.merge(attributes[:pet_info_attributes][:animal_history])
+    profile.pet_info.veterinarian_extra = profile.pet_info.veterinarian_extra.merge(attributes[:pet_info_attributes][:veterinarian_extra])
   end
 end

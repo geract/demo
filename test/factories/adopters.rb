@@ -28,15 +28,15 @@ FactoryBot.define do
       end
     end
 
-    trait :with_application_personal_final do
+    trait :with_personal_final do
       after :build do |adopter|
         adopter.profile = build(:adopter_profile, :personal_final)
       end
     end
 
-    trait :with_application_home do
+    trait :with_profile_home do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :home)
+        adopter.profile = build(:adopter_profile_with_home)
       end
     end
 

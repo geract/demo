@@ -20,7 +20,7 @@ FactoryBot.define do
         adopter_profile.pet_info.personal = { about_you: 'About you', ideal_pet: 'Ideal pet', adopt_reason: 'Adopt reason' }
       end
     end
-    
+
     trait :personal_co_adopter do
       co_adopter
       state { 'personal_co_adopter' }
@@ -60,6 +60,7 @@ FactoryBot.define do
     end
 
     trait :home do
+      veterinarian
       state { 'home' }
 
       after :build do |adopter_profile|
@@ -94,6 +95,8 @@ FactoryBot.define do
     trait :completed do
       state { 'completed' }
     end
+
+    factory :adopter_profile_with_home, traits: [:personal_info, :personal_co_adopter, :personal_final, :home]
   end
 
   factory :co_adopter_profile, class: 'AdopterProfile' do
