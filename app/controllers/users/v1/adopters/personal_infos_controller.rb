@@ -2,16 +2,16 @@
 
 class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseController
   def show
-    render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user).response, status: :ok
+    render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user), status: :ok
   end
 
   def update
-    service = Adopter::Profile::SavePersonalInfo.new(current_user, adopter_profile_params)
+    adopter = Adopter::Profile::SavePersonalInfo.new(current_user, adopter_profile_params)
 
-    if service.perform
+    if adopter.perform
       render json: {profile: {}}, status: :ok
     else
-      errors = service.profile.errors.full_messages
+      errors = adopter.profile.errors.full_messages
       render json: errors, status: :unprocessable_entity
     end
   end

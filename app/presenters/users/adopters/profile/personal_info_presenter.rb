@@ -4,7 +4,7 @@ class Users::Adopters::Profile::PersonalInfoPresenter
     @personal = profile.pet_info.personal
   end
 
-  def response
+  def as_json(*)
     { profile: { 
         id: profile.id,
         has_co_adopter: profile.co_adopter_id.present?,

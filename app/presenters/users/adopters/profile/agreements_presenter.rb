@@ -3,7 +3,7 @@ class Users::Adopters::Profile::AgreementsPresenter
     @profile = adopter.profile
   end
 
-  def response
+  def as_json(*)
     { profile: { 
         id: profile.id,
         home_visit_agreement: profile.home_visit_agreement,

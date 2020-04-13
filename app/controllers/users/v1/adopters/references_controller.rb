@@ -5,15 +5,15 @@ class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseContr
   before_action :redirect_to_next_profile_step, unless: :references?
 
   def show
-    render json: Users::Adopters::Profile::ReferencesPresenter.new(current_user).response, status: :ok
+    render json: Users::Adopters::Profile::ReferencesPresenter.new(current_user), status: :ok
   end
 
   def update
-    service = Adopter::Profile::SaveReferences.new(current_user, adopter_profile_params)
-    if service.perform
+    adopter = Adopter::Profile::SaveReferences.new(current_user, adopter_profile_params)
+    if adopter.perform
       render json: {profile: {}}, status: :ok
     else
-      errors = service.profile.errors.full_messages
+      errors = adopter.profile.errors.full_messages
       render json: errors, status: :unprocessable_entity
     end
   end

@@ -5,7 +5,7 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
     @pet_info = profile.pet_info
   end
 
-  def response
+  def as_json(*)
     { profile: { 
         id: profile.id,
         is_address_same_as_adopter: profile.address == profile.co_adopter&.address,

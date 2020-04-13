@@ -4,16 +4,16 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
   before_action :redirect_to_first_profile_step, unless: :adopter_profile?
 
   def show
-    render json: Users::Adopters::Profile::PersonalCoAdopterPresenter.new(current_user).response, status: :ok
+    render json: Users::Adopters::Profile::PersonalCoAdopterPresenter.new(current_user), status: :ok
   end
 
   def update
-    service = Adopter::Profile::SavePersonalCoAdopter.new(current_user, adopter_profile_params)
+    adopter = Adopter::Profile::SavePersonalCoAdopter.new(current_user, adopter_profile_params)
 
-    if service.perform
+    if adopter.perform
       render json: {profile: {}}, status: :ok
     else
-      errors = service.profile.errors.full_messages
+      errors = adopter.profile.errors.full_messages
       render json: errors, status: :unprocessable_entity
     end
   end

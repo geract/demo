@@ -5,7 +5,7 @@ class Users::Adopters::Profile::PersonalFinalPresenter
     @pet_info = profile.pet_info
   end
   
-  def response
+  def as_json(*)
     { profile: {
         id: profile.id,
         pet_info_attributes: {

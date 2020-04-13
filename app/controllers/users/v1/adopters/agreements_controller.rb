@@ -5,7 +5,7 @@ class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseContr
   before_action :redirect_to_next_profile_step, unless: :agreements?
 
   def show
-    render json: Users::Adopters::Profile::AgreementsPresenter.new(current_user).response, status: :ok
+    render json: Users::Adopters::Profile::AgreementsPresenter.new(current_user), status: :ok
   end
 
   def update
@@ -15,7 +15,7 @@ class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseContr
       profile.agreements? && profile.continue!
       render json: {profile: {}}, status: :ok
     else
-      errors = service.profile.errors.full_messages
+      errors = profile.errors.full_messages
       render json: errors, status: :unprocessable_entity
     end
   end

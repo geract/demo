@@ -4,7 +4,7 @@ class Users::Adopters::Profile::ReferencesPresenter
     @references = profile.references
   end
 
-  def response
+  def as_json(*)
     { profile: { 
         id: profile.id,
         references_attributes: profile_references
