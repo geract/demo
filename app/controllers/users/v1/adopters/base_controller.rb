@@ -9,19 +9,16 @@ class Users::V1::Adopters::BaseController < Users::V1::BaseController
 
   private
 
-  # TODO check usage
-
-  def adopter_application?
-    !!current_user.application
+  def adopter_profile?
+    !!current_user.profile.pet_info
   end
 
   def next_application_step
-    return [:adopters_applications, current_user.application.state] if current_user.application.completed?
-    [:adopters_applications, current_user.application.applicationable.state]
+    [:adopters, current_user.profile.state]
   end
 
   def redirect_to_first_application_step
-    redirect_to %i[adopters_applications personal_info]
+    redirect_to %i[adopters personal_info]
   end
 
   def redirect_to_next_application_step

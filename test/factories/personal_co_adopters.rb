@@ -1,14 +1,12 @@
 FactoryBot.define do
   factory :personal_co_adopter_params, class: Hash do
     body do
-      { application: { 
+      { profile: { 
           is_address_same_as_adopter: false,
-          applicationable_attributes: {
-            pet_info_attributes: {
-              personal: {
-                co_adopter_relation: 'Friend',
-                pet_relation_change_owner: 'Yes',
-              },
+          pet_info_attributes: {
+            personal: {
+              co_adopter_relation: 'Friend',
+              pet_relation_change_owner: 'Yes',
             },
           },
           co_adopter_attributes: {
@@ -38,11 +36,11 @@ FactoryBot.define do
                   state:  'CA',
                   zip_code:  '11111',
                   country:  'United States'
-                },
-              },
-            },
-          },
-        },
+                }
+              }
+            }
+          }
+        }
       }
     end
 

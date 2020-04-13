@@ -10,6 +10,12 @@ FactoryBot.define do
       adopter.profile = build(:adopter_profile)
     end
 
+    trait :without_pet_info do
+      after :build do |adopter|
+        adopter.profile = build(:adopter_profile, pet_info: nil)
+      end
+    end
+
     trait :with_application_personal_info do
       after :build do |adopter|
         adopter.profile = build(:adopter_profile, :personal_info)

@@ -1,4 +1,4 @@
-class Users::Adopters::PetApplications::PersonalCoAdopterPresenter
+class Users::Adopters::Profile::PersonalCoAdopterPresenter
   def initialize(adopter)
     @application = adopter.application
     @profile = adopter.profile

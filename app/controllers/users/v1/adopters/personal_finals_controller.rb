@@ -4,7 +4,7 @@ module Users
   module V1
     module Adopters
       class Applications::PersonalFinalsController < PetApplicationController
-        before_action :redirect_to_first_application_step, unless: :adopter_application?
+        before_action :redirect_to_first_application_step, unless: :adopter_profile?
         before_action :redirect_to_next_application_step, unless: :personal_final?
 
         def show
