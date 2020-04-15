@@ -5,7 +5,7 @@ class Users::V1::Adopters::PetApplicationsController < Users::V1::Adopters::Base
     if pet_application.save
       render json: {}, status: :ok
     else
-      render json: {errors: pet_application.errors.messages}, status: :unproccesable_entity
+      render json: {errors: pet_application.errors.messages}, status: :unprocessable_entity
     end
   end
 
