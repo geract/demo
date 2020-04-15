@@ -4,7 +4,7 @@ class Adopter::Profile::SavePersonalInfo
   attr_reader :profile
 
   def initialize(adopter, params)
-    @profile = adopter.profile
+    @profile = adopter.profile || adopter.build_profile
     @attributes = params
     @pet_info_attributes = attributes.delete(:pet_info_attributes)
     @has_co_adopter = (attributes.delete(:has_co_adopter) == 'true')

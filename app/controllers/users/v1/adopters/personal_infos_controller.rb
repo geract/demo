@@ -24,7 +24,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
                                       employment_attributes: [:id, :status, :years, :company, :pet_costs,
                                         address_attributes: %i[id street_line_1 street_line_2 city state zip_code country id]],
                                       pet_info_attributes: [:id,
-                                        personal: %i[about_you ideal_pet adopt_reason is_military military_pet_plan]]
+                                        personal: %i[about_you ideal_pet adopt_reason is_military military_pet_plan receive_updates pet_costs]]
                                     )
   end
 end

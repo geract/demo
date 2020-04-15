@@ -33,7 +33,9 @@ FactoryBot.define do
               ideal_pet: 'test',
               adopt_reason: 'test',
               is_military: 'true',
-              military_pet_plan: 'test'
+              military_pet_plan: 'test',
+              receive_updates: 'test',
+              pet_costs: 'test'
             },
           },
         },

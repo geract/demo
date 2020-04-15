@@ -43,6 +43,8 @@ class Users::Adopters::Profile::PersonalInfoPresenter
             adopt_reason: personal[:adopt_reason],
             is_military: personal[:is_military],
             military_pet_plan: personal[:military_pet_plan],
+            receive_updates: personal[:receive_updates],
+            pet_costs: personal[:pet_costs],
           }
         }
       },
