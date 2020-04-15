@@ -1,36 +1,22 @@
 FactoryBot.define do
   factory :pet_application do
-    adopter
-    home_visit_agreement    { true }
-    adoption_fee_agreement  { true }
+    state { "MyString" }
 
-    after :build do |application|
-      application.pet = build(:pet,  :complete)
-    end
-
-    trait :with_co_adopter do
-      association(:co_adopter, factory: :adopter, email: 'co_adopter@example.com')
-
-      after :build do |application|
-        application.co_adopter = build(:adopter)
-      end
-    end
-
-    trait :with_veterinarian do
-      veterinarian
-    end
-
-    trait :with_agreements do
-      state { 'agreements' }
-    end
-
-    trait :with_references do
-      state { 'add_references' }
-    end
-
-    trait :completed do
-      state { 'completed' }
+    after :build do |pet_application|
+      adopter = build(:adopter)
+      pet_application.adopter_profile = adopter.profile
+      pet_application.pet = build(:pet, :complete)
     end
   end
+
+  factory :pet_application_params, class: Hash do
+    body do
+      { pet_application: {
+          adopter_profile_id: nil,
+          pet_id: nil
+      }}
+    end
+
+    initialize_with { ActiveSupport::HashWithIndifferentAccess.new(attributes[:body]) }
+  end
 end
-# 

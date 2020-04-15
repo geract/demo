@@ -15,9 +15,10 @@ class Adopter::Profile::SavePersonalInfo
       profile.assign_attributes(attributes)
 
       PetInfo.find_or_initialize_by(adopter_profile_id: profile.id).
-              assign_attributes(pet_info_attributes)
+              assign_attributes(pet_info_attributes).save
 
-      has_co_adopter && profile.continue! || profile.skip_co_adopter!
+      profile.personal_info? && profile.skip_co_adopter!
+      has_co_adopter && profile.continue!
       profile.save
     end
   end
