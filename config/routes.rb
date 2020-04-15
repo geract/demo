@@ -39,15 +39,13 @@ Rails.application.routes.draw do
         resources :messages, only: %i(index create)
         resource :favorite_pets, only: %i(create)
 
-        namespace :applications do
-          resource :personal_info, only: %i(show update)
-          resource :personal_co_adopter, only: %i(show update)
-          resource :personal_final, only: %i(show update)
-          resource :home, only: %i(show update)
-          resource :lifestyle, only: %i(show update)
-          resource :agreements, only: %i(show update)
-          resource :references, only: %i(update), as: :add_references
-        end
+        resource :personal_info, only: %i(show update)
+        resource :personal_co_adopter, only: %i(show update)
+        resource :personal_final, only: %i(show update)
+        resource :home, only: %i(show update)
+        resource :lifestyle, only: %i(show update)
+        resource :agreements, only: %i(show update)
+        resource :references, only: %i(show update), as: :add_references
       end
 
       resources :characteristics_options, only: %i(index)

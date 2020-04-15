@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/petparent/rescue_groups.git
-  revision: 5fca1cce0b38493c7bf1d21f28394b76c3087326
-  branch: petparent-raw-data
+  revision: 2d7e59d5c383af8c37c776ab95204b2a524bcc8a
+  branch: petparent-raw-response
   specs:
     rescue_groups (1.2.0)
       faraday (~> 0.9)

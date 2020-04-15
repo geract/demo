@@ -2,11 +2,12 @@ require "test_helper"
 
 class ReferenceTest < ActiveSupport::TestCase
   setup do
-    @reference = build(:reference)
+    @adopter = build(:adopter, :with_profile_completed)
+    @reference = build(:reference, adopter_profile: @adopter.profile)
   end
 
   context 'associations' do
-    should belong_to(:application)
+    should belong_to(:adopter_profile)
   end
 
   context 'validations' do

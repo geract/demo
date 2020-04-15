@@ -63,18 +63,28 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
   end
 
   create_table "adopter_profiles", force: :cascade do |t|
-    t.bigint "adopter_id"
-    t.jsonb "preferences", default: {}, null: false
+    t.string "pronoun"
     t.string "first_name"
     t.string "last_name"
-    t.string "pronoun"
-    t.string "family_status"
-    t.string "phone_number"
     t.date "birthday"
+    t.string "family_status"
+    t.string "state", null: false
+    t.string "phone_number"
+    t.jsonb "preferences", default: {}, null: false
     t.boolean "terms"
+    t.boolean "home_visit_agreement"
+    t.boolean "adoption_fee_agreement"
+    t.bigint "adopter_id"
+    t.bigint "co_adopter_id"
+    t.string "applicationable_type"
+    t.bigint "applicationable_id"
+    t.bigint "veterinarian_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["adopter_id"], name: "index_adopter_profiles_on_adopter_id", unique: true
+    t.index ["applicationable_type", "applicationable_id"], name: "index_applications_on_applicationable_type_and_id"
+    t.index ["co_adopter_id"], name: "index_adopter_profiles_on_co_adopter_id"
+    t.index ["veterinarian_id"], name: "index_adopter_profiles_on_veterinarian_id"
   end
 
   create_table "employments", force: :cascade do |t|
@@ -167,39 +177,16 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "pet_application_dogs", force: :cascade do |t|
-    t.string "state", default: "personal_info", null: false
-  end
-
-  create_table "pet_applications", force: :cascade do |t|
-    t.bigint "adopter_id"
-    t.bigint "co_adopter_id"
-    t.string "applicationable_type"
-    t.bigint "applicationable_id"
-    t.bigint "veterinarian_id"
-    t.bigint "pet_id"
-    t.string "state", null: false
-    t.boolean "home_visit_agreement"
-    t.boolean "adoption_fee_agreement"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["adopter_id"], name: "index_pet_applications_on_adopter_id"
-    t.index ["applicationable_type", "applicationable_id"], name: "index_applications_on_applicationable_type_and_id"
-    t.index ["co_adopter_id"], name: "index_pet_applications_on_co_adopter_id"
-    t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
-    t.index ["veterinarian_id"], name: "index_pet_applications_on_veterinarian_id"
-  end
-
   create_table "pet_infos", force: :cascade do |t|
     t.jsonb "home"
     t.jsonb "animal_history"
     t.jsonb "lifestyle"
     t.jsonb "personal"
     t.jsonb "veterinarian_extra"
-    t.bigint "dog_id"
+    t.bigint "adopter_profile_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["dog_id"], name: "index_pet_infos_on_dog_id"
+    t.index ["adopter_profile_id"], name: "index_pet_infos_on_adopter_profile_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -242,10 +229,10 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "email"
     t.string "phone_number"
     t.string "relationship"
-    t.bigint "application_id"
+    t.bigint "adopter_profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["application_id"], name: "index_references_on_application_id"
+    t.index ["adopter_profile_id"], name: "index_references_on_adopter_profile_id"
   end
 
   create_table "rescuer_profiles", force: :cascade do |t|
@@ -294,23 +281,18 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "last_name"
     t.string "phone_number"
     t.string "email"
-    t.bigint "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_veterinarians_on_address_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopter_profiles", "users", column: "adopter_id"
+  add_foreign_key "adopter_profiles", "users", column: "co_adopter_id"
+  add_foreign_key "adopter_profiles", "veterinarians"
   add_foreign_key "organization_addresses", "organizations"
-  add_foreign_key "pet_applications", "pets"
-  add_foreign_key "pet_applications", "users", column: "adopter_id"
-  add_foreign_key "pet_applications", "users", column: "co_adopter_id"
-  add_foreign_key "pet_applications", "veterinarians"
-  add_foreign_key "pet_infos", "pet_application_dogs", column: "dog_id"
+  add_foreign_key "pet_infos", "adopter_profiles"
   add_foreign_key "pets", "organizations"
-  add_foreign_key "references", "pet_applications", column: "application_id"
+  add_foreign_key "references", "adopter_profiles"
   add_foreign_key "rescuer_profiles", "organizations"
   add_foreign_key "rescuer_profiles", "users"
-  add_foreign_key "veterinarians", "adopter_addresses", column: "address_id"
 end
