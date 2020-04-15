@@ -18,6 +18,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert api_response['profile']['co_adopter_attributes']['profile_attributes']
     assert api_response['profile']['co_adopter_attributes']['profile_attributes']['employment_attributes']
     assert api_response['profile']['co_adopter_attributes']['profile_attributes']['employment_attributes']['address_attributes']
+    assert api_response['profile']['pet_info_attributes']
     assert api_response['profile']['pet_info_attributes']['personal']
   end
 

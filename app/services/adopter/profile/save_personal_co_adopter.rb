@@ -36,7 +36,7 @@ class Adopter::Profile::SavePersonalCoAdopter
 
   def set_co_adopter
     if profile.co_adopter
-      profile.co_adopter.assign_attributes(co_adopter_attributes)
+      profile.co_adopter.update(co_adopter_attributes)
     else
       profile.co_adopter = Adopter.new(co_adopter_attributes)
     end

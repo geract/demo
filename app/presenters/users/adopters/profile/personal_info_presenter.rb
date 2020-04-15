@@ -11,6 +11,7 @@ class Users::Adopters::Profile::PersonalInfoPresenter
         pronoun: profile.pronoun,
         family_status: profile.family_status,
         birthday: profile.birthday,
+        phone_number: profile.phone_number,
         address_attributes: {
           id: profile.address.id,
           street_line_1:  profile.address.street_line_1,

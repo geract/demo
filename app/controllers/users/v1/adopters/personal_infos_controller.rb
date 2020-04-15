@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseController
+  before_action :redirect_to_first_profile_step, unless: :adopter_profile?, only: :show
+
   def show
     render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user), status: :ok
   end
@@ -19,7 +21,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
   private
 
   def adopter_profile_params
-    params.require(:profile).permit( :id, :has_co_adopter, :pronoun, :family_status, :birthday,
+    params.require(:profile).permit( :id, :has_co_adopter, :pronoun, :family_status, :birthday, :phone_number,
                                       address_attributes: %i[id street_line_1 street_line_2 city state zip_code country id],
                                       employment_attributes: [:id, :status, :years, :company, :pet_costs,
                                         address_attributes: %i[id street_line_1 street_line_2 city state zip_code country id]],

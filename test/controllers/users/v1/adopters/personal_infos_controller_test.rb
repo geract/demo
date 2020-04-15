@@ -22,7 +22,7 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
   end
 
   def test_create
-    @adopter = build(:adopter)
+    @adopter = build(:adopter, :without_pet_info)
     @credentials = @adopter.create_token
     @adopter.save
 
@@ -37,6 +37,7 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     assert @profile.address
     assert @profile.employment
     assert @profile.employment.address
+    assert @profile.pet_info
     assert @profile.pet_info.personal
   end
 
@@ -58,6 +59,20 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     assert @profile.address
     assert @profile.employment
     assert @profile.employment.address
+    assert @profile.pet_info
     assert @profile.pet_info.personal
+  end
+
+  def test_redirect_to_first_step
+    @adopter = build(:adopter, :without_pet_info)
+    @credentials = @adopter.create_token
+    @adopter.save
+
+    get adopters_personal_info_path,
+      params: {},
+      headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
+      
+    assert_response :redirect
+    assert_redirected_to adopters_personal_info_path
   end
 end

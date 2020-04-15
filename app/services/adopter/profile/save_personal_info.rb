@@ -13,12 +13,9 @@ class Adopter::Profile::SavePersonalInfo
   def perform
     profile.transaction do
       profile.assign_attributes(attributes)
+      set_pet_info
+      update_profile_state
 
-      PetInfo.find_or_initialize_by(adopter_profile_id: profile.id).
-              assign_attributes(pet_info_attributes)
-
-      profile.personal_info? && profile.skip_co_adopter!
-      has_co_adopter && profile.continue!
       profile.save
     end
   end
@@ -26,4 +23,22 @@ class Adopter::Profile::SavePersonalInfo
   private
 
   attr_reader :attributes, :pet_info_attributes, :has_co_adopter
+
+  def set_pet_info
+    if profile.pet_info
+      profile.pet_info.assign_attributes(pet_info_attributes)
+    else
+      profile.pet_info = PetInfo.new(pet_info_attributes)
+    end
+  end
+
+  def update_profile_state
+    if profile.personal_info?
+      if has_co_adopter
+        profile.continue!
+      else
+        profile.skip_co_adopter!
+      end
+    end
+  end
 end
