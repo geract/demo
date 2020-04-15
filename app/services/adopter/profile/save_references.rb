@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SaveReferences
-  MIN_REFERENCES = 3
+  MIN_REFERENCES = 1
 
   attr_reader :profile
 

@@ -2,7 +2,7 @@ module AdopterProfilable
   private
 
   def adopter_profile?
-    !!current_user.profile.pet_info
+    !!current_user.profile&.pet_info
   end
 
   def next_profile_step
