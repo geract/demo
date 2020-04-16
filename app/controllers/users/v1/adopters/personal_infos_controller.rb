@@ -8,13 +8,12 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
   end
 
   def update
-    adopter = Adopter::Profile::SavePersonalInfo.new(current_user, adopter_profile_params)
+    profile = current_user.profile || current_user.build_profile
 
-    if adopter.perform
-      render json: {profile: {}}, status: :ok
+    if Adopter::Profile::SavePersonalInfo.perform(profile, adopter_profile_params)
+      head :ok
     else
-      errors = adopter.profile.errors.full_messages
-      render json: errors, status: :unprocessable_entity
+      render json: profile.errors.full_messages, status: :unprocessable_entity
     end
   end
 

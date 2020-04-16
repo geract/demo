@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_202303) do
+ActiveRecord::Schema.define(version: 2020_04_16_204347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,23 +68,27 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "last_name"
     t.date "birthday"
     t.string "family_status"
-    t.string "state", null: false
     t.string "phone_number"
     t.jsonb "preferences", default: {}, null: false
     t.boolean "terms"
     t.boolean "home_visit_agreement"
     t.boolean "adoption_fee_agreement"
-    t.bigint "adopter_id"
-    t.bigint "co_adopter_id"
-    t.string "applicationable_type"
-    t.bigint "applicationable_id"
-    t.bigint "veterinarian_id"
+    t.bigint "user_id"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["adopter_id"], name: "index_adopter_profiles_on_adopter_id", unique: true
-    t.index ["applicationable_type", "applicationable_id"], name: "index_applications_on_applicationable_type_and_id"
-    t.index ["co_adopter_id"], name: "index_adopter_profiles_on_co_adopter_id"
-    t.index ["veterinarian_id"], name: "index_adopter_profiles_on_veterinarian_id"
+    t.index ["user_id"], name: "index_adopter_profiles_on_user_id"
+  end
+
+  create_table "co_adopters", force: :cascade do |t|
+    t.string "phone_number"
+    t.string "birthday"
+    t.string "first_name"
+    t.string "last_name"
+    t.bigint "adopter_profile_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["adopter_profile_id"], name: "index_co_adopters_on_adopter_profile_id"
   end
 
   create_table "employments", force: :cascade do |t|
@@ -281,18 +285,20 @@ ActiveRecord::Schema.define(version: 2020_03_30_202303) do
     t.string "last_name"
     t.string "phone_number"
     t.string "email"
+    t.bigint "adopter_profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["adopter_profile_id"], name: "index_veterinarians_on_adopter_profile_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "adopter_profiles", "users", column: "adopter_id"
-  add_foreign_key "adopter_profiles", "users", column: "co_adopter_id"
-  add_foreign_key "adopter_profiles", "veterinarians"
+  add_foreign_key "adopter_profiles", "users"
+  add_foreign_key "co_adopters", "adopter_profiles"
   add_foreign_key "organization_addresses", "organizations"
   add_foreign_key "pet_infos", "adopter_profiles"
   add_foreign_key "pets", "organizations"
   add_foreign_key "references", "adopter_profiles"
   add_foreign_key "rescuer_profiles", "organizations"
   add_foreign_key "rescuer_profiles", "users"
+  add_foreign_key "veterinarians", "adopter_profiles"
 end
