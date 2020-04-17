@@ -14,7 +14,7 @@ class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseC
     if Adopter::Profile::SavePersonalFinal.perform(profile, adopter_profile_params)
       head :ok
     else
-      render json: current_user.profile.errors.full_messages, status: :unprocessable_entity
+      render json: profile.errors.full_messages, status: :unprocessable_entity
     end
   end
 

@@ -16,14 +16,14 @@ class Adopter::Profile::SavePersonalCoAdopter
       end
     end
 
+    private
+
+    attr_reader :is_address_same_as_adopter, :profile
+
     def saved_callbacks
       update_co_adopter_address
       profile.personal_co_adopter? && profile.continue!
     end
-
-    private
-
-    attr_reader :personal_attributes, :attributes, :is_address_same_as_adopter, :profile, :co_adopter
 
     def update_co_adopter_address
       co_adopter.address = profile.address if is_address_same_as_adopter == 'true'
