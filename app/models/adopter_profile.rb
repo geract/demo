@@ -1,7 +1,7 @@
 class AdopterProfile < ApplicationRecord
   include AdopterProfile::StateManager
 
-  attr_accessor :is_from_co_adopter, :has_co_adopter
+  attr_accessor :has_co_adopter
 
   STATES = ['personal_info', 'personal_co_adopter', 'personal_final', 'home', 'lifestyle',
             'agreements', 'add_references', 'agreements', 'add_references', 'completed'].freeze
@@ -15,8 +15,6 @@ class AdopterProfile < ApplicationRecord
   belongs_to :adopter, class_name: 'Adopter', foreign_key: 'user_id'
 
   validates :phone_number, :adopter, presence: true
-  validates :family_status, :pronoun, presence: true, unless: :is_from_co_adopter
-  validates :terms, acceptance: { message: 'must be accepted' }, unless: :is_from_co_adopter
   validates :home_visit_agreement, :adoption_fee_agreement, acceptance: { message: 'must be accepted' }, if: :agreements?
 
   accepts_nested_attributes_for :co_adopter, :pet_info, :veterinarian, :references, 

@@ -11,6 +11,11 @@ class CoAdopterTest < ActiveSupport::TestCase
     should validate_presence_of(:first_name)
     should validate_presence_of(:last_name)
   end
+
+  context 'associations' do
+    should accept_nested_attributes_for(:address)
+    should accept_nested_attributes_for(:employment)
+  end
   
   def test_is_valid
     @adopter = build(:adopter)

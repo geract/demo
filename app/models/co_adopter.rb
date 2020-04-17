@@ -4,4 +4,6 @@ class CoAdopter < ApplicationRecord
   has_one :employment, as: :employmentable, dependent: :destroy
 
   validates :email, :phone_number, :first_name, :last_name, presence: true
+
+  accepts_nested_attributes_for :employment, :address
 end

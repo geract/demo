@@ -17,42 +17,39 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
           },
         },
         co_adopter_attributes: {
-          id: co_adopter&.id,
+          id: co_adopter.id,
           email: co_adopter.email,
-          profile_attributes: {
-            id: co_adopter.profile.id,
-            first_name: co_adopter.profile.first_name,
-            last_name: co_adopter.profile.last_name,
-            phone_number: co_adopter.profile.phone_number,
-            birthday: co_adopter.profile.birthday,
+          first_name: co_adopter.first_name,
+          last_name: co_adopter.last_name,
+          phone_number: co_adopter.phone_number,
+          birthday: co_adopter.birthday,
+          address_attributes: {
+            id: co_adopter.address.id,
+            street_line_1: co_adopter.address.street_line_1,
+            street_line_2: co_adopter.address.street_line_2,
+            city: co_adopter.address.city,
+            state: co_adopter.address.state,
+            zip_code: co_adopter.address.zip_code,
+            country: co_adopter.address.country,
+          },
+          employment_attributes: {
+            id: co_adopter.employment.id,
+            status: co_adopter.employment.status,
+            years: co_adopter.employment.years,
+            company: co_adopter.employment.company,
+            pet_costs: co_adopter.employment.pet_costs,
             address_attributes: {
-              id: co_adopter.address.id,
-              street_line_1: co_adopter.address.street_line_1,
-              street_line_2: co_adopter.address.street_line_2,
-              city: co_adopter.address.city,
-              state: co_adopter.address.state,
-              zip_code: co_adopter.address.zip_code,
-              country: co_adopter.address.country,
-            },
-            employment_attributes: {
-              id: co_adopter.employment.id,
-              status: co_adopter.employment.status,
-              years: co_adopter.employment.years,
-              company: co_adopter.employment.company,
-              pet_costs: co_adopter.employment.pet_costs,
-              address_attributes: {
-                id: co_adopter.employment.address.id,
-                street_line_1: co_adopter.employment.address.street_line_1,
-                street_line_2: co_adopter.employment.address.street_line_2,
-                city: co_adopter.employment.address.city,
-                state: co_adopter.employment.address.state,
-                zip_code: co_adopter.employment.address.zip_code,
-                country: co_adopter.employment.address.country,
-              },
+              id: co_adopter.employment.address.id,
+              street_line_1: co_adopter.employment.address.street_line_1,
+              street_line_2: co_adopter.employment.address.street_line_2,
+              city: co_adopter.employment.address.city,
+              state: co_adopter.employment.address.state,
+              zip_code: co_adopter.employment.address.zip_code,
+              country: co_adopter.employment.address.country,
             }
           }
-        },
-      },
+        }
+      }
     }
   end
 

@@ -15,9 +15,9 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert api_response
     assert api_response['profile']
     assert api_response['profile']['co_adopter_attributes']
-    assert api_response['profile']['co_adopter_attributes']['profile_attributes']
-    assert api_response['profile']['co_adopter_attributes']['profile_attributes']['employment_attributes']
-    assert api_response['profile']['co_adopter_attributes']['profile_attributes']['employment_attributes']['address_attributes']
+    assert api_response['profile']['co_adopter_attributes']
+    assert api_response['profile']['co_adopter_attributes']['employment_attributes']
+    assert api_response['profile']['co_adopter_attributes']['employment_attributes']['address_attributes']
     assert api_response['profile']['pet_info_attributes']
     assert api_response['profile']['pet_info_attributes']['personal']
   end
@@ -37,10 +37,10 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert_response :success
     assert @profile.personal_final?
     assert @profile.co_adopter
-    assert @profile.co_adopter.profile
-    assert @profile.co_adopter.profile.address
-    assert @profile.co_adopter.profile.employment
-    assert @profile.co_adopter.profile.employment.address
+    assert @profile.co_adopter
+    assert @profile.co_adopter.address
+    assert @profile.co_adopter.employment
+    assert @profile.co_adopter.employment.address
     assert @profile.pet_info.personal
   end
 
@@ -62,15 +62,15 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert_response :success
     assert @profile.personal_final?
     assert @profile.co_adopter
-    assert @profile.co_adopter.profile
-    # assert @profile.co_adopter.profile.address
-    assert @profile.co_adopter.profile.employment
-    assert @profile.co_adopter.profile.employment.address
+    assert @profile.co_adopter
+    # assert @profile.co_adopter.address
+    assert @profile.co_adopter.employment
+    assert @profile.co_adopter.employment.address
     assert @profile.pet_info.personal
     assert @profile.pet_info.personal['co_adopter_relation']
   end
 
-  def test_redirect_to_first_step
+  def test_redirect_to_profile_step
     @adopter = build(:adopter, :without_pet_info)
     @credentials = @adopter.create_token
     @adopter.save
@@ -79,7 +79,10 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
       params: {},
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
       
-    assert_response :redirect
-    assert_redirected_to adopters_personal_info_path
+    api_response = JSON.parse(response.body)
+
+    assert_response :unprocessable_entity
+    assert api_response['error']
+    assert_equal 'personal_info', api_response['status']
   end
 end
