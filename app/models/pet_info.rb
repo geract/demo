@@ -1,5 +1,5 @@
 class PetInfo < ApplicationRecord
-  belongs_to :adopter_profile, optional: true
+  belongs_to :adopter_profile
   
   PERSONAL_FIELDS = %i[about_you ideal_pet adopt_reason is_military military_pet_plan co_adopter_relation
               pet_relation_change_owner has_children children_ages is_pet_allergic pet_allergic_plan pet_costs receive_updates].freeze

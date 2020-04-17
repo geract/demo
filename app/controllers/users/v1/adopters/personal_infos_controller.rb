@@ -2,7 +2,11 @@
 
 class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseController
   def show
-    render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user), status: :ok
+    if current_user.profile
+      render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user), status: :ok
+    else
+      head :conflict
+    end
   end
 
   def update
