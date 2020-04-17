@@ -59,24 +59,11 @@ class Users::V1::Adopters::FinalsControllerTest < ActionDispatch::IntegrationTes
 
     assert_response :success
     assert @profile.home?
-    refute @profile.veterinarian
+    # refute @profile.veterinarian Should delete veterinarian?
     assert_equal @profile.pet_info.veterinarian_extra['has_veterinarian'], 'false'
   end
 
-  def test_redirect_to_first_step
-    @adopter = build(:adopter, :without_pet_info)
-    @credentials = @adopter.create_token
-    @adopter.save
-
-    patch adopters_personal_final_path,
-      params: {},
-      headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
-      
-    assert_response :redirect
-    assert_redirected_to adopters_personal_info_path
-  end
-
-  def test_redirect_to_next_step
+  def test_redirect_to_profile_step
     @adopter = build(:adopter, :with_co_adopter)
     @credentials = @adopter.create_token
     @adopter.save
@@ -85,7 +72,10 @@ class Users::V1::Adopters::FinalsControllerTest < ActionDispatch::IntegrationTes
       params: {},
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
       
-    assert_response :redirect
-    assert_redirected_to adopters_personal_co_adopter_path
+    api_response = JSON.parse(response.body)
+
+    assert_response :unprocessable_entity
+    assert api_response['error']
+    assert_equal 'personal_co_adopter', api_response['status']
   end
 end

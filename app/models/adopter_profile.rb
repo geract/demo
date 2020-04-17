@@ -14,7 +14,7 @@ class AdopterProfile < ApplicationRecord
   has_many :references, dependent: :destroy
   belongs_to :adopter, class_name: 'Adopter', foreign_key: 'user_id'
 
-  validates :phone_number, :adopter, presence: true
+  validates :phone_number, :adopter, :family_status, :pronoun, presence: true
   validates :home_visit_agreement, :adoption_fee_agreement, acceptance: { message: 'must be accepted' }, if: :agreements?
 
   accepts_nested_attributes_for :co_adopter, :pet_info, :veterinarian, :references, 
