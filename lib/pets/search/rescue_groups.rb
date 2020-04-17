@@ -1,11 +1,8 @@
 class Pets::Search::RescueGroups
-  attr_accessor :params
+  PETS_PER_PAGE = 20.freeze
 
-  def initialize(args)
-    @params = build_params(args)
-  end
-
-  def execute
+  def execute(args)
+    params = build_params(args)
     response = RescueGroups::Animal.where(params)
     Pets::Search::RescueGroups::ResponseFormater.new(response).execute
   end
@@ -14,16 +11,23 @@ class Pets::Search::RescueGroups
 
   def build_params(args)
     params = Pets::Search::RescueGroups::ParamsFormater.new(args).execute
-    params.merge(base_params)
+    params.merge({
+        species: 'Dog', 
+        updated_date: { greater_than: '2020-01-09'}, 
+        status: 'Available', 
+        start: start_from_record(args['page']),
+        limit: records_limit(args['limit']), 
+        sort: 'animalLocationDistance'
+      })
   end
 
-  def base_params
-    {
-      species: 'Dog', 
-      updated_date: { greater_than: '2020-01-09'}, 
-      status: 'Available', 
-      limit: 100, 
-      sort: 'animalLocationDistance'
-    }
+  def start_from_record(page)
+    page = page.to_i
+    return 0 unless page > 1
+    ( page - 1 ) * PETS_PER_PAGE
+  end
+
+  def records_limit(limit)
+    limit || PETS_PER_PAGE
   end
 end

@@ -25,16 +25,9 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '16', api_response['organization']['id']
     assert_equal 'Animal Relief Fund', api_response['organization']['name']
     assert_equal 'description', api_response['organization']['description']
-    assert_equal 'webUrl', api_response['organization']['webUrl']
+    assert_equal 'webUrl', api_response['organization']['web_url']
     assert_equal 'info@animalrelieffund.org', api_response['organization']['email']
     assert_equal '20636', api_response['organization']['code']
     assert_equal 'P.O. Box 184, Hollywood, United States', api_response['organization']['address']
-    assert_equal '320', api_response['organization']['pets'][0]['id']
-    assert_equal 'Corky', api_response['organization']['pets'][0]['name']
-    assert_equal 'Male', api_response['organization']['pets'][0]['sex']
-    assert_equal 'Domestic Short Hair', api_response['organization']['pets'][0]['breed']
-    assert_equal 'Young', api_response['organization']['pets'][0]['age']
-    assert_equal 'Bowie, MD', api_response['organization']['pets'][0]['location']
-    assert_equal 'https://s3.amazonaws.com/filestore.rescuegroups.org/13/pictures/animals/0/320/181_350x216.jpg', api_response['organization']['pets'][0]['image']
   end
 end
