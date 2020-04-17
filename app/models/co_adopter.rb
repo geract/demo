@@ -5,5 +5,5 @@ class CoAdopter < ApplicationRecord
 
   validates :email, :phone_number, :first_name, :last_name, presence: true
 
-  accepts_nested_attributes_for :employment, :address
+  accepts_nested_attributes_for :employment, :address, update_only: true
 end

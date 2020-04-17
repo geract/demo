@@ -12,10 +12,9 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
     profile.build_co_adopter unless profile.co_adopter
 
     if Adopter::Profile::SavePersonalCoAdopter.perform(profile, adopter_profile_params)
-      render json: {profile: {}}, status: :ok
+      head :ok
     else
-      errors = profile.errors.full_messages
-      render json: errors, status: :unprocessable_entity
+      render json: {errors: profile.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
