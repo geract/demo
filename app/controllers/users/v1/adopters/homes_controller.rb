@@ -11,10 +11,9 @@ class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
     profile = current_user.profile
 
     if Adopter::Profile::SaveHome.perform(profile, adopter_profile_params)
-      render json: {application: {}}, status: :ok
+      head :ok
     else
-      errors = adopter.profile.errors.full_messages
-      render json: errors, status: :unprocessable_entity
+      render json: profile.errors.full_messages, status: :unprocessable_entity
     end
   end
 
