@@ -45,8 +45,9 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     @adopter = build(:adopter, :with_personal_info)
     @credentials = @adopter.create_token
     @adopter.save
-    params = build(:personal_info_params)
+    params = Users::Adopters::Profile::PersonalInfoPresenter.new(@adopter).as_json
     params[:profile][:has_co_adopter] = false
+    params[:profile][:birthday] = Date.today
 
     patch adopters_personal_info_path,
       params: params,
@@ -56,23 +57,11 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
 
     assert_response :success
     assert @profile.personal_final?
+    assert @profile.birthday, Date.today
     assert @profile.address
     assert @profile.employment
     assert @profile.employment.address
     assert @profile.pet_info
     assert @profile.pet_info.personal
-  end
-
-  def test_redirect_to_first_step
-    @adopter = build(:adopter, :without_pet_info)
-    @credentials = @adopter.create_token
-    @adopter.save
-
-    get adopters_personal_info_path,
-      params: {},
-      headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
-      
-    assert_response :redirect
-    assert_redirected_to adopters_personal_info_path
   end
 end

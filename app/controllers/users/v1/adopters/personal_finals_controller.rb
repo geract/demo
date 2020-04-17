@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
   before_action :redirect_to_next_profile_step, unless: :personal_final?
 
   def show
@@ -33,6 +33,6 @@ class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseC
   end
 
   def personal_final?
-    current_user.profile.completed_state?('personal_final')
+    current_user.profile.completed_status?('personal_final')
   end
 end

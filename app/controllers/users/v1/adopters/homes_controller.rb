@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
   before_action :redirect_to_next_profile_step, unless: :home?
 
   def show
@@ -29,6 +29,6 @@ class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
   end
 
   def home?
-    current_user.profile.completed_state?('home')
+    current_user.profile.completed_status?('home')
   end
 end

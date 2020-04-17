@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
   before_action :redirect_to_next_profile_step, unless: :references?
 
   def show
@@ -27,7 +27,7 @@ class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseContr
   end
 
   def references?
-    current_user.profile.completed_state?('add_references')
+    current_user.profile.completed_status?('add_references')
   end
 end
 

@@ -8,15 +8,12 @@ FactoryBot.define do
     birthday { "2020-03-14" }
     phone_number { "1234567890" }
 
-    after :build do |adopter_profile|
-      adopter_profile.address = build(:adopter_address)
-      adopter_profile.employment = build(:employment)
-    end
-
     trait :personal_info do
       status { 'personal_info' }
 
       after :build do |adopter_profile|
+        adopter_profile.address = build(:adopter_address)
+        adopter_profile.employment = build(:employment)
         adopter_profile.pet_info.personal = { about_you: 'About you', ideal_pet: 'Ideal pet', adopt_reason: 'Adopt reason' }
       end
     end

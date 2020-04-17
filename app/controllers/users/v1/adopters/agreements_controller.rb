@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
   before_action :redirect_to_next_profile_step, unless: :agreements?
 
   def show
@@ -27,6 +27,6 @@ class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseContr
   end
   
   def agreements?
-    current_user.profile.completed_state?('agreements')
+    current_user.profile.completed_status?('agreements')
   end
 end

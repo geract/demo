@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
   before_action :redirect_to_next_profile_step, unless: :lifestyle?
 
   def show
@@ -28,6 +28,6 @@ class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseContr
   end
 
   def lifestyle?
-    current_user.profile.completed_state?('lifestyle')
+    current_user.profile.completed_status?('lifestyle')
   end
 end

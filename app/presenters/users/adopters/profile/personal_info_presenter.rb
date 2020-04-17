@@ -7,7 +7,7 @@ class Users::Adopters::Profile::PersonalInfoPresenter
   def as_json(*)
     { profile: { 
         id: profile.id,
-        has_co_adopter: profile.co_adopter_id.present?,
+        has_co_adopter: !!profile.co_adopter,
         pronoun: profile.pronoun,
         family_status: profile.family_status,
         birthday: profile.birthday,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
+  before_action :redirect_to_profile_step, unless: :adopter_profile?
 
   def show
     render json: Users::Adopters::Profile::PersonalCoAdopterPresenter.new(current_user), status: :ok

@@ -1,7 +1,7 @@
 class AdopterProfile < ApplicationRecord
   include AdopterProfile::StateManager
 
-  attr_accessor :is_from_co_adopter
+  attr_accessor :is_from_co_adopter, :has_co_adopter
 
   STATES = ['personal_info', 'personal_co_adopter', 'personal_final', 'home', 'lifestyle',
             'agreements', 'add_references', 'agreements', 'add_references', 'completed'].freeze
@@ -22,9 +22,7 @@ class AdopterProfile < ApplicationRecord
   accepts_nested_attributes_for :co_adopter, :pet_info, :veterinarian, :references, 
                                 :employment, :address, update_only: true
 
-  attr_accessor :has_co_adopter
-
-  def completed_state?(state)
-    STATES.index(state) <= STATES.index(self.state)
+  def completed_status?(status)
+    STATES.index(status) <= STATES.index(self.status)
   end
 end

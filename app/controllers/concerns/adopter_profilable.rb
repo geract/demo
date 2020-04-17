@@ -1,19 +1,10 @@
 module AdopterProfilable
   private
 
-  def adopter_profile?
-    !!current_user.profile&.pet_info
+  def redirect_to_profile_step
+    render json: {
+             error: "Unavailable action, user is in #{current_user.profile.state} state",
+             state: current_user.profile.state },
+           status: :unprocessable_entity
   end
-
-  def next_profile_step
-    [:adopters, current_user.profile.state]
-  end
-
-  def redirect_to_first_profile_step
-    redirect_to %i[adopters personal_info]
-  end
-
-  def redirect_to_next_profile_step
-    redirect_to next_profile_step
-  end  
 end
