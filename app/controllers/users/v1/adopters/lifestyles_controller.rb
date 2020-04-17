@@ -25,8 +25,4 @@ class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseContr
           lifestyle: %i[living_place bad_weather_plan hours_left alone_place walk_explanation
                         trainer energy train_plan experiences]])
   end
-
-  def lifestyle?
-    current_user.profile.completed_status?('lifestyle')
-  end
 end

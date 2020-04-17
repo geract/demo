@@ -52,29 +52,19 @@ class Users::V1::Adopters::AgreementsControllerTest < ActionDispatch::Integratio
     assert @profile.adoption_fee_agreement
   end
 
-  def test_redirect_to_first_step
-    @adopter = build(:adopter, :without_pet_info)
-    @credentials = @adopter.create_token
-    @adopter.save
-
-    patch adopters_agreements_path,
-      params: {},
-      headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
-      
-    assert_response :redirect
-    assert_redirected_to adopters_personal_info_path
-  end
-
-  def test_redirect_to_next_step
-    @adopter = build(:adopter, :with_co_adopter)
+  def test_redirect_to_profile_step
+    @adopter = build(:adopter, :with_profile_lifestyle)
     @credentials = @adopter.create_token
     @adopter.save
     
     patch adopters_agreements_path,
       params: {},
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
-      
-    assert_response :redirect
-    assert_redirected_to adopters_personal_co_adopter_path
+
+    api_response = JSON.parse(response.body)
+
+    assert_response :unprocessable_entity
+    assert api_response['error']
+    assert_equal 'lifestyle', api_response['status']
   end
 end
