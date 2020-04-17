@@ -2586,5 +2586,105 @@ paths:
                         - is_military
         description: 'Patch the `PetApplication::PersonalInfo` for current user'
       description: ''
+  /pets:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-pets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  sex:
+                    type: string
+                  breed:
+                    type: string
+                  age:
+                    type: string
+                  location:
+                    type: string
+                  size:
+                    type: string
+                  images:
+                    type:
+                      - string
+                      - array
+                    items:
+                      type: object
+                      properties:
+                        original:
+                          type: string
+                        thumbnail:
+                          type: string
+            examples: {}
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  properties:
+                    sex:
+                      type: string
+                    age:
+                      type: string
+                    size:
+                      type: string
+                    zipCpde:
+                      type: string
+                    radius:
+                      type: number
+                    organization_id:
+                      type: number
+                    page:
+                      type: number
+                    limit:
+                      type: number
+  '/organizations/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  web_url:
+                    type: string
+                  email:
+                    type: string
+                  code:
+                    type: string
+                  address:
+                    type: string
+      operationId: get-organizations-id
 components:
   schemas: {}

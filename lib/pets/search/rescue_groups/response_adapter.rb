@@ -1,4 +1,4 @@
-class Pets::Search::RescueGroups::ResponseAdopter
+class Pets::Search::RescueGroups::ResponseAdapter
   def initialize(item)
     @item = item
   end
@@ -8,7 +8,7 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def name
-    item['animalName']
+    @name ||= item['animalName'].blank? ? '' : item['animalName'].gsub(/[^a-zA-Z]/, '')
   end
 
   def breed
@@ -31,8 +31,13 @@ class Pets::Search::RescueGroups::ResponseAdopter
     item['animalAdoptionFee']
   end
 
-  def main_image_url
-    item['animalPictures'].dig(0, 'urlSecureFullsize')
+  def image_urls
+    @images ||= item['animalPictures'].map do |img| 
+                  { 
+                    original: img['urlSecureFullsize'], 
+                    thumbnail: img['urlSecureThumbnail'] 
+                  }
+    end  
   end
 
   def birthdate
@@ -40,7 +45,11 @@ class Pets::Search::RescueGroups::ResponseAdopter
   end
 
   def description
-    ActionController::Base.helpers.strip_tags(item['animalDescription'])
+    @dascription ||= ActionController::Base.helpers.strip_tags(item['animalDescription'])
+  end
+
+  def size
+    item['animalGeneralSizePotential']
   end
 
   def organization_id
