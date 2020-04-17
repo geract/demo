@@ -49,7 +49,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     @credentials = @adopter.create_token
     @adopter.save
 
-    params = build(:personal_co_adopter_params)
+    params = Users::Adopters::Profile::PersonalCoAdopterPresenter.new(@adopter).as_json
     params[:profile].delete(:address_attributes)
     params[:profile][:is_address_same_as_adopter] = true
 

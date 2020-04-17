@@ -40,7 +40,7 @@ class Users::V1::Adopters::LifestylesControllerTest < ActionDispatch::Integratio
     @adopter.save
 
     patch adopters_lifestyle_path,
-      params: build(:adopter_profile_lifestyle_params),
+      params: Users::Adopters::Profile::LifestylePresenter.new(@adopter).as_json,
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     @profile = @adopter.reload.profile

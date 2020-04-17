@@ -47,7 +47,7 @@ class Users::V1::Adopters::FinalsControllerTest < ActionDispatch::IntegrationTes
     @credentials = @adopter.create_token
     @adopter.save
 
-    params = build(:personal_final_params)
+    params = Users::Adopters::Profile::PersonalFinalPresenter.new(@adopter).as_json
     params[:profile].delete(:veterinarian_attributes)
     params[:profile][:pet_info_attributes][:veterinarian_extra][:has_veterinarian] = false
 

@@ -39,7 +39,7 @@ class Users::V1::Adopters::AgreementsControllerTest < ActionDispatch::Integratio
     @adopter.save
 
     patch adopters_add_references_path,
-      params: build(:adopter_profile_references_params),
+      params: Users::Adopters::Profile::ReferencesPresenter.new(@adopter).as_json,
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     @profile = @adopter.reload.profile

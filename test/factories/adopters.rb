@@ -24,13 +24,13 @@ FactoryBot.define do
 
     trait :with_co_adopter do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :personal_co_adopter, adopter: adopter)
+        adopter.profile = build(:adopter_profile_with_personal_co_adopter, adopter: adopter)
       end
     end
 
     trait :with_personal_final do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :personal_final, adopter: adopter)
+        adopter.profile = build(:adopter_profile_with_personal_final, adopter: adopter)
       end
     end
 

@@ -42,7 +42,7 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
   end
 
   def test_update
-    @adopter = build(:adopter, :with_personal_info)
+    @adopter = build(:adopter, :with_personal_final)
     @credentials = @adopter.create_token
     @adopter.save
     params = Users::Adopters::Profile::PersonalInfoPresenter.new(@adopter).as_json
