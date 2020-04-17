@@ -7,73 +7,61 @@ FactoryBot.define do
     uid                { Faker::Internet.email }
 
     after :build do |adopter|
-      adopter.profile = build(:adopter_profile)
+      adopter.profile = build(:adopter_profile, adopter: adopter)
     end
 
     trait :without_pet_info do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, pet_info: nil)
+        adopter.profile = build(:adopter_profile, pet_info: nil, adopter: adopter)
       end
     end
 
     trait :with_personal_info do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :personal_info)
+        adopter.profile = build(:adopter_profile, :personal_info, adopter: adopter)
       end
     end
 
     trait :with_co_adopter do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :personal_co_adopter)
+        adopter.profile = build(:adopter_profile, :personal_co_adopter, adopter: adopter)
       end
     end
 
     trait :with_personal_final do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile, :personal_final)
+        adopter.profile = build(:adopter_profile, :personal_final, adopter: adopter)
       end
     end
 
     trait :with_profile_home do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile_with_home)
+        adopter.profile = build(:adopter_profile_with_home, adopter: adopter)
       end
     end
 
     trait :with_profile_lifestyle do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile_with_lifestyle)
+        adopter.profile = build(:adopter_profile_with_lifestyle, adopter: adopter)
       end
     end
 
     trait :with_profile_agreements do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile_with_agreements)
+        adopter.profile = build(:adopter_profile_with_agreements, adopter: adopter)
       end
     end
 
     trait :with_profile_references do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile_with_references)
+        adopter.profile = build(:adopter_profile_with_references, adopter: adopter)
       end
     end
 
     trait :with_profile_completed do
       after :build do |adopter|
-        adopter.profile = build(:adopter_profile_completed)
+        adopter.profile = build(:adopter_profile_completed, adopter: adopter)
       end
-    end
-  end
-
-  factory :co_adopter, class: 'Adopter' do
-    email              { 'test@coadopter.com' }
-    password           { 'TopS3cr3t' }
-    type               { 'Adopter' }
-    confirmation_token { Faker::Alphanumeric.alpha(number: 10) }
-    uid                { 'test@coadopter.com' }
-
-    after :build do |adopter|
-      adopter.profile = build(:co_adopter_profile)
     end
   end
 end

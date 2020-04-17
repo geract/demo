@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_204347) do
   end
 
   create_table "co_adopters", force: :cascade do |t|
+    t.string "email"
     t.string "phone_number"
     t.string "birthday"
     t.string "first_name"

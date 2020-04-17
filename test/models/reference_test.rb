@@ -1,11 +1,6 @@
 require "test_helper"
 
 class ReferenceTest < ActiveSupport::TestCase
-  setup do
-    @adopter = build(:adopter, :with_profile_completed)
-    @reference = build(:reference, adopter_profile: @adopter.profile)
-  end
-
   context 'associations' do
     should belong_to(:adopter_profile)
   end
@@ -18,6 +13,9 @@ class ReferenceTest < ActiveSupport::TestCase
   end
 
   def test_it_can_be_saved
+    @adopter = build(:adopter)
+    @reference = build(:reference, adopter_profile: @adopter.profile)
+
     assert @reference.save
   end
 end

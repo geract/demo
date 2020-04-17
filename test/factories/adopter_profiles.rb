@@ -8,13 +8,13 @@ FactoryBot.define do
     birthday { "2020-03-14" }
     phone_number { "1234567890" }
 
-    after :build do |profile|
-      profile.address = build(:adopter_address)
-      profile.employment = build(:employment)
+    after :build do |adopter_profile|
+      adopter_profile.address = build(:adopter_address)
+      adopter_profile.employment = build(:employment)
     end
 
     trait :personal_info do
-      state { 'personal_info' }
+      status { 'personal_info' }
 
       after :build do |adopter_profile|
         adopter_profile.pet_info.personal = { about_you: 'About you', ideal_pet: 'Ideal pet', adopt_reason: 'Adopt reason' }
@@ -23,7 +23,7 @@ FactoryBot.define do
 
     trait :personal_co_adopter do
       co_adopter
-      state { 'personal_co_adopter' }
+      status { 'personal_co_adopter' }
 
       after :build do |adopter_profile|
         adopter_profile.pet_info.personal = adopter_profile.pet_info.personal.merge(pet_relation_change_owner: "Not sure yet... we'll see",
@@ -32,7 +32,7 @@ FactoryBot.define do
     end
 
     trait :personal_final do
-      state { 'personal_final' }
+      status { 'personal_final' }
 
       after :build do |adopter_profile|
         adopter_profile.pet_info_attributes = {
@@ -61,7 +61,7 @@ FactoryBot.define do
 
     trait :home do
       veterinarian
-      state { 'home' }
+      status { 'home' }
 
       after :build do |adopter_profile|
         adopter_profile.pet_info_attributes = { 
@@ -73,7 +73,7 @@ FactoryBot.define do
     end
 
     trait :lifestyle do
-      state { 'lifestyle' }
+      status { 'lifestyle' }
 
       after :build do |adopter_profile|
         adopter_profile.pet_info_attributes = {
@@ -93,14 +93,14 @@ FactoryBot.define do
     end
 
     trait :agreements do
-      state { 'agreements' }
+      status { 'agreements' }
 
       home_visit_agreement   { true }
       adoption_fee_agreement { true }
     end
 
     trait :references do
-      state { 'add_references' }
+      status { 'add_references' }
 
       after :build do |profile|
         3.times do
@@ -110,7 +110,7 @@ FactoryBot.define do
     end
 
     trait :completed do
-      state { 'completed' }
+      status { 'completed' }
     end
 
     factory :adopter_profile_with_home, traits: [:personal_info, :personal_co_adopter, :personal_final, :home]
