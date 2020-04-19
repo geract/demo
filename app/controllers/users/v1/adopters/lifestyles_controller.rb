@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseController
-  before_action :redirect_to_first_profile_step, unless: :adopter_profile?
-  before_action :redirect_to_next_profile_step, unless: :lifestyle?
+  before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('lifestyle') }
 
   def show
     render json: Users::Adopters::Profile::LifestylePresenter.new(current_user), status: :ok
   end
 
   def update
-    adopter = Adopter::Profile::SaveLifestyle.new(current_user, adopter_profile_params)
-    if  adopter.perform
-      render json: {application: {}}, status: :ok
+    profile = current_user.profile
+
+    if Adopter::Profile::SaveLifestyle.perform(profile, adopter_profile_params)
+      head :ok
     else
-      errors = adopter.profile.errors.full_messages
-      render json: errors, status: :unprocessable_entity
+      render json: profile.errors.full_mesages, status: :unprocessable_entity
     end
   end
 
@@ -25,9 +24,5 @@ class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseContr
         pet_info_attributes: [
           lifestyle: %i[living_place bad_weather_plan hours_left alone_place walk_explanation
                         trainer energy train_plan experiences]])
-  end
-
-  def lifestyle?
-    current_user.profile.completed_state?('lifestyle')
   end
 end

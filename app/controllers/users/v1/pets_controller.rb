@@ -22,6 +22,6 @@ class Users::V1::PetsController < Users::BaseController
   def filters_params
     return {} unless params[:filters]
 
-    params.require(:filters).permit(:sex, :age, :size, :zipCode, :radius, :breed)
+    params.require(:filters).permit(:sex, :age, :size, :zipCode, :radius, :breed, :organization_id, :page, :limit)
   end
 end

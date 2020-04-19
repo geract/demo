@@ -22,7 +22,7 @@ module Rescuers
         total_applications: options[pet_id][:total_applications],
         days_listed: options[pet_id][:days_listed],
         date_listed: options[pet_id][:date_listed],
-        new_applications: 0
+        new_applications: 0 # To be implemented
       }
     end
   end

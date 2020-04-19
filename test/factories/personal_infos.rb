@@ -6,6 +6,7 @@ FactoryBot.define do
           pronoun: 'She',
           family_status: 'Single',
           birthday: '2020-03-14',
+          phone_number: '1231231231',
           address_attributes: {
             street_line_1: 'Street Line #1',
             street_line_2: nil,

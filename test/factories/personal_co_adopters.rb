@@ -11,11 +11,23 @@ FactoryBot.define do
           },
           co_adopter_attributes: {
             email: 'test@coadopter.com',
-            profile_attributes: {
-              first_name: 'Gibran',
-              last_name: 'GeDiez',
-              phone_number: '1234567890',
-              birthday: '2020-01-01',
+            first_name: 'Gibran',
+            last_name: 'GeDiez',
+            phone_number: '1234567890',
+            birthday: '2020-01-01',
+            address_attributes: {
+              street_line_1:  'Street Line #1',
+              street_line_2:  nil,
+              city:  'San Francisco',
+              state:  'CA',
+              zip_code:  '11111',
+              country:  'United States'
+            },
+            employment_attributes: {
+              status: "Self-Employed",
+              years: "1-2 years",
+              company: "Unemployed",
+              pet_costs: "123",
               address_attributes: {
                 street_line_1:  'Street Line #1',
                 street_line_2:  nil,
@@ -23,20 +35,6 @@ FactoryBot.define do
                 state:  'CA',
                 zip_code:  '11111',
                 country:  'United States'
-              },
-              employment_attributes: {
-                status: "Self-Employed",
-                years: "1-2 years",
-                company: "Unemployed",
-                pet_costs: "123",
-                address_attributes: {
-                  street_line_1:  'Street Line #1',
-                  street_line_2:  nil,
-                  city:  'San Francisco',
-                  state:  'CA',
-                  zip_code:  '11111',
-                  country:  'United States'
-                }
               }
             }
           }

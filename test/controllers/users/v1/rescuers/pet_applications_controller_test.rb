@@ -5,15 +5,10 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
     @user = create(:rescuer_admin, :complete)
     @credentials = @user.create_token
     @user.save
-    # @application = build(:pet_application, :completed, applicationable: build(:pet_application_dog, :completed)).save
   end
 
   def test_index_success
-    skip
-    pet1 = create(:pet, :complete)
-    pet2 = create(:pet, :complete, name: 'Fido')
-    create(:pet_application, :completed, applicationable: build(:pet_application_dog, :personal_info))
-    create(:pet_application, :completed, applicationable: build(:pet_application_dog, :personal_info))
+    2.times { create(:pet_application) }
 
     get rescuers_pet_applications_path, headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -21,7 +16,7 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
 
     assert_response :success
     assert api_response.include?('applications')
-    assert api_response['applications'].any?
+    assert api_response['applications'].size >= 2
     assert api_response['applications'][0]['days_listed'].present?
     assert api_response['applications'][0]['date_listed'].present?
     assert api_response['applications'][0]['total_applications'].present?
