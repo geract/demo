@@ -27,7 +27,6 @@ class Users::V1::Adopters::PetApplicationsControllerTest < ActionDispatch::Integ
     api_response = JSON.parse(response.body)
 
     assert_response :unprocessable_entity
-    assert api_response.includes?('pet_application')
     assert api_response.include?('errors')
     assert api_response['errors'].any?
   end

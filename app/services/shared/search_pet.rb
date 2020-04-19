@@ -1,11 +1,11 @@
 class Shared::SearchPet
   def self.perform(args)
     if args[:provider] == 'RescueOrganization'
-      searcher = Pets::Search::RescueGroups.new(args)
+      searcher = Pets::Search::RescueGroups.new
     else
-      searcher = Pets::Search::Database.new(args)
+      searcher = Pets::Search::Database.new
     end
 
-    searcher.execute
+    searcher.execute(args)
   end
 end

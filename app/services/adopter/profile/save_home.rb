@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SaveHome
-  attr_reader :profile
+  class << self
+    def perform(profile, params)
+      @profile = profile
 
-  def initialize(adopter, params)
-    @profile = adopter.profile
-    @home_attributes = params[:pet_info_attributes][:home]
-  end
-
-  def perform
-    @profile.transaction do
-      profile.pet_info.personal = profile.pet_info.personal.merge(home_attributes)
-
-      profile.home? && profile.continue!
-      profile.save
+      profile.assign_attributes(params)
+      profile.transaction do
+        saved = profile.save
+        saved_callbacks if saved
+        saved
+      end
     end
+    
+    private
+
+    def saved_callbacks
+      profile.home? && profile.continue!
+    end
+
+    attr_reader :profile
   end
-
-  private
-
-  attr_reader :home_attributes
 end

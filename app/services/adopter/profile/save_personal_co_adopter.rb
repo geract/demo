@@ -1,50 +1,36 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SavePersonalCoAdopter
-  attr_reader :profile
+  class << self    
+    def perform(profile, params)
+      @profile = profile
+      @is_address_same_as_adopter = (params.delete(:is_address_same_as_adopter) == 'true')
+      pet_info_attributes = params.delete(:pet_info_attributes)
 
-  def initialize(adopter, params)
-    @profile = adopter.profile
+      set_pet_info(pet_info_attributes)
+      profile.assign_attributes(params)
+      profile.transaction do
+        saved = profile.save
+        saved_callbacks if saved
+        saved
+      end
+    end
 
-    return false unless params[:co_adopter_attributes].present?
+    private
 
-    @personal_attributes = params[:pet_info_attributes][:personal]
-    @co_adopter_attributes = params.delete(:co_adopter_attributes).merge(password: generate_password)
-    @co_adopter_attributes[:profile_attributes][:is_from_co_adopter] = true
+    attr_reader :is_address_same_as_adopter, :profile
 
-    @is_address_same_as_adopter = (params.delete(:is_address_same_as_adopter) == 'true')
-  end
-  
-  def perform
-    profile.transaction do
-      set_co_adopter
-      set_pet_info
-
+    def saved_callbacks
+      update_co_adopter_address
       profile.personal_co_adopter? && profile.continue!
-      profile.save
     end
-  end
 
-  private
-
-  attr_reader :personal_attributes, :co_adopter_attributes, :is_address_same_as_adopter
-
-  def generate_password
-    verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
-    verifier.generate("#{Time.now}").first(20)
-  end
-
-  def set_co_adopter
-    if profile.co_adopter
-      profile.co_adopter.assign_attributes(co_adopter_attributes)
-    else
-      profile.co_adopter = Adopter.new(co_adopter_attributes)
+    def update_co_adopter_address
+      co_adopter.address = profile.address if is_address_same_as_adopter == 'true'
     end
-    
-    profile.co_adopter.profile.address = profile.address if is_address_same_as_adopter
-  end
 
-  def set_pet_info
-    profile.pet_info.personal = profile.pet_info.personal.merge(personal_attributes)
+    def set_pet_info(pet_info_attributes)
+      profile.pet_info.personal = profile.pet_info.personal.merge(pet_info_attributes[:personal])
+    end
   end
 end

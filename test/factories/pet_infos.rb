@@ -13,7 +13,10 @@ FactoryBot.define do
       has_children: true,
       children_ages: 'Text',
       is_pet_allergic: true,
-      pet_allergic_plan: 'Text'
+      pet_allergic_plan: 'Text',
+
+      receive_updates: 'Text',
+      pet_costs: 'Text'
     }}
     animal_history {{
       has_pets: true,

@@ -1,22 +1,16 @@
 require "test_helper"
 
 class AdopterProfileTest < ActiveSupport::TestCase
-  setup do
-    @adopter_profile = build(:adopter_profile)
-  end
-
   context 'associations' do
     should have_one(:address)
     should have_one(:employment)
     should have_one(:pet_info)
+    should have_one(:co_adopter)
+    should have_one(:veterinarian)
     
     should belong_to(:adopter)
-    should belong_to(:co_adopter)
-    should belong_to(:veterinarian)
-    should belong_to(:applicationable)
 
     should accept_nested_attributes_for(:co_adopter)
-    should accept_nested_attributes_for(:applicationable)
     should accept_nested_attributes_for(:pet_info)
     should accept_nested_attributes_for(:veterinarian)
     should accept_nested_attributes_for(:references)
@@ -35,6 +29,8 @@ class AdopterProfileTest < ActiveSupport::TestCase
   end
 
   def test_pet_can_be_created
+    @adopter_profile = build(:adopter_profile)
+    
     @adopter_profile.save
   end
 end

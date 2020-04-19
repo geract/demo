@@ -3,7 +3,7 @@ class Users::V1::Adopters::PetApplicationsController < Users::V1::Adopters::Base
     pet_application = PetApplication.new(pet_application_params)
 
     if pet_application.save
-      render json: {}, status: :ok
+      head :ok
     else
       render json: {errors: pet_application.errors.messages}, status: :unprocessable_entity
     end

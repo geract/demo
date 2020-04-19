@@ -1,28 +1,30 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SavePersonalInfo
-  attr_reader :profile
+  class << self
+    def perform(profile, params)
+      @profile = profile
 
-  def initialize(adopter, params)
-    @profile = adopter.profile
-    @attributes = params
-    @pet_info_attributes = attributes.delete(:pet_info_attributes)
-    @has_co_adopter = (attributes.delete(:has_co_adopter) == 'true')
-  end
+      profile.assign_attributes(params)
+      profile.transaction do
+        saved = profile.save
+        saved_callbacks if saved
+        saved
+      end
+    end
 
-  def perform
-    profile.transaction do
-      profile.assign_attributes(attributes)
+    private
 
-      PetInfo.find_or_initialize_by(adopter_profile_id: profile.id).
-              assign_attributes(pet_info_attributes)
+    attr_reader :profile
 
-      has_co_adopter && profile.continue! || profile.skip_co_adopter!
-      profile.save
+    def saved_callbacks
+      update_profile_state
+    end
+
+    def update_profile_state
+      return true unless profile.personal_info?
+      return profile.skip_co_adopter! unless profile.has_co_adopter == 'true'
+      profile.continue!
     end
   end
-
-  private
-
-  attr_reader :attributes, :pet_info_attributes, :has_co_adopter
 end

@@ -1,7 +1,7 @@
 class Users::Adopters::Profile::LifestylePresenter
   def initialize(adopter)
     @profile = adopter.profile
-    @lifestyle = profile.pet_info.lifestyle
+    @pet_info = profile.pet_info
   end
 
   def as_json(*)
@@ -10,15 +10,15 @@ class Users::Adopters::Profile::LifestylePresenter
         pet_info_attributes: {
           id: profile.pet_info.id,
           lifestyle: {
-            living_place: lifestyle[:living_place],
-            bad_weather_plan: lifestyle[:bad_weather_plan],
-            hours_left: lifestyle[:hours_left],
-            alone_place: lifestyle[:alone_place],
-            walk_explanation: lifestyle[:walk_explanation],
-            trainer: lifestyle[:trainer],
-            energy: lifestyle[:energy],
-            train_plan: lifestyle[:train_plan],
-            experiences: lifestyle[:experiences],
+            living_place: pet_info.living_place,
+            bad_weather_plan: pet_info.bad_weather_plan,
+            hours_left: pet_info.hours_left,
+            alone_place: pet_info.alone_place,
+            walk_explanation: pet_info.walk_explanation,
+            trainer: pet_info.trainer,
+            energy: pet_info.energy,
+            train_plan: pet_info.train_plan,
+            experiences: pet_info.experiences,
           }
         }
       }
@@ -27,5 +27,5 @@ class Users::Adopters::Profile::LifestylePresenter
 
   private
 
-  attr_reader :profile, :lifestyle
+  attr_reader :profile, :pet_info
 end
