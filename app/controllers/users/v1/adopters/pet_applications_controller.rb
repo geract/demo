@@ -12,6 +12,6 @@ class Users::V1::Adopters::PetApplicationsController < Users::V1::Adopters::Base
   private
 
   def pet_application_params
-    params.require(:pet_application).permit(:pet_id, :adopter_profile_id)
+    params.require(:pet_application).permit(:pet_id).merge(adopter_profile: current_user.profile)
   end
 end

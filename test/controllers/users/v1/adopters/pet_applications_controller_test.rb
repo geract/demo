@@ -8,7 +8,7 @@ class Users::V1::Adopters::PetApplicationsControllerTest < ActionDispatch::Integ
     @pet = create(:pet, :complete)
 
     post adopters_pet_applications_path,
-      params: {pet_application: {pet_id: @pet.id, adopter_profile_id: @adopter.profile.id}},
+      params: {pet_application: {pet_id: @pet.id}},
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     assert_response :ok

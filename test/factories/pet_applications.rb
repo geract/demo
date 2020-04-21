@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :pet_application do
-    state { "MyString" }
+    status { "created" }
 
     after :build do |pet_application|
       adopter = build(:adopter)
@@ -12,7 +12,6 @@ FactoryBot.define do
   factory :pet_application_params, class: Hash do
     body do
       { pet_application: {
-          adopter_profile_id: nil,
           pet_id: nil
       }}
     end

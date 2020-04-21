@@ -12,6 +12,7 @@ class AdopterProfile < ApplicationRecord
   has_one :co_adopter, dependent: :destroy
   has_one :veterinarian, dependent: :destroy
   has_many :references, dependent: :destroy
+  has_many :pet_applications
   belongs_to :adopter, class_name: 'Adopter', foreign_key: 'user_id'
 
   validates :phone_number, :adopter, :family_status, :pronoun, presence: true
