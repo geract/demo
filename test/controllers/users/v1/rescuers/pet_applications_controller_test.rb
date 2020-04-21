@@ -21,4 +21,22 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
     assert api_response['applications'][0]['date_listed'].present?
     assert api_response['applications'][0]['total_applications'].present?
   end
+
+  def test_index_with_filter
+    create(:pet_application)
+
+    get rescuers_pet_applications_path,
+      params: { filters: {status: 'created'} },
+      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
+
+    api_response = JSON.parse(response.body)
+
+    assert_response :success
+    assert api_response.include?('applications')
+    assert_equal api_response['applications'].size, 1
+    assert api_response['applications'][0]['pet'].present?
+    assert api_response['applications'][0]['days_listed'].present?
+    assert api_response['applications'][0]['date_listed'].present?
+    assert api_response['applications'][0]['total_applications'].present?
+  end
 end
