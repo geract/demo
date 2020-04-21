@@ -5,6 +5,6 @@ module AdopterProfilable
     render json: {
              error: "Unavailable action, user is in #{current_user.profile.status} status",
              status: current_user.profile.status },
-           status: :unprocessable_entity
+           status: :conflict
   end
 end
