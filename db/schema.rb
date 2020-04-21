@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_204347) do
   create_table "pet_applications", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.bigint "adopter_profile_id", null: false
-    t.string "state"
+    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["adopter_profile_id"], name: "index_pet_applications_on_adopter_profile_id"
