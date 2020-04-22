@@ -12,7 +12,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
   def create
     rescuer = Rescuer.new(rescuer_params)
     rescuer.profile.organization_id = current_user.organization.id
-
+    binding.pry
     if rescuer.save
       render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }
     else
