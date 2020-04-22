@@ -5,7 +5,7 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     @adopter = build(:adopter, :with_personal_info)
     @credentials = @adopter.create_token
     @adopter.save
-    
+
     get adopters_personal_info_path,
     headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 

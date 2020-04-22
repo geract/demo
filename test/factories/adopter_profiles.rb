@@ -45,7 +45,8 @@ FactoryBot.define do
             owned_pet_species: 'Dog',
             owned_pet_breed: 'Collie',
             owned_pet_sex: 'Female/Unaltered',
-            owned_pet_age: '9+ years old'
+            owned_pet_age: '9+ years old',
+            owned_pet_where: 'ded'
           },
           veterinarian_extra: {
             is_contactable: true,
