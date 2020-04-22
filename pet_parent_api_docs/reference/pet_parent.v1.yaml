@@ -3361,6 +3361,8 @@ paths:
       responses:
         '200':
           description: OK
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:

@@ -8,7 +8,9 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
   end
 
   def as_json(*)
-    profile_info.merge(co_adopter_info)
+    {
+      profile: profile_info.merge(co_adopter_info)
+    }
   end
 
   private
@@ -16,17 +18,15 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
   attr_reader :profile, :co_adopter, :pet_info
 
   def profile_info
-    {
-      profile: { 
-        id: profile.id,
-        is_address_same_as_adopter: profile.address == profile.co_adopter&.address,
-        pet_info_attributes: {
-          id: pet_info.id,
-          personal: {
-            co_adopter_relation: pet_info.co_adopter_relation,
-            pet_relation_change_owner: pet_info.pet_relation_change_owner
-          },
-        },
+    { 
+      id: profile.id,
+      is_address_same_as_adopter: profile.address == profile.co_adopter&.address,
+      pet_info_attributes: {
+        id: pet_info.id,
+        personal: {
+          co_adopter_relation: pet_info.co_adopter_relation,
+          pet_relation_change_owner: pet_info.pet_relation_change_owner
+        }
       }
     }
   end
