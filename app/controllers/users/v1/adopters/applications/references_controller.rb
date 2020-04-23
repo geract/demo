@@ -8,7 +8,7 @@ module Users
         before_action :redirect_to_next_application_step, unless: :references?
 
         def update
-          service = User::Adopter::Application::SaveReferences.new(current_user, application_params)
+          service = Adopter::Application::SaveReferences.new(current_user, application_params)
           if service.perform
             render json: {application: {}}, status: :ok
           else

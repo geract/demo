@@ -1,0 +1,44 @@
+        parameters:
+          - schema:
+              type: string
+            in: header
+            name: ' API-VERSION: 1'
+            required: true
+          - schema:
+              type: boolean
+            in: header
+            name: 'Accept: application/json'
+            required: true
+          - schema:
+              type: string
+            in: header
+            name: uid
+            required: true
+          - schema:
+              type: string
+            in: header
+            name: access-token
+            required: true
+          - schema:
+              type: string
+            in: header
+            name: client
+            required: true
+
+            address_attributes:
+              type: object
+              properties:
+                street_line_1:
+                  type: string
+                street_line_2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                zip_code:
+                  type: string
+                country:
+                  type: string
+                  enum:
+                    - United States

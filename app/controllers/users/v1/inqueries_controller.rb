@@ -1,7 +1,7 @@
 class Users::V1::InqueriesController < Users::BaseController
   def create
     inquery = Inquery.new(inquery_params)
-    
+
     if inquery.save
       render json: { inquery: Inqueries::CreatePresenter.new(inquery)}, status: :ok
     else

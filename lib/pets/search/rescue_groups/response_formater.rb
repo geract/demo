@@ -6,7 +6,7 @@ class Pets::Search::RescueGroups::ResponseFormater
   def execute
     return response if response.blank?
 
-    response.map { |k, v| Pets::Search::RescueGroups::ResponseAdopter.new(v) }
+    response.map { |k, v| Pets::Search::RescueGroups::ResponseAdapter.new(v) }
   end
 
   private

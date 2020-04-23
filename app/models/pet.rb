@@ -1,12 +1,12 @@
 class Pet < ApplicationRecord
   include Pets::StateManager
+  include ImagePath
   extend FriendlyId
 
   friendly_id :name, use: :slugged
 
   belongs_to :organization
   belongs_to :added_by, class_name: 'User'
-  has_many :inqueries
   has_and_belongs_to_many :favorites, -> { distinct }, join_table: 'favorites', class_name: 'User'
 
   store_accessor :personality, :good_with_dogs
@@ -23,6 +23,8 @@ class Pet < ApplicationRecord
   validates :status, presence: true
 
   has_many_attached :images
+  image_field_name :images
+
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   scope :not_archived, -> { where.not(status: 'archived') }

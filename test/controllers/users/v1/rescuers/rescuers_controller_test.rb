@@ -11,13 +11,16 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_admin_create_success
+    refute @rescuer.profile.photo.attached?
+
     post rescuers_rescuers_url,
       params: {
         rescuer: {
           first_name: 'Joane',
           last_name: 'Doe',
           phone: '888999222',
-          email: 'joane@doe.com'
+          email: 'joane@doe.com',
+          photo: fixture_file_upload("files/test_attachment.jpg", "image/jpg")
         }
       },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
@@ -30,10 +33,12 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['rescuer']['last_name'], 'Doe'
     assert_equal api_response['rescuer']['phone'], '888999222'
     assert_equal api_response['rescuer']['email'], 'joane@doe.com'
-    assert_equal api_response['rescuer']['photo'], ''
+    assert api_response['rescuer']['photo'].present?
   end
 
   def test_rescuer_admin_update
+    refute @rescuer.profile.photo.attached?
+
     patch rescuers_rescuer_url(@rescuer),
       params: {
         rescuer: {
@@ -41,7 +46,8 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
           last_name: 'Doe',
           phone: '888999222',
           title: 'director',
-          email: 'joane@doe.com'
+          email: 'joane@doe.com',
+          photo: fixture_file_upload("files/test_attachment.jpg", "image/jpg")
         }
       },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
@@ -55,7 +61,8 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
     assert_equal api_response['rescuer']['phone'], '888999222'
     assert_equal api_response['rescuer']['title'], 'director'
     assert_equal api_response['rescuer']['email'], 'joane@doe.com'
-    assert_equal api_response['rescuer']['photo'], ''
+    assert api_response['rescuer']['photo'].present?
+    assert @rescuer.reload.profile.photo.attached?
   end
 
   def test_rescuer_admin_show

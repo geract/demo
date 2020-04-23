@@ -72,7 +72,7 @@ class Admin::CreateOrganizationTest < ActionDispatch::IntegrationTest
     fill_in 'organization_legal_address_attributes_zip_code', with: '94105'
     fill_in 'organization_rescuer_admin_profile_attributes_first_name', with: 'Noel'
     fill_in 'organization_rescuer_admin_profile_attributes_last_name', with: 'Brizuela'
-    fill_in 'organization_rescuer_admin_profile_attributes_rescuer_attributes_email', with: 'noel@pph.com'
+    fill_in 'organization_rescuer_admin_profile_attributes_admin_attributes_email', with: 'noel@pph.com'
     fill_in 'organization_rescuer_admin_profile_attributes_phone', with: '3313352255'
     fill_in 'organization_rescuer_admin_profile_attributes_title', with: 'director'
   end

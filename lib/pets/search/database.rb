@@ -1,11 +1,5 @@
 class Pets::Search::Database
-  attr_accessor :filters
-
-  def initialize(args)
-    @filters = args
-  end
-
-  def execute
-    Pet.where(filters)
+  def execute(args)
+    Pet.where(args)
   end
 end

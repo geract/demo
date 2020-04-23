@@ -26,7 +26,7 @@ class Admin::SaveOrganization
     end
 
     def reset_password_and_send_invitation_to_admin
-      rescuer_admin = organization.rescuer_admin_profile.rescuer
+      rescuer_admin = organization.admin
 
       rescuer_admin.allow_password_change = true
       token = rescuer_admin.password_token

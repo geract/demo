@@ -7,7 +7,7 @@ class Admins::OrganizationsController < Admins::BaseController
     @organization = Organization.new
     @organization.build_legal_address
     @organization.build_rescuer_admin_profile
-    @organization.rescuer_admin_profile.build_rescuer
+    @organization.rescuer_admin_profile.build_admin
   end
 
   def create
@@ -59,7 +59,7 @@ class Admins::OrganizationsController < Admins::BaseController
                                           legal_address_attributes: organization_addresses_attributes,
                                           physical_addresses_attributes: organization_addresses_attributes,
                                           rescuer_admin_profile_attributes: [:first_name, :last_name, :title, :phone, 
-                                            rescuer_attributes: [:email]
+                                            admin_attributes: [:email]
                                           ])
   end
 

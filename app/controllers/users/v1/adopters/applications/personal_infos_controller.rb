@@ -9,7 +9,7 @@ module Users
         end
 
         def update
-          service = User::Adopter::Application::SavePersonalInfo.new(current_user, application_params)
+          service = Adopter::Application::SavePersonalInfo.new(current_user, application_params)
 
           if service.perform
             render json: {application: {}}, status: :ok

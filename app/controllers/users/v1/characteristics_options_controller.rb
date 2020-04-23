@@ -6,6 +6,6 @@ class Users::V1::CharacteristicsOptionsController < Users::BaseController
   private
 
   def options
-    @options ||= Pet::CharacteristicsOptions.perform('dog')
+    @options ||= Shared::CharacteristicsOptions.perform('dog')
   end
 end

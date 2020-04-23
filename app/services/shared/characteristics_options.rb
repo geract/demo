@@ -1,4 +1,4 @@
-class Pet::CharacteristicsOptions
+class Shared::CharacteristicsOptions
   # Perform will execute Pets::CharacteristicsOptions::Dog.new.options
   # if no type is present
   def self.perform(type = 'dog')

@@ -1,15 +1,18 @@
 class Users::V1::OrganizationsController < Users::BaseController
   def show
-    organization = RescueGroups::Organization.find(params[:id].to_i).first
-    
-    pets = Pet::Search.perform(provider: 'RescueOrganization',
-                               organization_id: params[:id])
+    filters = filters_params.merge({ provider: 'RescueOrganization' })
+
+    organization = Shared::SearchOrganization.perform(filters)
 
     if organization
-      render json: { organization: Organizations::ShowPresenter.new(pets, organization) }, 
+      render json: { organization: Organizations::ShowPresenter.new(organization) }, 
                      status: :ok
     else
       render status: 404
     end
+  end
+
+  def filters_params
+    params.permit(:id)
   end
 end

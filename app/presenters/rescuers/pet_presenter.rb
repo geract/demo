@@ -26,7 +26,9 @@ module Rescuers
         slug: pet.slug,
         short_url: pet.short_url,
         status: pet.status,
-        reason_code: pet.reason_code
+        reason_code: pet.reason_code,
+        size: pet.size,
+        images: pet.images_url,
       }
     end
 

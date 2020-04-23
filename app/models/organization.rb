@@ -5,7 +5,7 @@ class Organization < ApplicationRecord
   has_many :rescuer_profiles 
   has_many :rescuers, through: :rescuer_profiles
   has_one :rescuer_admin_profile
-  has_one :rescuer_admin, through: :rescuer_admin_profile
+  has_one :admin, through: :rescuer_admin_profile
   has_one_attached :logo
   has_many :messages
 

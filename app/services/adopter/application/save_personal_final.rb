@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User::Adopter::Application::SavePersonalFinal
+class Adopter::Application::SavePersonalFinal
   attr_reader :application
 
   def initialize(adopter, params)

@@ -34,7 +34,7 @@
         %h5 Rescuer Admin
         = admin_profile.input :first_name
         = admin_profile.input :last_name
-        = admin_profile.simple_fields_for :rescuer do |admin|
+        = admin_profile.simple_fields_for :admin do |admin|
           = admin.input :email
         = admin_profile.input :title
         = admin_profile.input :phone
