@@ -29,6 +29,17 @@ class Pet < ApplicationRecord
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   scope :not_archived, -> { where.not(status: 'archived') }
+  scope :by_status, -> (status) { where(status: status) }
+
+  def date_listed
+    @date_listed ||= applications.order(:created_at).first.try(:created_at)
+  end
+
+  def days_listed
+    return 0 unless date_listed
+
+    (Time.now - date_listed).to_i
+  end
 
   def long_url
     host = ENV['host'] || Rails.application.config_for(:config)[:bitly][:app_url]

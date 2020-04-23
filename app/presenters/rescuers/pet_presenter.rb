@@ -36,7 +36,8 @@ module Rescuers
       {
         id: pet.id,
         name: pet.name,
-        address: 'TBD'
+        address: 'TBD',
+        images: pet.images_url
       }
     end
 
