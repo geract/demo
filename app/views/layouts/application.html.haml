@@ -7,7 +7,6 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     #body-row.row
       #sidebar-container.sidebar-expanded.d-none.d-md-block
@@ -15,7 +14,8 @@
       .col.p-0
         %nav.navbar.navbar-expand-lg.navbar-light.header
           = render 'layouts/header'
-        .p-4
+        .p-0
           = render 'layouts/flash'
           = yield
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
           

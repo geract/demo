@@ -21,6 +21,7 @@ class Organization < ApplicationRecord
   before_validation :validate_physical_addresses
   before_save :validate_before_validation
 
+  accepts_nested_attributes_for :rescuer_admin_profile, update_only: true
   accepts_nested_attributes_for :legal_address, update_only: true
   accepts_nested_attributes_for :physical_addresses, update_only: true, allow_destroy: true
 

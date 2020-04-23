@@ -31,6 +31,7 @@ gem 'whenever', require: false
 gem 'aws-sdk-s3', require: false
 gem 'redis'
 gem 'hiredis'
+gem 'cocoon'
 
 group :development, :test do
   gem 'pry'
@@ -50,10 +51,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
   gem 'minitest-rails', '~> 6.0.0'
-  gem 'minitest-reporters', '>= 0.5.0'
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'shoulda-context'

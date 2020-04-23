@@ -14,8 +14,8 @@ class Admin::UpdateOrganizationTest < ActionDispatch::IntegrationTest
     fill_in 'organization_facebook', with: 'https://www.facebook.com/org'
     fill_in 'organization_twitter', with: 'https://www.twitter.com/org'
     fill_in 'organization_instagram', with: 'https://www.instagram.com/org'
-    click_on 'Update Organization'
 
+    click_on 'Save organization'
     organization = Organization.last
 
     assert_equal organization.name, 'Happy paws org'

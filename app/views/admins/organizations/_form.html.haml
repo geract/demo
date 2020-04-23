@@ -1,32 +1,42 @@
 = simple_form_for [:admins, @organization] do |org|
-  %h4 Organization Information
-  = org.input :name
-  = org.input :director
-  = org.input :description
-  = org.input :facebook
-  = org.input :twitter
-  = org.input :instagram
-  = org.input :'5013c'
-  = org.input :url
-  = org.input :email
-  = org.input :phone
-  = org.file_field :logo
-  = org.input :sheltered, as: :boolean
-  = org.input :foster_based, as: :boolean
-  = org.simple_fields_for :legal_address do |legal|
-    %h4 Legal Address
-    = legal.input :name
-    = legal.input :address
-    = legal.input :city
-    = legal.input :state
-    = legal.input :zip_code
-    = legal.input :main_location, as: :boolean
-  = org.simple_fields_for :physical_addresses do |physical|
-    %h4 Physical Addresses
-    = physical.input :name
-    = physical.input :address
-    = physical.input :city
-    = physical.input :state
-    = physical.input :zip_code
-    = physical.input :main_location, as: :boolean
-  = org.submit
+  .row
+    .col-sm-4
+      %h5 Organization Info
+      = org.file_field :logo
+      = org.input :name
+      = org.input :director
+      = org.input :description
+      = org.input :facebook
+      = org.input :twitter
+      = org.input :instagram
+      = org.input :'5013c'
+      = org.input :url
+      = org.input :email
+      = org.input :phone
+      = org.input :sheltered, as: :boolean
+      = org.input :foster_based, as: :boolean
+    .col-sm-4
+      = org.simple_fields_for :legal_address do |legal|
+        %h5 Legal Address
+        = legal.input :name
+        = legal.input :address
+        = legal.input :city
+        = legal.input :state
+        = legal.input :zip_code
+        = legal.input :main_location, as: :boolean
+      #physical_addresses
+        = org.simple_fields_for :physical_addresses do |physical_address|
+          = render 'physical_address_fields', f: physical_address
+        .links
+          = link_to_add_association 'Add physical address', org, :physical_addresses, class: 'btn btn-success btn-sm'
+    .col-sm-4
+      = org.simple_fields_for :rescuer_admin_profile do |admin_profile|
+        %h5 Rescuer Admin
+        = admin_profile.input :first_name
+        = admin_profile.input :last_name
+        = admin_profile.simple_fields_for :rescuer do |admin|
+          = admin.input :email
+        = admin_profile.input :title
+        = admin_profile.input :phone
+  .row    
+    = org.submit 'Save organization', class: 'btn btn-primary'

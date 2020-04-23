@@ -5,17 +5,25 @@ class Admins::OrganizationsController < Admins::BaseController
 
   def new
     @organization = Organization.new
-    @organization.physical_addresses.build
     @organization.build_legal_address
+    @organization.build_rescuer_admin_profile
+    @organization.rescuer_admin_profile.build_rescuer
   end
 
   def create
     @organization = Organization.new(organization_params)
+    
     if Admin::SaveOrganization.perform(@organization)
+      flash[:notice] = 'Organization successfully created'
       redirect_to admins_organization_path(@organization)
     else
+      flash[:error] = 'There was an error creating the organization'
       render :new
     end
+  end
+
+  def edit
+    @organization = Organization.find(params[:id])
   end
 
   def update
@@ -49,7 +57,10 @@ class Admins::OrganizationsController < Admins::BaseController
                                           :foster_based,
                                           :logo,
                                           legal_address_attributes: organization_addresses_attributes,
-                                          physical_addresses_attributes: organization_addresses_attributes)
+                                          physical_addresses_attributes: organization_addresses_attributes,
+                                          rescuer_admin_profile_attributes: [:first_name, :last_name, :title, :phone, 
+                                            rescuer_attributes: [:email]
+                                          ])
   end
 
   def organization_addresses_attributes

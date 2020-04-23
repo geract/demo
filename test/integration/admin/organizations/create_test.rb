@@ -9,51 +9,52 @@ class Admin::CreateOrganizationTest < ActionDispatch::IntegrationTest
   def test_admin_creates_organization_with_sheltered
     fill_basic_form
     check 'organization_sheltered'
-    click_on 'Create Organization'
+    click_on 'Save organization'
 
-    basic_asserts
-    assert       Organization.last.legal_address
-    assert_empty Organization.last.physical_addresses
+    org = Organization.last
+    basic_asserts(org)
+    assert       org.legal_address
+    assert_empty org.physical_addresses
+    assert       org.rescuer_profile
   end
 
   def test_admin_creates_organization_without_type
     fill_basic_form
-    fill_in 'organization_physical_addresses_attributes_0_name', with: 'Testing'
-    fill_in 'organization_physical_addresses_attributes_0_address', with: '345 Spear St'
-    fill_in 'organization_physical_addresses_attributes_0_city', with: 'San Francisco'
-    fill_in 'organization_physical_addresses_attributes_0_state', with: 'California'
-    fill_in 'organization_physical_addresses_attributes_0_zip_code', with: '94105'
-    click_on 'Create Organization'
+    click_on 'Save organization'
 
-    basic_asserts
-    assert       Organization.last.legal_address
-    assert_empty Organization.last.physical_addresses
+    org = Organization.last
+    basic_asserts(org)
+    assert       org.legal_address
+    assert_empty org.physical_addresses
   end
 
   def test_admin_creates_organization_with_sheltered
     fill_basic_form
     check 'organization_sheltered'
-    click_on 'Create Organization'
+    click_on 'Save organization'
 
-    basic_asserts
-    assert       Organization.last.legal_address
-    assert_empty Organization.last.physical_addresses
+    org = Organization.last
+    basic_asserts(org)
+    assert       org.legal_address
+    assert_empty org.physical_addresses
   end
 
-  def test_admin_creates_organization_with_foster_based
-    fill_basic_form
-    check 'organization_foster_based'
-    fill_in 'organization_physical_addresses_attributes_0_name', with: 'Testing'
-    fill_in 'organization_physical_addresses_attributes_0_address', with: '345 Spear St'
-    fill_in 'organization_physical_addresses_attributes_0_city', with: 'San Francisco'
-    fill_in 'organization_physical_addresses_attributes_0_state', with: 'California'
-    fill_in 'organization_physical_addresses_attributes_0_zip_code', with: '94105'
-    click_on 'Create Organization'
+  # def test_admin_creates_organization_with_foster_based
+  #   fill_basic_form
+  #   check 'organization_foster_based'
+  #   click_on 'Add physical addresses'
+  #   fill_in 'organization_physical_addresses_attributes_0_name', with: 'Testing'
+  #   fill_in 'organization_physical_addresses_attributes_0_address', with: '345 Spear St'
+  #   fill_in 'organization_physical_addresses_attributes_0_city', with: 'San Francisco'
+  #   fill_in 'organization_physical_addresses_attributes_0_state', with: 'California'
+  #   fill_in 'organization_physical_addresses_attributes_0_zip_code', with: '94105'
+  #   click_on 'Save organization'
 
-    basic_asserts
-    assert Organization.last.legal_address
-    assert Organization.last.physical_addresses
-  end
+  #   org = Organization.last
+  #   basic_asserts(org)
+  #   assert org.legal_address
+  #   assert org.physical_addresses
+  # end
 
   def fill_basic_form
     fill_in 'organization_name', with: 'org'
@@ -69,14 +70,19 @@ class Admin::CreateOrganizationTest < ActionDispatch::IntegrationTest
     fill_in 'organization_legal_address_attributes_city', with: 'San Francisco'
     fill_in 'organization_legal_address_attributes_state', with: 'California'
     fill_in 'organization_legal_address_attributes_zip_code', with: '94105'
+    fill_in 'organization_rescuer_admin_profile_attributes_first_name', with: 'Noel'
+    fill_in 'organization_rescuer_admin_profile_attributes_last_name', with: 'Brizuela'
+    fill_in 'organization_rescuer_admin_profile_attributes_rescuer_attributes_email', with: 'noel@pph.com'
+    fill_in 'organization_rescuer_admin_profile_attributes_phone', with: '3313352255'
+    fill_in 'organization_rescuer_admin_profile_attributes_title', with: 'director'
   end
 
-  def basic_asserts
-    assert_equal Organization.last.name, 'org'
-    assert_equal Organization.last.director, 'isay'
-    assert_equal Organization.last.description, 'org description'
-    assert_equal Organization.last.facebook, 'https://www.facebook.com/org'
-    assert_equal Organization.last.twitter, 'https://www.twitter.com/org'
-    assert_equal Organization.last.instagram, 'https://www.instagram.com/org'
+  def basic_asserts(org)
+    assert_equal 'org', org.name
+    assert_equal 'isay', org.director
+    assert_equal 'org description', org.description
+    assert_equal 'https://www.facebook.com/org', org.facebook
+    assert_equal 'https://www.twitter.com/org', org.twitter
+    assert_equal 'https://www.instagram.com/org', org.instagram
   end
 end
