@@ -20,7 +20,7 @@ class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseContr
   private
 
   def adopter_profile_params
-    params.require(:profile).permit(
+    params.require(:profile).permit(:id,
       references_attributes: %i[id first_name last_name email phone_number relationship]
     )
   end

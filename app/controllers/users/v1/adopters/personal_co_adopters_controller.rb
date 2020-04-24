@@ -23,7 +23,7 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
   def adopter_profile_params
     params.require(:profile).permit(
       :id, :is_address_same_as_adopter,
-      co_adopter_attributes: [:id, :email, :phone_number, :birthday, :first_name, :last_name, :phone_number,
+      co_adopter_attributes: [:id, :email, :phone_number, :birthday, :first_name, :last_name,
         address_attributes: %i[id street_line_1 street_line_2 city state country zip_code],
         employment_attributes: [:id, :status, :years, :company,
           address_attributes: %i[id street_line_1 street_line_2 city state country zip_code]

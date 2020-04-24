@@ -10,7 +10,7 @@ class PetInfo < ApplicationRecord
                    landlord_first_name landlord_last_name landlord_email landlord_phone_number].freeze
 
   ANIMAL_HISTORY_FIELDS = %i[has_pets has_owned_pets pet_name pet_species pet_breed pet_sex pet_age
-              owned_pet_name owned_pet_species owned_pet_breed owned_pet_sex owned_pet_age].freeze
+              owned_pet_name owned_pet_species owned_pet_breed owned_pet_sex owned_pet_age owned_pet_where].freeze
 
   LIFESTYLE_FIELDS = %i[living_place bad_weather_plan hours_left alone_place walk_explanation train_plan experiences
               trainer energy].freeze

@@ -15,7 +15,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert api_response
     assert api_response['profile']
     assert api_response['profile']['co_adopter_attributes']
-    assert api_response['profile']['co_adopter_attributes']
+    assert api_response['profile']['co_adopter_attributes']['address_attributes']
     assert api_response['profile']['co_adopter_attributes']['employment_attributes']
     assert api_response['profile']['co_adopter_attributes']['employment_attributes']['address_attributes']
     assert api_response['profile']['pet_info_attributes']
@@ -36,7 +36,6 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
 
     assert_response :success
     assert @profile.personal_final?
-    assert @profile.co_adopter
     assert @profile.co_adopter
     assert @profile.co_adopter.address
     assert @profile.co_adopter.employment
@@ -63,7 +62,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert @profile.personal_final?
     assert @profile.co_adopter
     assert @profile.co_adopter
-    # assert @profile.co_adopter.address
+    assert @profile.co_adopter.address
     assert @profile.co_adopter.employment
     assert @profile.co_adopter.employment.address
     assert @profile.pet_info.personal
@@ -81,7 +80,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
       
     api_response = JSON.parse(response.body)
 
-    assert_response :unprocessable_entity
+    assert_response :conflict
     assert api_response['error']
     assert_equal 'personal_info', api_response['status']
   end
