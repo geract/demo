@@ -20,7 +20,7 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
   def profile_info
     { 
       id: profile.id,
-      is_address_same_as_adopter: profile.address == profile.co_adopter&.address,
+      is_address_same_as_adopter: profile.co_adopter.address.nil?,
       pet_info_attributes: {
         id: pet_info.id,
         personal: {
@@ -57,7 +57,7 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
           company: co_adopter.employment.company,
           pet_costs: co_adopter.employment.pet_costs,
           address_attributes: {
-            id: co_adopter.employment&.address.id,
+            id: co_adopter.employment&.address&.id,
             street_line_1: co_adopter.employment&.address&.street_line_1,
             street_line_2: co_adopter.employment&.address&.street_line_2,
             city: co_adopter.employment&.address&.city,
