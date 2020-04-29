@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class Adopter::Profile::SavePersonalCoAdopter
-  class << self    
+  class << self
     def perform(profile, params)
       @profile = profile
-      @is_address_same_as_adopter = (params.delete(:is_address_same_as_adopter) == 'true')
-      pet_info_attributes = params.delete(:pet_info_attributes)
 
+      @is_address_same_as_adopter = ActiveModel::Type::Boolean.new.cast(params.delete(:is_address_same_as_adopter))
+      pet_info_attributes = params.delete(:pet_info_attributes)
+      params[:co_adopter_attributes].delete(:address_attributes) if is_address_same_as_adopter
       set_pet_info(pet_info_attributes)
+
       profile.assign_attributes(params)
       profile.transaction do
         saved = profile.save

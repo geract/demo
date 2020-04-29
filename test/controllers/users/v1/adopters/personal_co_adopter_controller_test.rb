@@ -49,7 +49,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     @adopter.save
 
     params = Users::Adopters::Profile::PersonalCoAdopterPresenter.new(@adopter).as_json
-    params[:profile].delete(:address_attributes)
+    params[:profile][:co_adopter_attributes][:address_attributes] = { street_line_1: "", street_line_2: "", city: "", state: "", zip_code: "", country: "" }
     params[:profile][:is_address_same_as_adopter] = true
 
     patch adopters_personal_co_adopter_path,
