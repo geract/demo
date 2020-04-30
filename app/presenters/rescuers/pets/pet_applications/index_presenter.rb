@@ -8,7 +8,9 @@ module Rescuers
       pet_applications.map do |application|
         {
           id: application.id,
-          adopter: Users::Adopters::ProfilePresenter.new(application.adopter_profile).short_response
+          favorite: application.favorite,
+          adopter: Users::Adopters::ProfilePresenter.new(application.adopter_profile).short_response,
+          created: application.time_listed
         }
       end
     end

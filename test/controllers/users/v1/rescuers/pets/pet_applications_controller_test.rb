@@ -20,6 +20,9 @@ class Users::V1::Rescuers::Pets::PetApplicationsControllerTest < ActionDispatch:
     assert_response :success
     assert api_response.any?
     assert api_response[0]['id'].present?
+    refute api_response[0]['favorite']
+    assert_equal api_response[0]['favorite'], false
+    assert_equal api_response[0]['created'], '0 hours'
     assert api_response[0]['adopter'].present?
     assert_equal api_response[0]['adopter']['first_name'], 'Ale'
     assert_equal api_response[0]['adopter']['last_name'], 'Jandra'
@@ -42,6 +45,8 @@ class Users::V1::Rescuers::Pets::PetApplicationsControllerTest < ActionDispatch:
     assert api_response.any?
     assert api_response[0]['id'].present?
     assert api_response[0]['adopter'].present?
+    assert api_response[0]['favorite']
+    assert_equal api_response[0]['created'], '0 hours'
     assert_equal api_response[0]['adopter']['first_name'], 'Ale'
     assert_equal api_response[0]['adopter']['last_name'], 'Jandra'
     assert api_response[0]['adopter']['address_attributes'].present?
