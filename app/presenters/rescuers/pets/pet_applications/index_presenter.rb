@@ -7,6 +7,7 @@ module Rescuers
     def as_json(*)
       pet_applications.map do |application|
         {
+          id: application.id,
           adopter: Users::Adopters::ProfilePresenter.new(application.adopter_profile).short_response
         }
       end

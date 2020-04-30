@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_204347) do
+ActiveRecord::Schema.define(version: 2020_04_30_212537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_04_16_204347) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "favorite", default: false
     t.index ["adopter_profile_id"], name: "index_pet_applications_on_adopter_profile_id"
     t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
   end
