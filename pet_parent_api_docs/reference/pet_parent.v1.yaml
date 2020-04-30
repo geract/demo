@@ -1893,202 +1893,16 @@ paths:
                         - integer
               required:
                 - inquery
-  /adopter/applications/personal_co_adopter:
-    patch:
-      summary: ''
-      operationId: patch-adopter-applications-personal_info
-      responses:
-        '200':
-          description: OK
-          parameters:
-            - schema: null
-              type: string
-              in: header
-              name: ' API-VERSION: 1'
-              required: true
-            - schema: null
-              type: boolean
-              in: header
-              name: 'Accept: application/json'
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: uid
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: access-token
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: client
-              required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  application:
-                    type: object
-                    description: The same `application` object that was sent in the request.
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  application:
-                    type: object
-                    description: The same `application` object that was sent in the request.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                application:
-                  type:
-                    - string
-                    - object
-                  properties:
-                    applicationable_attributes:
-                      type:
-                        - string
-                        - object
-                      required:
-                        - pet_info_attributes
-                      properties:
-                        pet_info_attributes:
-                          type:
-                            - string
-                            - object
-                          required:
-                            - personal
-                          properties:
-                            personal:
-                              type: object
-                              required:
-                                - pet_relation_change_owner
-                              properties:
-                                co_adopter_relation:
-                                  type: string
-                                  enum:
-                                    - Spouse/Partner
-                                    - Parent
-                                    - Sibling
-                                    - Friend
-                                    - Roomate
-                                pet_relation_change_owner:
-                                  type: string
-                    is_address_same_as_adopter:
-                      type: boolean
-                    co_adopter_attributes:
-                      type: object
-                      properties:
-                        email:
-                          type: string
-                          format: email
-                        profile_attributes:
-                          type: object
-                          properties:
-                            first_name:
-                              type: string
-                            last_name:
-                              type: string
-                            phone_number:
-                              type: string
-                              example: '1234567890'
-                              minLength: 10
-                              maxLength: 10
-                            birthday:
-                              type: string
-                              default: '2000-00-00'
-                              format: date
-                              example: '1968-10-03'
-                            address_attributes:
-                              type: object
-                              required:
-                                - street_line_1
-                                - street_line_2
-                                - city
-                                - state
-                                - zip_code
-                                - country
-                              properties:
-                                street_line_1:
-                                  type: string
-                                street_line_2:
-                                  type: string
-                                city:
-                                  type: string
-                                state:
-                                  type: string
-                                zip_code:
-                                  type: string
-                                country:
-                                  type: string
-                                  enum:
-                                    - United States
-                            employment_attributes:
-                              type: object
-                              properties:
-                                status:
-                                  type: string
-                                  enum:
-                                    - Self-Employed
-                                    - Employed
-                                    - Unemployed
-                                    - Retired
-                                years:
-                                  type: string
-                                  enum:
-                                    - <1 year
-                                    - 1-2 years
-                                    - 3+ years
-                                company:
-                                  type: string
-                                address_attributes:
-                                  type:
-                                    - object
-                                  required:
-                                    - street_line_1
-                                    - street_line_2
-                                    - city
-                                    - state
-                                    - zip_code
-                                    - country
-                                  properties:
-                                    street_line_1:
-                                      type: string
-                                    street_line_2:
-                                      type: string
-                                    city:
-                                      type: string
-                                    state:
-                                      type: string
-                                    zip_code:
-                                      type: string
-                                    country:
-                                      type: string
-                                      enum:
-                                        - United States
-                              required:
-                                - address_attributes
-                          required:
-                            - phone_number
-                            - address_attributes
-                  required:
-                    - applicationable_attributes
-                    - is_address_same_as_adopter
-        description: ''
-      description: ''
+  '/organizations/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
     get:
-      summary: ''
-      operationId: get-adopter-applications-personal_co_adopter
+      summary: Your GET endpoint
+      tags: []
       responses:
         '200':
           description: OK
@@ -2097,495 +1911,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  application:
-                    type:
-                      - string
-                      - object
-                    required:
-                      - applicationable_attributes
-                      - is_address_same_as_adopter
-                    properties:
-                      applicationable_attributes:
-                        type:
-                          - string
-                          - object
-                        required:
-                          - pet_info_attributes
-                        properties:
-                          pet_info_attributes:
-                            type:
-                              - string
-                              - object
-                            required:
-                              - personal
-                            properties:
-                              personal:
-                                type: object
-                                required:
-                                  - pet_relation_change_owner
-                                properties:
-                                  co_adopter_relation:
-                                    type: string
-                                    enum:
-                                      - Spouse/Partner
-                                      - Parent
-                                      - Sibling
-                                      - Friend
-                                      - Roomate
-                                  pet_relation_change_owner:
-                                    type: string
-                      is_address_same_as_adopter:
-                        type: boolean
-                      co_adopter_attributes:
-                        type: object
-                        properties:
-                          email:
-                            type: string
-                            format: email
-                          profile_attributes:
-                            type: object
-                            properties:
-                              first_name:
-                                type: string
-                              last_name:
-                                type: string
-                              phone_number:
-                                type: string
-                                example: '1234567890'
-                                minLength: 10
-                                maxLength: 10
-                              birthday:
-                                type: string
-                                default: '2000-00-00'
-                                format: date
-                                example: '1968-10-03'
-                              address_attributes:
-                                type: object
-                                required:
-                                  - street_line_1
-                                  - street_line_2
-                                  - city
-                                  - state
-                                  - zip_code
-                                  - country
-                                properties:
-                                  street_line_1:
-                                    type: string
-                                  street_line_2:
-                                    type: string
-                                  city:
-                                    type: string
-                                  state:
-                                    type: string
-                                  zip_code:
-                                    type: string
-                                  country:
-                                    type: string
-                                    enum:
-                                      - United States
-                              employment_attributes:
-                                type: object
-                                properties:
-                                  status:
-                                    type: string
-                                    enum:
-                                      - Self-Employed
-                                      - Employed
-                                      - Unemployed
-                                      - Retired
-                                  years:
-                                    type: string
-                                    enum:
-                                      - <1 year
-                                      - 1-2 years
-                                      - 3+ years
-                                  company:
-                                    type: string
-                                  address_attributes:
-                                    type:
-                                      - object
-                                    required:
-                                      - street_line_1
-                                      - street_line_2
-                                      - city
-                                      - state
-                                      - zip_code
-                                      - country
-                                    properties:
-                                      street_line_1:
-                                        type: string
-                                      street_line_2:
-                                        type: string
-                                      city:
-                                        type: string
-                                      state:
-                                        type: string
-                                      zip_code:
-                                        type: string
-                                      country:
-                                        type: string
-                                        enum:
-                                          - United States
-                                required:
-                                  - address_attributes
-                            required:
-                              - phone_number
-                              - address_attributes
-  /adopter/applications/personal_info:
-    parameters: []
-    get:
-      tags:
-        - PetApplication
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  application:
-                    type: object
-                    required:
-                      - profile_attributes
-                      - has_co_adopter
-                    properties:
-                      profile_attributes:
-                        type: object
-                        required:
-                          - phone_number
-                          - address_attributes
-                        properties:
-                          pronoun:
-                            type: string
-                            enum:
-                              - He
-                              - She
-                              - They
-                              - Prefer not to say
-                          family_status:
-                            type: string
-                            enum:
-                              - He
-                              - She
-                              - They
-                              - Prefer not to say
-                          phone_number:
-                            type: string
-                            example: '1234567890'
-                            minLength: 10
-                            maxLength: 10
-                          birthday:
-                            type: string
-                            default: '2000-00-00'
-                            format: date
-                            example: '1968-10-03'
-                          address_attributes:
-                            type: object
-                            required:
-                              - street_line_1
-                              - street_line_2
-                              - city
-                              - state
-                              - zip_code
-                              - country
-                            properties:
-                              street_line_1:
-                                type: string
-                              street_line_2:
-                                type: string
-                              city:
-                                type: string
-                              state:
-                                type: string
-                              zip_code:
-                                type: string
-                              country:
-                                type: string
-                                enum:
-                                  - United States
-                          employment_attributes:
-                            type: object
-                            properties:
-                              status:
-                                type: string
-                                enum:
-                                  - Self-Employed
-                                  - Employed
-                                  - Unemployed
-                                  - Retired
-                              years:
-                                type: string
-                                enum:
-                                  - <1 year
-                                  - 1-2 years
-                                  - 3+ years
-                              company:
-                                type: string
-                              address_attributes:
-                                type:
-                                  - object
-                                required:
-                                  - street_line_1
-                                  - street_line_2
-                                  - city
-                                  - state
-                                  - zip_code
-                                  - country
-                                properties:
-                                  street_line_1:
-                                    type: string
-                                  street_line_2:
-                                    type: string
-                                  city:
-                                    type: string
-                                  state:
-                                    type: string
-                                  zip_code:
-                                    type: string
-                                  country:
-                                    type: string
-                                    enum:
-                                      - United States
-                            required:
-                              - address_attributes
-                      applicationable_attributes:
-                        type: object
-                        properties:
-                          pet_info_attributes:
-                            type: object
-                            properties:
-                              about_you:
-                                type: string
-                              ideal_pet:
-                                type: string
-                              adopt_reason:
-                                type: string
-                              is_military:
-                                type: boolean
-                                default: 'false'
-                              military_pet_plan:
-                                type: string
-                                description: 'If `is_military` is true, this field is required'
-                            required:
-                              - about_you
-                              - ideal_pet
-                              - adopt_reason
-                              - is_military
-                      has_co_adopter:
-                        type: boolean
-                        description: 'If this is false, user should not fill `co_adopter` form'
-                required:
-                  - application
-        description: 'Retrieves all the `PetApplication::PersonalInfo` data for the current user.'
-        parameters:
-          - schema:
-              type: string
-            in: header
-            name: ' API-VERSION: 1'
-            required: true
-          - schema:
-              type: boolean
-            in: header
-            name: 'Accept: application/json'
-            required: true
-          - schema:
-              type: string
-            in: header
-            name: uid
-            required: true
-          - schema:
-              type: string
-            in: header
-            name: access-token
-            required: true
-          - schema:
-              type: string
-            in: header
-            name: client
-            required: true
-        requestBody:
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-            application/xml:
-              schema:
-                type: object
-                properties: {}
-          description: ''
-        operationId: applications-personal_info
-      operationId: get-application-personal_info
-      description: 'Retrieve all the `PetApplication::PersonalInfo` for current user'
-    patch:
-      summary: ''
-      operationId: get-adopter-applications-personal_info
-      responses:
-        '200':
-          description: OK
-          parameters:
-            - schema: null
-              type: string
-              in: header
-              name: ' API-VERSION: 1'
-              required: true
-            - schema: null
-              type: boolean
-              in: header
-              name: 'Accept: application/json'
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: uid
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: access-token
-              required: true
-            - schema: null
-              type: string
-              in: header
-              name: client
-              required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                application:
-                  type:
-                    - object
-                  properties:
-                    profile_attributes:
-                      type: object
-                      properties:
-                        employment_attributes:
-                          type: object
-                          properties:
-                            status:
-                              type: string
-                              enum:
-                                - Self-Employed
-                                - Employed
-                                - Unemployed
-                                - Retired
-                            years:
-                              type: string
-                              enum:
-                                - <1 year
-                                - 1-2 years
-                                - 3+ years
-                            company:
-                              type: string
-                            address_attributes:
-                              type:
-                                - object
-                              required:
-                                - street_line_1
-                                - street_line_2
-                                - city
-                                - state
-                                - zip_code
-                                - country
-                              properties:
-                                street_line_1:
-                                  type: string
-                                street_line_2:
-                                  type: string
-                                city:
-                                  type: string
-                                state:
-                                  type: string
-                                zip_code:
-                                  type: string
-                                country:
-                                  type: string
-                                  enum:
-                                    - United States
-                          required:
-                            - address_attributes
-                        address_attributes:
-                          type: object
-                          properties:
-                            street_line_1:
-                              type: string
-                            street_line_2:
-                              type: string
-                            city:
-                              type: string
-                            state:
-                              type: string
-                            zip_code:
-                              type: string
-                            country:
-                              type: string
-                              enum:
-                                - United States
-                          required:
-                            - street_line_1
-                            - street_line_2
-                            - city
-                            - state
-                            - zip_code
-                            - country
-                        birthday:
-                          type: string
-                          default: '2000-00-00'
-                          format: date
-                          example: '1968-10-03'
-                        phone_number:
-                          type: string
-                          example: '1234567890'
-                          minLength: 10
-                          maxLength: 10
-                        family_status:
-                          type: string
-                          enum:
-                            - He
-                            - She
-                            - They
-                            - Prefer not to say
-                        pronoun:
-                          type: string
-                          enum:
-                            - He
-                            - She
-                            - They
-                            - Prefer not to say
-                        '':
-                          type: string
-                has_co_adopter:
-                  type: boolean
-                  description: 'If this is false, user should not fill `co_adopter` form'
-                applicationable_attributes:
-                  type: object
-                  properties:
-                    pet_info_attributes:
-                      type: object
-                      properties:
-                        about_you:
-                          type: string
-                        ideal_pet:
-                          type: string
-                        adopt_reason:
-                          type: string
-                        is_military:
-                          type: boolean
-                          default: 'false'
-                        military_pet_plan:
-                          type: string
-                          description: 'If `is_military` is true, this field is required'
-                      required:
-                        - about_you
-                        - ideal_pet
-                        - adopt_reason
-                        - is_military
-        description: 'Patch the `PetApplication::PersonalInfo` for current user'
-      description: ''
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  web_url:
+                    type: string
+                  email:
+                    type: string
+                  code:
+                    type: string
+                  address:
+                    type: string
+      operationId: get-organizations-id
   /pets:
     get:
       summary: Your GET endpoint
@@ -2653,13 +1993,696 @@ paths:
                       type: number
                     limit:
                       type: number
-  '/organizations/{id}':
-    parameters:
-      - schema:
-          type: string
-        name: id
-        in: path
-        required: true
+  /adopter/personal_info:
+    parameters: []
+    get:
+      tags:
+        - PetApplication
+      responses:
+        '200':
+          description: |-
+            OK
+            Always returns ids
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      has_co_adopter:
+                        type: boolean
+                        description: 'If this is false, user should not fill `co_adopter` form'
+                      employment_attributes:
+                        type: object
+                        properties:
+                          status:
+                            type: string
+                            enum:
+                              - Self-Employed
+                              - Employed
+                              - Unemployed
+                              - Retired
+                          years:
+                            type: string
+                            enum:
+                              - <1 year
+                              - 1-2 years
+                              - 3+ years
+                          company:
+                            type: string
+                          address_attributes:
+                            type:
+                              - object
+                            id:
+                              type: string
+                            required:
+                              - street_line_1
+                              - street_line_2
+                              - city
+                              - state
+                              - zip_code
+                              - country
+                            description: |-
+                              In the backend this field is not required if `status` equals to `Retired` or `Unemployed
+                              `
+                            properties:
+                              street_line_1:
+                                type: string
+                              street_line_2:
+                                type: string
+                              city:
+                                type: string
+                              state:
+                                type: string
+                              zip_code:
+                                type: string
+                              country:
+                                type: string
+                                enum:
+                                  - United States
+                          id:
+                            type: string
+                        required:
+                          - address_attributes
+                      address_attributes:
+                        type: object
+                        properties:
+                          street_line_1:
+                            type: string
+                          street_line_2:
+                            type: string
+                          city:
+                            type: string
+                          state:
+                            type: string
+                          zip_code:
+                            type: string
+                          country:
+                            type: string
+                            enum:
+                              - United States
+                          id:
+                            type: string
+                        required:
+                          - street_line_1
+                          - street_line_2
+                          - city
+                          - state
+                          - zip_code
+                          - country
+                      birthday:
+                        type: string
+                        default: '2000-00-00'
+                        format: date
+                        example: '1968-10-03'
+                      phone_number:
+                        type: string
+                        example: '1234567890'
+                        minLength: 10
+                        maxLength: 10
+                      family_status:
+                        type: string
+                        enum:
+                          - He
+                          - She
+                          - They
+                          - Prefer not to say
+                      pronoun:
+                        type: string
+                        enum:
+                          - He
+                          - She
+                          - They
+                          - Prefer not to say
+                      pet_info_attributtes:
+                        type: object
+                        properties:
+                          personal:
+                            type: object
+                            properties:
+                              about_you:
+                                type: string
+                              ideal_pet:
+                                type: string
+                              adopt_reason:
+                                type: string
+                              is_military:
+                                type: boolean
+                                default: false
+                              military_pet_plan:
+                                type: string
+                                description: 'If `is_military` is true, this field is required'
+                              pet_costs:
+                                type: string
+                              receive_updates:
+                                type: string
+                              id:
+                                type: string
+                      id:
+                        type: string
+        '409':
+          description: Conflict
+      operationId: get-adopter-personal-info
+      description: |-
+        Get all the `AdopterProfile` Personal info for current user
+        If no Personal info is found, this will return a 409 :conflict
+    patch:
+      summary: ''
+      operationId: patch-adopter-personal-info
+      responses:
+        '200':
+          description: OK
+          parameters:
+            - schema: null
+              type: string
+              in: header
+              name: ' API-VERSION: 1'
+              required: true
+            - schema: null
+              type: boolean
+              in: header
+              name: 'Accept: application/json'
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: uid
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: access-token
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: client
+              required: true
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: array
+                example: "[\"Pronoun can't be blank\", \"Family status can't be blank\"]"
+                items:
+                  type: string
+      description: Patch the `AdopterProfile` personal info
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  properties:
+                    has_co_adopter:
+                      type: boolean
+                      description: 'If this is false, user should not fill `co_adopter` form'
+                    employment_attributes:
+                      type: object
+                      required:
+                        - address_attributes
+                      properties:
+                        status:
+                          type: string
+                          enum:
+                            - Self-Employed
+                            - Employed
+                            - Unemployed
+                            - Retired
+                        years:
+                          type: string
+                          enum:
+                            - <1 year
+                            - 1-2 years
+                            - 3+ years
+                        company:
+                          type: string
+                        address_attributes:
+                          type: object
+                          required:
+                            - country
+                            - zip_code
+                            - state
+                            - city
+                            - street_line_2
+                            - street_line_1
+                          properties:
+                            id:
+                              type: string
+                            country:
+                              type: string
+                              enum:
+                                - United States
+                            zip_code:
+                              type: string
+                            state:
+                              type: string
+                            city:
+                              type: string
+                            street_line_2:
+                              type: string
+                            street_line_1:
+                              type: string
+                        id:
+                          type: string
+                    address_attributes:
+                      type: object
+                      required:
+                        - street_line_1
+                        - street_line_2
+                        - city
+                        - state
+                        - zip_code
+                        - country
+                      properties:
+                        street_line_1:
+                          type: string
+                        street_line_2:
+                          type: string
+                        city:
+                          type: string
+                        state:
+                          type: string
+                        zip_code:
+                          type: string
+                        country:
+                          type: string
+                          enum:
+                            - United States
+                        id:
+                          type: string
+                    birthday:
+                      type: string
+                      default: '2000-00-00'
+                      format: date
+                      example: '1968-10-03'
+                    phone_number:
+                      type: string
+                      example: '1234567890'
+                      minLength: 10
+                      maxLength: 10
+                    family_status:
+                      type: string
+                      enum:
+                        - He
+                        - She
+                        - They
+                        - Prefer not to say
+                    pronoun:
+                      type: string
+                      enum:
+                        - He
+                        - She
+                        - They
+                        - Prefer not to say
+                    pet_info_attributtes:
+                      type: object
+                      required:
+                        - about_you
+                        - ideal_pet
+                        - adopt_reason
+                        - is_military
+                      properties:
+                        about_you:
+                          type: string
+                        ideal_pet:
+                          type: string
+                        adopt_reason:
+                          type: string
+                        is_military:
+                          type: boolean
+                          default: false
+                        military_pet_plan:
+                          type: string
+                          description: 'If `is_military` is true, this field is required'
+                        pet_costs:
+                          type: string
+                        receive_updates:
+                          type: boolean
+                        id:
+                          type: string
+                    id:
+                      type: string
+                  required:
+                    - employment_attributes
+                    - address_attributes
+                    - birthday
+                    - phone_number
+                    - family_status
+                    - pronoun
+                    - pet_info_attributtes
+        description: 'Patch the `PetApplication::PersonalInfo` for current user'
+  /adopter/personal_co_adopter:
+    patch:
+      summary: ''
+      operationId: patch-adopter-personal-co-adopter
+      responses:
+        '200':
+          description: OK
+          parameters:
+            - schema: null
+              type: string
+              in: header
+              name: ' API-VERSION: 1'
+              required: true
+            - schema: null
+              type: boolean
+              in: header
+              name: 'Accept: application/json'
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: uid
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: access-token
+              required: true
+            - schema: null
+              type: string
+              in: header
+              name: client
+              required: true
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Unavailable action, user is in #{current_user.profile.status} status'
+                  status:
+                    type: string
+                    enum:
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - add_references
+                      - agreements
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  properties:
+                    pet_info_attributes:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        personal:
+                          type: object
+                          required:
+                            - pet_relation_change_owner
+                          properties:
+                            co_adopter_relation:
+                              type: string
+                              enum:
+                                - Spouse/Partner
+                                - Parent
+                                - Sibling
+                                - Friend
+                                - Roomate
+                            pet_relation_change_owner:
+                              type: string
+                    is_address_same_as_adopter:
+                      type: boolean
+                    co_adopter_attributes:
+                      type: object
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        phone_number:
+                          type: string
+                          example: '1234567890'
+                          minLength: 10
+                          maxLength: 10
+                        birthday:
+                          type: string
+                          default: '2000-00-00'
+                          format: date
+                          example: '1968-10-03'
+                        address_attributes:
+                          type: object
+                          required:
+                            - street_line_1
+                            - street_line_2
+                            - city
+                            - state
+                            - zip_code
+                            - country
+                          properties:
+                            street_line_1:
+                              type: string
+                            street_line_2:
+                              type: string
+                            city:
+                              type: string
+                            state:
+                              type: string
+                            zip_code:
+                              type: string
+                            country:
+                              type: string
+                              enum:
+                                - United States
+                            id:
+                              type: string
+                        employment_attributes:
+                          type: object
+                          properties:
+                            status:
+                              type: string
+                              enum:
+                                - Self-Employed
+                                - Employed
+                                - Unemployed
+                                - Retired
+                            years:
+                              type: string
+                              enum:
+                                - <1 year
+                                - 1-2 years
+                                - 3+ years
+                            company:
+                              type: string
+                            address_attributes:
+                              type:
+                                - object
+                              required:
+                                - street_line_1
+                                - street_line_2
+                                - city
+                                - state
+                                - zip_code
+                                - country
+                              properties:
+                                street_line_1:
+                                  type: string
+                                street_line_2:
+                                  type: string
+                                city:
+                                  type: string
+                                state:
+                                  type: string
+                                zip_code:
+                                  type: string
+                                country:
+                                  type: string
+                                  enum:
+                                    - United States
+                                id:
+                                  type: string
+                            id:
+                              type: string
+                          required:
+                            - address_attributes
+                        id:
+                          type: string
+                      required:
+                        - phone_number
+                        - address_attributes
+                    id:
+                      type: string
+                  required:
+                    - is_address_same_as_adopter
+        description: ''
+      description: |-
+        Patch the `AdopterProfile` co-adopter
+
+        Adopter must have completed `personal_info` (without skipping co-adopter) to perform the request, otherwise a 409 :conflict will be returned
+    get:
+      summary: ''
+      operationId: get-adopter-personal-co-adopter
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      pet_info_attributes:
+                        type:
+                          - object
+                        properties:
+                          id:
+                            type: string
+                          personal:
+                            type: object
+                            properties:
+                              co_adopter_relation:
+                                type: string
+                                enum:
+                                  - Spouse/Partner
+                                  - Parent
+                                  - Sibling
+                                  - Friend
+                                  - Roomate
+                              pet_relation_change_owner:
+                                type: string
+                      is_address_same_as_adopter:
+                        type: boolean
+                      co_adopter_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          email:
+                            type: string
+                            format: email
+                          first_name:
+                            type: string
+                          last_name:
+                            type: string
+                          phone_number:
+                            type: string
+                            example: '1234567890'
+                            minLength: 10
+                            maxLength: 10
+                          birthday:
+                            type: string
+                            default: '2000-00-00'
+                            format: date
+                            example: '1968-10-03'
+                          address_attributes:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              street_line_1:
+                                type: string
+                              street_line_2:
+                                type: string
+                              city:
+                                type: string
+                              state:
+                                type: string
+                              zip_code:
+                                type: string
+                              country:
+                                type: string
+                                enum:
+                                  - United States
+                          employment_attributes:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              status:
+                                type: string
+                                enum:
+                                  - Self-Employed
+                                  - Employed
+                                  - Unemployed
+                                  - Retired
+                              years:
+                                type: string
+                                enum:
+                                  - <1 year
+                                  - 1-2 years
+                                  - 3+ years
+                              company:
+                                type: string
+                              address_attributes:
+                                type:
+                                  - object
+                                required:
+                                  - country
+                                properties:
+                                  id:
+                                    type: string
+                                  street_line_1:
+                                    type: string
+                                  street_line_2:
+                                    type: string
+                                  city:
+                                    type: string
+                                  state:
+                                    type: string
+                                  zip_code:
+                                    type: string
+                                  country:
+                                    type: string
+                                    enum:
+                                      - United States
+                      id:
+                        type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: 'Unavailable action, user is in #{current_user.profile.status} status'
+                  status:
+                    type: string
+                    enum:
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - add_references
+                      - agreements
+                      - personal_info
+      description: |-
+        Get the `AdopterProfile` co-adopter info
+
+        Adoper must have completed `personal_co_adopter` to receive a 200, otherwise he will receive a 409
+    parameters: []
+  /adopter/personal_final:
     get:
       summary: Your GET endpoint
       tags: []
@@ -2671,20 +2694,795 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  name:
+                  profile:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      pet_info_attributes:
+                        type: object
+                        required:
+                          - personal
+                          - animal_history
+                        properties:
+                          id:
+                            type: string
+                          personal:
+                            type: object
+                            properties:
+                              has_children:
+                                type: boolean
+                              children_ages:
+                                type: string
+                              is_pet_allergic:
+                                type: boolean
+                              pet_allergic_plan:
+                                type: string
+                          animal_history:
+                            type: object
+                            properties:
+                              has_pets:
+                                type: string
+                              pet_name:
+                                type: string
+                              pet_species:
+                                type: string
+                              pet_breed:
+                                type: string
+                              pet_sex:
+                                type: string
+                              pet_age:
+                                type: string
+                              has_owned_pets:
+                                type: boolean
+                              owned_pet_name:
+                                type: string
+                              owned_pet_species:
+                                type: string
+                              owned_pet_breed:
+                                type: string
+                              owned_pet_sex:
+                                type: string
+                              owned_pet_age:
+                                type: string
+                              owned_pet_where:
+                                type: string
+                      veterinarian_attributes:
+                        type: object
+                        required:
+                          - first_name
+                          - last_name
+                          - email
+                          - phone_number
+                          - address_attributes
+                        properties:
+                          id:
+                            type: string
+                          first_name:
+                            type: string
+                          last_name:
+                            type: string
+                          email:
+                            type: string
+                          phone_number:
+                            type: string
+                          address_attributes:
+                            type: object
+                            required:
+                              - id
+                              - street_line_1
+                              - city
+                              - state
+                              - country
+                              - zip_code
+                            properties:
+                              id:
+                                type: string
+                              street_line_1:
+                                type: string
+                              street_line_2:
+                                type: string
+                              city:
+                                type: string
+                              state:
+                                type: string
+                              country:
+                                type: string
+                              zip_code:
+                                type: string
+                    required:
+                      - pet_info_attributes
+                      - veterinarian_attributes
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
                     type: string
-                  description:
+                    example: 'Unavailable action, user is in #{current_user.profile.status} status'
+                  status:
                     type: string
-                  web_url:
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+      operationId: get-adopter-profile-personal-final
+      description: |-
+        Get the `AdopterProfile` personal final info
+
+        Adoper must have completed `personal_final` to receive a 200, otherwise he will receive a 409
+      parameters: []
+    patch:
+      summary: ''
+      operationId: patch-adopter-profile-personal-final
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      pet_info_attributes:
+                        type: object
+                        required:
+                          - personal
+                          - animal_history
+                        properties:
+                          id:
+                            type: string
+                          personal:
+                            type: object
+                            properties:
+                              has_children:
+                                type: boolean
+                              children_ages:
+                                type: string
+                              is_pet_allergic:
+                                type: boolean
+                              pet_allergic_plan:
+                                type: string
+                          animal_history:
+                            type: object
+                            properties:
+                              has_pets:
+                                type: string
+                              pet_name:
+                                type: string
+                              pet_species:
+                                type: string
+                              pet_breed:
+                                type: string
+                              pet_sex:
+                                type: string
+                              pet_age:
+                                type: string
+                              has_owned_pets:
+                                type: boolean
+                              owned_pet_name:
+                                type: string
+                              owned_pet_species:
+                                type: string
+                              owned_pet_breed:
+                                type: string
+                              owned_pet_sex:
+                                type: string
+                              owned_pet_age:
+                                type: string
+                              owned_pet_where:
+                                type: string
+                      veterinarian_attributes:
+                        type: object
+                        required:
+                          - first_name
+                          - last_name
+                          - email
+                          - phone_number
+                          - address_attributes
+                        properties:
+                          id:
+                            type: string
+                          first_name:
+                            type: string
+                          last_name:
+                            type: string
+                          email:
+                            type: string
+                          phone_number:
+                            type: string
+                          address_attributes:
+                            type: object
+                            required:
+                              - id
+                              - street_line_1
+                              - city
+                              - state
+                              - country
+                              - zip_code
+                            properties:
+                              id:
+                                type: string
+                              street_line_1:
+                                type: string
+                              street_line_2:
+                                type: string
+                              city:
+                                type: string
+                              state:
+                                type: string
+                              country:
+                                type: string
+                              zip_code:
+                                type: string
+                    required:
+                      - pet_info_attributes
+                      - veterinarian_attributes
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
                     type: string
-                  email:
+                  status:
                     type: string
-                  code:
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      description: |-
+        Patch `AdopterProfile` personal final info
+
+        Adopter must have completed `personal_info` (with skipped co-adopter) or `personal_co_adopter` to perform the request, otherwise a 409 :conflict will be returned
+  /adopter/home:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      home:
+                        type: object
+                        properties:
+                          kind:
+                            type: string
+                          has_pool:
+                            type: boolean
+                          is_pool:
+                            type: boolean
+                          fenced:
+                            type: string
+                          has_yard:
+                            type: boolean
+                          yard:
+                            type: string
+                          is_rent:
+                            type: boolean
+                          is_landlord_allow_pets:
+                            type: boolean
+                          landlord_first_name:
+                            type: string
+                          landlord_last_name:
+                            type: string
+                          landlord_phone_number:
+                            type: string
+                          landlord_contactable:
+                            type: string
+                          landlord_email:
+                            type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
                     type: string
-                  address:
+                  status:
                     type: string
-      operationId: get-organizations-id
+      operationId: get-adopter-profile-home
+      description: |-
+        Get the `AdopterProfile` home info
+
+        Adoper must have completed `home` to receive a 200, otherwise he will receive a 409
+      requestBody: {}
+    patch:
+      summary: ''
+      operationId: patch-adopter-home
+      responses:
+        '200':
+          description: OK
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: |-
+        Patch `AdopterProfile` personal home info
+
+        Adopter must have completed `personal_final` to perform the request, otherwise a 409 :conflict will be returned
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  required:
+                    - pet_info_attributes
+                  properties:
+                    id:
+                      type: string
+                    pet_info_attributes:
+                      type: object
+                      required:
+                        - home
+                      properties:
+                        id:
+                          type: string
+                        home:
+                          type: object
+                          properties:
+                            kind:
+                              type: string
+                            has_pool:
+                              type: boolean
+                            is_pool_fenced:
+                              type: boolean
+                            has_yard:
+                              type: boolean
+                            yard:
+                              type: string
+                            is_rent:
+                              type: boolean
+                            is_landlord_allow_pets:
+                              type: boolean
+                            landlord_first_name:
+                              type: string
+                            landlord_last_name:
+                              type: string
+                            landlord_phone_number:
+                              type: string
+                            landlord_email:
+                              type: string
+                            is_landlord_contactable:
+                              type: string
+              required:
+                - profile
+  /adopter/lifestyle:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      pet_info_attributes:
+                        type: object
+                        properties:
+                          living_place:
+                            type: string
+                          bad_weather_plan:
+                            type: string
+                          hours_left:
+                            type: string
+                          alone_place:
+                            type: string
+                          walk_explanation:
+                            type: string
+                          trainer:
+                            type: string
+                          energy:
+                            type: string
+                          train_plan_experiences:
+                            type: string
+                      id:
+                        type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+      operationId: get-adopter-lifestyle
+      description: |-
+        Get the `AdopterProfile` lifestyle info
+
+        Adoper must have completed `lifestyle` to receive a 200, otherwise he will receive a 409
+      requestBody: {}
+    patch:
+      summary: ''
+      operationId: patch-adopter-lifestyle
+      responses:
+        '200':
+          description: OK
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: |-
+        Patch `AdopterProfile` personal lifestyle info
+
+        Adopter must have completed `home` to perform the request, otherwise a 409 :conflict will be returned
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  required:
+                    - pet_info_attributes
+                  properties:
+                    id:
+                      type: string
+                    pet_info_attributes:
+                      type: object
+                      properties:
+                        living_place:
+                          type: string
+                        bad_weather_plan:
+                          type: string
+                        hours_left:
+                          type: string
+                        alone_place:
+                          type: string
+                        walk_explanation:
+                          type: string
+                        trainer:
+                          type: string
+                        energy:
+                          type: string
+                        train_plan:
+                          type: string
+                        experiences:
+                          type: string
+              required:
+                - profile
+  /adopter/agreements:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      home_visit_agreement:
+                        type: boolean
+                      adoption_fee_agreement:
+                        type: boolean
+                      id:
+                        type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+      operationId: get-adopter-agreements
+      description: |-
+        Get the `AdopterProfile` agreements info
+
+        Adoper must have completed `agreements` to receive a 200, otherwise he will receive a 409
+    patch:
+      summary: ''
+      operationId: patch-adopter-agreements
+      responses:
+        '200':
+          description: OK
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: |-
+        Patch `AdopterProfile` agreements info
+
+        Adopter must have completed `lifestyle` to perform the request, otherwise a 409 :conflict will be returned
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  required:
+                    - home_visit_agreement
+                    - adoption_fee_agreement
+                  properties:
+                    id:
+                      type: string
+                    home_visit_agreement:
+                      type: boolean
+                    adoption_fee_agreement:
+                      type: boolean
+              required:
+                - profile
+  /adopter/add_references:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  profile:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      references_attributes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            first_name:
+                              type: string
+                            last_name:
+                              type: string
+                            email:
+                              type: string
+                            phone_number:
+                              type: string
+                            relationship:
+                              type: string
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+      operationId: get-adopter-profile-add-references
+      description: |-
+        Get the `AdopterProfile` references info
+
+        Adoper must have completed `add_references` to receive a 200, otherwise he will receive a 409
+    patch:
+      summary: ''
+      operationId: patch-adopter-profile-add-references
+      responses:
+        '200':
+          description: OK
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - personal_info
+                      - personal_co_adopter
+                      - personal_final
+                      - home
+                      - lifestyle
+                      - agreements
+                      - add_references
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: |-
+        Patch `AdopterProfile` references info
+
+        Adopter must have completed `agreements` to perform the request, otherwise a 409 :conflict will be returned
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    email:
+                      type: string
+                      format: email
+                      pattern: "/\\A[^@\\s]+@[^@\\s]+\\z/"
+                    phone_number:
+                      type: string
+                    relationship:
+                      type: string
+                      enum:
+                        - Parent
+                        - Sibling
+                        - Family
+                        - Friend
+                        - Neighbor
+                        - Coworker
 components:
   schemas: {}

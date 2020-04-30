@@ -61,7 +61,7 @@ class Users::V1::Adopters::LifestylesControllerTest < ActionDispatch::Integratio
 
     api_response = JSON.parse(response.body)
 
-    assert_response :unprocessable_entity
+    assert_response :conflict
     assert api_response['error']
     assert_equal 'home', api_response['status']
   end
