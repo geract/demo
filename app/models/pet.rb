@@ -30,6 +30,7 @@ class Pet < ApplicationRecord
 
   scope :not_archived, -> { where.not(status: 'archived') }
   scope :by_status, -> (status) { where(status: status) }
+  scope :remove_filters, -> () { unscope(:where) }
 
   def date_listed
     @date_listed ||= applications.order(:created_at).first.try(:created_at)

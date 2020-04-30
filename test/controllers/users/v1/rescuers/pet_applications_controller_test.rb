@@ -21,7 +21,7 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
     assert_response :success
     assert api_response.include?('applications')
     assert api_response['applications'].size >= 2
-    assert_equal 'Pet2', api_response['applications'][0]['pet']['name']
+    assert_equal 'Pet1', api_response['applications'][0]['pet']['name']
     assert api_response['applications'][0]['days_listed'].present?
     assert api_response['applications'][0]['date_listed'].present?
     assert api_response['applications'][0]['total_applications'].present?
