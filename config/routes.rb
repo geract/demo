@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   scope module: 'users' do
     api_version(module: 'v1', header: {name: 'API-VERSION', value: '1'}) do
       namespace :rescuers, path: 'rescuer' do
-        resources :pets
         resources :pets_statuses, only: %i(update)
         resource :organizations, only: %i(show update)
         resources :rescuers, only: %i(index create show update)
@@ -31,6 +30,10 @@ Rails.application.routes.draw do
         resource :profile, only: %i(show update)
         resources :messages, only: %i(index create)
         resources :pet_applications, only: %i(index)
+
+        resources :pets do
+          resources :pet_applications, only: %i(index), controller: 'pets/pet_applications'
+        end
       end
 
       namespace :adopters, path: 'adopter' do
