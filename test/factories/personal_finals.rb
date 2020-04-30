@@ -22,6 +22,7 @@ FactoryBot.define do
               owned_pet_breed: 'String',
               owned_pet_sex: 'String',
               owned_pet_age: 'String',
+              owned_pet_where: 'Ded',
             },
             veterinarian_extra: {
               has_veterinarian: true,

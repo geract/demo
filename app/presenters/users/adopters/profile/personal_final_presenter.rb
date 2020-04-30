@@ -29,6 +29,7 @@ class Users::Adopters::Profile::PersonalFinalPresenter
             owned_pet_breed: pet_info.owned_pet_breed,
             owned_pet_sex: pet_info.owned_pet_sex,
             owned_pet_age: pet_info.owned_pet_age,
+            owned_pet_where: pet_info.owned_pet_where,
           },
           veterinarian_extra: {
             has_veterinarian: pet_info.has_veterinarian,

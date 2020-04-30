@@ -15,7 +15,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert api_response
     assert api_response['profile']
     assert api_response['profile']['co_adopter_attributes']
-    assert api_response['profile']['co_adopter_attributes']
+    assert api_response['profile']['co_adopter_attributes']['address_attributes']
     assert api_response['profile']['co_adopter_attributes']['employment_attributes']
     assert api_response['profile']['co_adopter_attributes']['employment_attributes']['address_attributes']
     assert api_response['profile']['pet_info_attributes']
@@ -37,7 +37,6 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert_response :success
     assert @profile.personal_final?
     assert @profile.co_adopter
-    assert @profile.co_adopter
     assert @profile.co_adopter.address
     assert @profile.co_adopter.employment
     assert @profile.co_adopter.employment.address
@@ -50,7 +49,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     @adopter.save
 
     params = Users::Adopters::Profile::PersonalCoAdopterPresenter.new(@adopter).as_json
-    params[:profile].delete(:address_attributes)
+    params[:profile][:co_adopter_attributes][:address_attributes] = { street_line_1: "", street_line_2: "", city: "", state: "", zip_code: "", country: "" }
     params[:profile][:is_address_same_as_adopter] = true
 
     patch adopters_personal_co_adopter_path,
@@ -63,7 +62,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     assert @profile.personal_final?
     assert @profile.co_adopter
     assert @profile.co_adopter
-    # assert @profile.co_adopter.address
+    assert @profile.co_adopter.address
     assert @profile.co_adopter.employment
     assert @profile.co_adopter.employment.address
     assert @profile.pet_info.personal
@@ -81,7 +80,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
       
     api_response = JSON.parse(response.body)
 
-    assert_response :unprocessable_entity
+    assert_response :conflict
     assert api_response['error']
     assert_equal 'personal_info', api_response['status']
   end

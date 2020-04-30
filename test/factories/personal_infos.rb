@@ -8,35 +8,35 @@ FactoryBot.define do
           birthday: '2020-03-14',
           phone_number: '1231231231',
           address_attributes: {
-            street_line_1: 'Street Line #1',
+            street_line_1: '8587 West School Dr. ',
             street_line_2: nil,
-            city: 'San Francisco',
-            state: 'CA',
-            zip_code: '11111',
+            city: 'New York',
+            state: 'NY',
+            zip_code: '10002',
             country: 'United States'
           },
           employment_attributes: {
-            status: "Self-Employed",
+            status: "Employed",
             years: "1-2 years",
-            company: "Unemployed",
+            company: "Kuski",
             address_attributes: {
-              street_line_1:  'Street Line #1',
+              street_line_1:  '960 Nicolls Lane',
               street_line_2:  nil,
-              city:  'San Francisco',
+              city:  'Mountain View',
               state:  'CA',
-              zip_code:  '11111',
+              zip_code:  '94102',
               country:  'United States'
             },
           },
           pet_info_attributes: {
             personal: {
-              about_you: 'test',
-              ideal_pet: 'test',
-              adopt_reason: 'test',
-              is_military: 'true',
-              military_pet_plan: 'test',
-              receive_updates: 'test',
-              pet_costs: 'test'
+              about_you: 'Good with dogs',
+              ideal_pet: 'Fluffy',
+              adopt_reason: 'I like pets',
+              is_military: false,
+              military_pet_plan: '',
+              receive_updates: false,
+              pet_costs: '1000'
             },
           },
         },
