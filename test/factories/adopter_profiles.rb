@@ -14,7 +14,7 @@ FactoryBot.define do
       after :build do |adopter_profile|
         adopter_profile.address = build(:adopter_address)
         adopter_profile.employment = build(:employment)
-        adopter_profile.pet_info.personal = { about_you: 'About you', ideal_pet: 'Ideal pet', adopt_reason: 'Adopt reason' }
+        adopter_profile.pet_info.personal = { about_you: 'Good with dogs', ideal_pet: 'Fluffy', adopt_reason: 'I like pets' }
       end
     end
 
