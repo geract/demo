@@ -4,27 +4,36 @@ class Adopter::Profile::SavePersonalFinal
   class << self
     def perform(profile, params)
       @profile = profile
-      pet_info_attributes = params.delete(:pet_info_attributes)
+      @params = params
 
-      has_veterinarian = ActiveModel::Type::Boolean.new.cast(pet_info_attributes[:veterinarian_extra][:has_veterinarian])
-      params.delete(:veterinarian_attributes) unless has_veterinarian
-
-      set_pet_info(pet_info_attributes)
       profile.assign_attributes(params)
       profile.transaction do
+        before_save_callbacks
         saved = profile.save
         saved_callbacks if saved
         saved
+      end
+    end
+    
+    private
+
+    attr_reader :profile, :params
+
+    def before_save_callbacks
+      pet_info_attributes = params.delete(:pet_info_attributes)
+      set_pet_info(pet_info_attributes)
+
+      has_veterinarian = ActiveModel::Type::Boolean.new.cast(pet_info_attributes[:veterinarian_extra][:has_veterinarian])
+
+      # Destroy veterinarian if exists, otherwise set the empty object passed through params as nil
+      unless has_veterinarian
+        profile.veterinarian&.destroy || profile.veterinarian = nil
       end
     end
 
     def saved_callbacks
       profile.personal_final? && profile.continue!
     end
-
-    private
-
-    attr_reader :profile
 
     def set_pet_info(pet_info_attributes)
       profile.pet_info.personal = profile.pet_info.personal.merge(pet_info_attributes[:personal])

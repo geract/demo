@@ -4,23 +4,35 @@ class Adopter::Profile::SavePersonalCoAdopter
   class << self
     def perform(profile, params)
       @profile = profile
-
+      @params = params
       @is_address_same_as_adopter = ActiveModel::Type::Boolean.new.cast(params.delete(:is_address_same_as_adopter))
-      pet_info_attributes = params.delete(:pet_info_attributes)
-      params[:co_adopter_attributes].delete(:address_attributes) if is_address_same_as_adopter
-      set_pet_info(pet_info_attributes)
-
+      
       profile.assign_attributes(params)
       profile.transaction do
+        before_save_callbacks
         saved = profile.save
         saved_callbacks if saved
         saved
       end
     end
-
+    
     private
+    
+    attr_reader :profile, :params, :is_address_same_as_adopter
+    
+    def before_save_callbacks
+      pet_info_attributes = params.delete(:pet_info_attributes)
+      set_pet_info(pet_info_attributes)
 
-    attr_reader :is_address_same_as_adopter, :profile
+      # Destroy co_adopter if exists, otherwise set the empty object passed through params as nil
+      if is_address_same_as_adopter
+        if profile.co_adopter&.address == profile.address
+          profile.co_adopter.address = nil
+        else
+          profile.co_adopter.address.destroy
+        end
+      end
+    end
 
     def saved_callbacks
       update_co_adopter_address
@@ -28,7 +40,7 @@ class Adopter::Profile::SavePersonalCoAdopter
     end
 
     def update_co_adopter_address
-      co_adopter.address = profile.address if is_address_same_as_adopter == 'true'
+      profile.co_adopter.address = profile.address if is_address_same_as_adopter
     end
 
     def set_pet_info(pet_info_attributes)
