@@ -6,6 +6,9 @@ class Adopter::Profile::SavePersonalFinal
       @profile = profile
       pet_info_attributes = params.delete(:pet_info_attributes)
 
+      has_veterinarian = ActiveModel::Type::Boolean.new.cast(pet_info_attributes[:veterinarian_extra][:has_veterinarian])
+      params.delete(:veterinarian_attributes) unless has_veterinarian
+
       set_pet_info(pet_info_attributes)
       profile.assign_attributes(params)
       profile.transaction do
