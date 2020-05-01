@@ -10,7 +10,7 @@ class Users::V1::Rescuers::Pets::PetApplicationsControllerTest < ActionDispatch:
 
   def test_index_success
     @pet = create(:pet, organization: @organization, name: 'Pet1', added_by: @user)
-    create(:pet_application, pet: @pet)
+    create(:pet_application, pet: @pet, organization: @organization)
 
     get rescuers_pet_pet_applications_path(pet_id: @pet.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
@@ -33,7 +33,7 @@ class Users::V1::Rescuers::Pets::PetApplicationsControllerTest < ActionDispatch:
 
   def test_index_success_with_filters
     @pet = create(:pet, organization: @organization, name: 'Pet1', added_by: @user)
-    create(:pet_application, pet: @pet, favorite: true)
+    create(:pet_application, pet: @pet, organization: @organization, favorite: true)
 
     get rescuers_pet_pet_applications_path(pet_id: @pet.id),
       params: {filters: { favorite: true }},

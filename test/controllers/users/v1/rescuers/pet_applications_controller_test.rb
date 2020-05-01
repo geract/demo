@@ -10,9 +10,9 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
 
   def test_index_success
     pet1 = create(:pet, organization: @organization, name: 'Pet1', added_by: @user)
-    create(:pet_application, pet: pet1)
+    create(:pet_application, pet: pet1, organization: pet1.organization)
     pet2 = create(:pet, organization: @organization, name: 'Pet2', added_by: @user)
-    create(:pet_application, pet: pet2)
+    create(:pet_application, pet: pet2, organization: pet2.organization)
 
     get rescuers_pet_applications_path, headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
@@ -29,7 +29,7 @@ class Users::V1::Rescuers::PetApplicationControllerTest < ActionDispatch::Integr
 
   def test_index_with_filter
     pet2 = create(:pet, organization: @organization, name: 'Pet2', added_by: @user)
-    create(:pet_application, pet: pet2)
+    create(:pet_application, pet: pet2, organization: pet2.organization)
 
     get rescuers_pet_applications_path,
       params: { filters: {status: 'created'} },

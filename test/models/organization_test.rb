@@ -12,6 +12,7 @@ class OrganizationTest < ActiveSupport::TestCase
   # should have_one(:rescuer_admin)
   should have_many(:physical_addresses)
   should have_one(:legal_address)
+  should have_many(:pet_applications)
 
   validate_presence_of(:name)
   validate_presence_of(:director)

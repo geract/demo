@@ -11,7 +11,11 @@ class Users::V1::Adopters::PetApplicationsControllerTest < ActionDispatch::Integ
       params: {pet_application: {pet_id: @pet.id}},
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
+    @pet_application = PetApplication.last
+
     assert_response :ok
+    assert_equal @pet.applications.last, @pet_application
+    assert_equal @pet.organization, @pet_application.organization # Is this right
   end
 
   def test_create_error

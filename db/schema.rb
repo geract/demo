@@ -189,7 +189,9 @@ ActiveRecord::Schema.define(version: 2020_04_30_212537) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "favorite", default: false
+    t.bigint "organization_id"
     t.index ["adopter_profile_id"], name: "index_pet_applications_on_adopter_profile_id"
+    t.index ["organization_id"], name: "index_pet_applications_on_organization_id"
     t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
   end
 

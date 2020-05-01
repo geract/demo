@@ -8,7 +8,7 @@ class Users::V1::Rescuers::Pets::FavoriteApplicationsControllerTest < ActionDisp
     
     @organization = @user.profile.organization
     @pet = create(:pet, organization: @organization, name: 'Pet1', added_by: @user)
-    @pet_application = create(:pet_application, pet: @pet)
+    @pet_application = create(:pet_application, pet: @pet, organization: @organization)
   end
 
   def test_update_success
