@@ -11,15 +11,15 @@ class Users::V1::Rescuers::Pets::FavoriteApplicationsControllerTest < ActionDisp
     @pet_application = create(:pet_application, pet: @pet, organization: @organization)
   end
 
-  def test_update_success
-    patch rescuers_pet_favorite_application_path(@pet.id, id: @pet_application.id),
+  def test_create_success
+    post rescuers_pet_application_favorite_path(@pet_application.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     assert_response :success
   end
 
   def test_delete_success
-    delete rescuers_pet_favorite_application_path(@pet.id, @pet_application.id),
+    delete rescuers_pet_application_favorite_path(@pet_application.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     assert_response :success
