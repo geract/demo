@@ -1,7 +1,8 @@
-%section
+.sub-header.p-3
+  = link_to 'New Organization', new_admins_organization_path, class: 'btn btn-primary btn-sm'
+%section.p-3
   %h1 Organizations
-  = link_to 'New Organization', new_admins_organization_path
   %ul
     - @organizations.each do |org|
       %li
-        = link_to org.name, admins_organization_path(org)
+        = link_to org.name, edit_admins_organization_path(org)

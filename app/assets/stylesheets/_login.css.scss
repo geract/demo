@@ -1,0 +1,68 @@
+.login {
+  background-color: #2384cc;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20em;
+    padding: 2em;
+    margin-top: 10em;
+    border-radius: 5px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &title {
+        color: #2384cc;
+      }
+
+      &message {
+        color: #2384cc;
+        margin: 0;
+        margin-bottom: 2px;
+        font-size: 0.6em;
+        margin-top: -20px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 30px;
+
+        .label {
+          color: #1C87D6;
+          background-color: white;
+          margin: 0;
+          position: absolute;
+          margin-top: -5px;
+          margin-left: 15px;
+          font-size: .8em;
+          line-height: 0.8em;
+        }
+
+        .text-input {
+          color: #1C87D6;
+          outline: 0;
+          padding: 6px;
+          background-color: white;
+          border: 2px solid #dedede;
+          border-radius: 5px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

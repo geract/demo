@@ -1,1 +1,5 @@
-= render partial: 'form', locals: {organization: @organization }
+.sub-header.py-3.px-4
+  = link_to 'All Organizations', admins_organizations_path, class: 'btn btn-primary btn-sm'
+%section.py-3.px-4
+  %h4 New Organization
+  = render partial: 'form', locals: { organization: @organization }
