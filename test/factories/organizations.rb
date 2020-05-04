@@ -17,5 +17,11 @@ FactoryBot.define do
       rescuer_profiles      { build_list(:rescuer_profile, 1) }
       rescuer_admin_profile { build(:rescuer_admin_profile, :complete) }
     end
+
+    trait :without_admin do
+      physical_addresses    { build_list(:physical_address, 1) }
+      legal_address         { build(:legal_address) }
+      rescuer_profiles      { build_list(:rescuer_profile, 1) }
+    end
   end
 end

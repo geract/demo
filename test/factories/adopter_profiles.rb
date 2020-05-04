@@ -111,6 +111,10 @@ FactoryBot.define do
       status { 'completed' }
     end
 
+    trait :with_adopter do
+      adopter { build(:adopter) }
+    end
+
     factory :adopter_profile_with_personal_co_adopter, traits: [:personal_info, :personal_co_adopter]
     factory :adopter_profile_with_personal_final, traits: [:personal_info, :personal_co_adopter, :personal_final]
     factory :adopter_profile_with_home, traits: [:personal_info, :personal_co_adopter, :personal_final, :home]
@@ -118,5 +122,6 @@ FactoryBot.define do
     factory :adopter_profile_with_agreements, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements]
     factory :adopter_profile_with_references, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements, :references]
     factory :adopter_profile_completed, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements, :references, :completed]
+    factory :adopter_profile_completed_with_adopter, traits: [:personal_info, :personal_co_adopter, :personal_final, :home, :lifestyle, :agreements, :references, :completed, :with_adopter]
   end
 end

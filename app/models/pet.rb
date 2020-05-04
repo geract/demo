@@ -7,6 +7,7 @@ class Pet < ApplicationRecord
 
   belongs_to :organization
   belongs_to :added_by, class_name: 'User'
+  has_many :applications, class_name: 'PetApplication'
   has_and_belongs_to_many :favorites, -> { distinct }, join_table: 'favorites', class_name: 'User'
 
   store_accessor :personality, :good_with_dogs
@@ -28,6 +29,18 @@ class Pet < ApplicationRecord
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   scope :not_archived, -> { where.not(status: 'archived') }
+  scope :by_status, -> (status) { where(status: status) }
+  scope :remove_filters, -> () { unscope(:where) }
+
+  def date_listed
+    @date_listed ||= applications.order(:created_at).first.try(:created_at)
+  end
+
+  def days_listed
+    return 0 unless date_listed
+
+    (Time.now - date_listed).to_i
+  end
 
   def long_url
     host = ENV['host'] || Rails.application.config_for(:config)[:bitly][:app_url]

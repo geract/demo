@@ -7,6 +7,7 @@ class PetTest < ActiveSupport::TestCase
 
   should belong_to(:organization)
   should belong_to(:added_by)
+  should have_many(:applications)
 
   should validate_presence_of :description
   should validate_presence_of :breed

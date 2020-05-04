@@ -1,12 +1,8 @@
 FactoryBot.define do
   factory :pet_application do
-    status { "created" }
-
-    after :build do |pet_application|
-      adopter = build(:adopter)
-      pet_application.adopter_profile = adopter.profile
-      pet_application.pet = build(:pet, :complete)
-    end
+    status          { "created" }
+    adopter_profile { build(:adopter_profile_completed_with_adopter) }
+    pet             { build(:pet, :complete) }
   end
 
   factory :pet_application_params, class: Hash do

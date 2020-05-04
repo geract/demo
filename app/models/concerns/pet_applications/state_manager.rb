@@ -6,7 +6,7 @@ module PetApplications::StateManager
 
     aasm(column: 'status', whiny_transitions: false) do
       state :created, initial: true
-      state :activated, :adopted
+      state :archived, :adopted
 
       event :archive do
         transitions from: :created, to: :archived
