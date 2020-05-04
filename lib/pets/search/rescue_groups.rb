@@ -10,7 +10,7 @@ class Pets::Search::RescueGroups
   private
 
   def build_params(args)
-    params = Pets::Search::RescueGroups::ParamsFormatter.new(args).execute
+    params = Pets::Search::RescueGroups::ParamsFormater.new(args).execute
     params.merge({
         species: 'Dog', 
         updated_date: { greater_than: '2020-01-09'}, 

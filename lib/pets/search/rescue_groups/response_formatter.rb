@@ -1,4 +1,4 @@
-class Pets::Search::RescueGroups::ResponseFormater
+class Pets::Search::RescueGroups::ResponseFormatter
   def initialize(response)
     @response = response
   end
