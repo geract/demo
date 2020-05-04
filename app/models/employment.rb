@@ -24,6 +24,6 @@ class Employment < ApplicationRecord
   private
 
   def unset_address
-    self.address.delete
+    self.address.try(:delete)
   end
 end

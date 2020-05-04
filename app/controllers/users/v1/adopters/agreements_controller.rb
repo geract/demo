@@ -11,7 +11,7 @@ class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseContr
     profile = current_user.profile
 
     if profile.update(profile_params)
-      profile.agreements? && profile.continue!
+      profile.continue! if profile.agreements?
       head :ok
     else
       render json: profile.errors.full_message, status: :unprocessable_entity
