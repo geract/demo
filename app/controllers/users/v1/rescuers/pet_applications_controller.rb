@@ -1,7 +1,6 @@
 class Users::V1::Rescuers::PetApplicationsController < Users::V1::Rescuers::BaseController
   def index
-    pets = current_user.organization.pets.includes(:applications).by_status(filters_params[:status])
-    pets = pets.remove_filters if filters_params.blank?
+    pets = Shared::SearchPet.perform(status: filters_params[:status], organization_id: current_user.organization_id)
 
     render json: {applications: Rescuers::PetApplications::IndexPresenter.new(pets)}, status: :ok
   end
