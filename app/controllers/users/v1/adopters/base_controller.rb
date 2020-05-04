@@ -1,4 +1,5 @@
 class Users::V1::Adopters::BaseController < Users::V1::BaseController
+  include AdopterProfilable
   before_action :authenticate_adopter!
 
   def authenticate_adopter!

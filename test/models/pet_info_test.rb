@@ -1,8 +1,8 @@
 require "test_helper"
 
 class PetInfoTest < ActiveSupport::TestCase
-  setup do
-    @pet_info = build(:pet_info)
+  context 'associations' do
+    should belong_to(:adopter_profile)
   end
 
   context 'stores' do
@@ -14,6 +14,9 @@ class PetInfoTest < ActiveSupport::TestCase
   end
 
   def test_it_can_be_saved
+    @adopter = build(:adopter)
+    @pet_info = build(:pet_info, adopter_profile: @adopter.profile)
+
     assert @pet_info.valid?
   end
 end

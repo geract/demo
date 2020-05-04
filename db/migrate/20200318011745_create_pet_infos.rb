@@ -6,8 +6,7 @@ class CreatePetInfos < ActiveRecord::Migration[6.0]
       t.jsonb :lifestyle
       t.jsonb :personal
       t.jsonb :veterinarian_extra
-      t.belongs_to :dog, foreign_key: { to_table: :pet_application_dogs }
-      # t.string :type, null: false, index: true
+      t.references :adopter_profile, foreign_key: true
 
       t.timestamps
     end

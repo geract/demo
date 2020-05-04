@@ -5,7 +5,7 @@ class CreateVeterinarians < ActiveRecord::Migration[5.2]
       t.string :last_name
       t.string :phone_number
       t.string :email
-      t.belongs_to :address, foreign_key: { to_table: :adopter_addresses }
+      t.references :adopter_profile, foreign_key: true
 
       t.timestamps
     end

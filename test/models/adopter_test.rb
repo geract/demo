@@ -6,7 +6,6 @@ class AdopterTest < ActiveSupport::TestCase
   end
 
   context 'associations' do
-    should have_one(:application)
     should have_one(:profile)
 
     should have_and_belong_to_many(:favorite_pets)

@@ -1,6 +1,5 @@
 class Adopter < User
-  has_one :application, class_name: "PetApplication"
-  has_one :profile, class_name: "AdopterProfile"
+  has_one :profile, class_name: 'AdopterProfile', foreign_key: 'user_id'
 
   has_many :messages, foreign_key: 'sender_id'
   has_many :searches, class_name: 'Search', foreign_key: 'user_id'

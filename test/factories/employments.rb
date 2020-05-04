@@ -1,12 +1,9 @@
 FactoryBot.define do
   factory :employment do
-    status { "Self-Employed" }
+    status { "Employed" }
     years { "1-2 years" }
-    company { "Unemployed" }
-    pet_costs { "123" }
-
-    after :build do |profile|
-      profile.address =  build(:adopter_address)
-    end
+    company { "PetParent" }
+    pet_costs { "1200" }
+    association(:address, factory: :adopter_address)
   end
 end
