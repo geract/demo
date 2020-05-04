@@ -1,0 +1,16 @@
+@import 'bootstrap/dist/css/bootstrap';
+
+@import 'fonts';
+@import 'login';
+@import 'sidebar';
+@import 'header';
+
+body {
+  margin-left:0;
+  margin-right:0;
+  background-color: #FFF !important;
+}
+
+.sub-header {
+  background-color: #F3F3F3 !important;
+}

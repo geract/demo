@@ -1,0 +1,13 @@
+.brand
+  PetParent Admin
+%button.navbar-toggler.navbar-toggler-left{'aria-controls': 'navbarNavDropdown', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation', 'data-target': '#navbarNavDropdown', 'data-toggle': 'collapse'}
+  %span.navbar-toggler-icon
+#navbarNavDropdown.collapse.navbar-collapse
+  %ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+    %li.nav-item
+      = link_to 'Organizations', admins_organizations_path, class: 'nav-link'
+    %li.nav-item
+      = link_to 'Logout', destroy_user_session_path, class: 'nav-link', method: :delete
+
+
+

@@ -6,7 +6,7 @@ FactoryBot.define do
     title              { 'dev' }
 
     trait :complete do
-      rescuer       { build(:rescuer_admin) }
+      admin       { build(:rescuer_admin) }
       organization  { build(:organization, :without_admin) }
     end
   end

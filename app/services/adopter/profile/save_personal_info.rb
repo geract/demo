@@ -7,6 +7,7 @@ class Adopter::Profile::SavePersonalInfo
 
       profile.assign_attributes(params)
       profile.transaction do
+        before_save_callbacks
         saved = profile.save
         saved_callbacks if saved
         saved
@@ -15,7 +16,15 @@ class Adopter::Profile::SavePersonalInfo
 
     private
 
-    attr_reader :profile
+    attr_reader :profile, :has_co_adopter
+
+    def before_save_callbacks
+      @has_co_adopter = ActiveModel::Type::Boolean.new.cast(profile.has_co_adopter)
+      # Destroy co_adopter if exists, otherwise set the empty object passed through params as nil
+      unless has_co_adopter
+        profile.co_adopter&.destroy || profile.co_adopter = nil
+      end
+    end
 
     def saved_callbacks
       update_profile_state
@@ -23,7 +32,7 @@ class Adopter::Profile::SavePersonalInfo
 
     def update_profile_state
       return true unless profile.personal_info?
-      return profile.skip_co_adopter! unless profile.has_co_adopter == 'true'
+      return profile.skip_co_adopter! unless has_co_adopter
       profile.continue!
     end
   end
