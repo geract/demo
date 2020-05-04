@@ -20,7 +20,7 @@ class Users::Adopters::Profile::PersonalCoAdopterPresenter
   def profile_info
     { 
       id: profile.id,
-      is_address_same_as_adopter: profile.co_adopter.address.nil?,
+      is_address_same_as_adopter: profile.co_adopter&.address.nil?,
       pet_info_attributes: {
         id: pet_info.id,
         personal: {

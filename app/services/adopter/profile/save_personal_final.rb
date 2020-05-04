@@ -6,9 +6,9 @@ class Adopter::Profile::SavePersonalFinal
       @profile = profile
       @params = params
 
+      before_assign_callbacks
       profile.assign_attributes(params)
       profile.transaction do
-        before_save_callbacks
         saved = profile.save
         saved_callbacks if saved
         saved
@@ -19,7 +19,7 @@ class Adopter::Profile::SavePersonalFinal
 
     attr_reader :profile, :params
 
-    def before_save_callbacks
+    def before_assign_callbacks
       pet_info_attributes = params.delete(:pet_info_attributes)
       set_pet_info(pet_info_attributes)
 
