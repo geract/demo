@@ -4,13 +4,13 @@ class Pets::Search::RescueGroups
   def execute(args)
     params = build_params(args)
     response = RescueGroups::Animal.where(params)
-    Pets::Search::RescueGroups::ResponseFormater.new(response).execute
+    Pets::Search::RescueGroups::ResponseFormatter.new(response).execute
   end
 
   private
 
   def build_params(args)
-    params = Pets::Search::RescueGroups::ParamsFormater.new(args).execute
+    params = Pets::Search::RescueGroups::ParamsFormatter.new(args).execute
     params.merge({
         species: 'Dog', 
         updated_date: { greater_than: '2020-01-09'}, 
