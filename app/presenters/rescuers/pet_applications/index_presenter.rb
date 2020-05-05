@@ -20,7 +20,8 @@ module Rescuers
       {
         total_applications: pet.applications.size,
         date_listed: pet.date_listed,
-        new_applications: 0 # To be implemented
+        new_applications: 0, # To be implemented
+        new_messages: 0 # To be implemented
       }
     end
   end

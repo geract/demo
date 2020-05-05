@@ -6,7 +6,7 @@ module ImagePath
       define_method(:images_url) do
         images = send(field)
 
-        return images if images.empty?
+        return [] if images.empty?
 
         if Rails.env.production? || Rails.env.staging?
           images.map(&:service_url)
