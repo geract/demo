@@ -10,7 +10,7 @@ module Rescuers
           id: application.id,
           favorite: application.favorite,
           adopter: Users::Adopters::ProfilePresenter.new(application.adopter_profile).short_response,
-          created: application.time_listed
+          created_at: application.created_at
         }
       end
     end

@@ -1,5 +1,4 @@
 class Pet < ApplicationRecord
-  include ActionView::Helpers::DateHelper
   include Pets::StateManager
   include ImagePath
   extend FriendlyId
@@ -35,10 +34,6 @@ class Pet < ApplicationRecord
 
   def date_listed
     @date_listed ||= applications.order(:created_at).first.try(:created_at)
-  end
-
-  def days_listed
-    @days_listed ||= distance_of_time_in_words(created_at, Time.now)
   end
 
   def long_url

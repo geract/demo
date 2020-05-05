@@ -115,7 +115,7 @@ paths:
                         state: cali
                         zip_code: '55555'
                         main_location: null
-  /adopter/searches:
+  /adopter/pet_applications:
     patch:
       summary: Updates adopter search
       tags:
@@ -178,6 +178,38 @@ paths:
                     breed: dalmatian
                     zipcode: '90210'
     parameters: []
+    post:
+      summary: ''
+      operationId: post-adopter-pet_applications
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: Create a pet application
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application:
+                  type: object
+                  properties:
+                    pet._id:
+                      type: integer
+                      description: ''
+                  required:
+                    - pet._id
   '/rescuer/rescuer_statuses/{id}':
     patch:
       summary: Updates current recuer status
@@ -3368,35 +3400,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  profile:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      references_attributes:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                            first_name:
-                              type: string
-                            last_name:
-                              type: string
-                            email:
-                              type: string
-                            phone_number:
-                              type: string
-                            relationship:
-                              type: string
-        '409':
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
                   error:
                     type: string
                   status:
@@ -3484,5 +3487,162 @@ paths:
                         - Friend
                         - Neighbor
                         - Coworker
+  /rescuer/pet_applications:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pet:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      images:
+                        type: array
+                        items:
+                          type: string
+                      address:
+                        type: string
+                        description: Not implemented yet
+                  total_applications:
+                    type: integer
+                  date_listed:
+                    format: date
+                    type: string
+                  new_applications:
+                    type: integer
+                    description: Not implemented yet
+                  'new_:messages':
+                    type: integer
+                    description: Not implemented yet
+      operationId: get-rescuer-pet_applications
+      description: |-
+        Get all the Pet applications available for a pet
+        Filters by status are available for this endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      enum:
+                        - archived
+                        - created
+                        - adopted
+        description: ''
+  '/rescuer/pets/:pet_id/pet_applications':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  favorite:
+                    type: boolean
+                  adopter:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      addres_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          city:
+                            type: string
+                          state:
+                            type: string
+                  created_at:
+                    type: string
+                    format: date
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      operationId: 'get-rescuer-pets-:pet_id-pet_applications'
+      description: |-
+        List all the applications available for a pet
+        Filters by favorite are available for this endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      description: ''
+                      enum:
+                        - archived
+                        - created
+                        - adopted
+  '/rescuer/pet_applications/:pet_application_id/favorite':
+    post:
+      summary: ''
+      operationId: 'post-rescuer-pet_applications-:pet_application_id-favorite'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      description: Mark a pet application as favorite
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application_id:
+                  type: integer
+                  description: ''
+              required:
+                - pet_application_id
+    delete:
+      summary: ''
+      operationId: 'delete-rescuer-pet_applications-:pet_application_id-favorite'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      description: Unmark a pet application as favorite
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application_id:
+                  type: integer
+              required:
+                - pet_application_id
 components:
   schemas: {}
