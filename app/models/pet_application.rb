@@ -1,4 +1,5 @@
 class PetApplication < ApplicationRecord
+  include ActionView::Helpers::DateHelper
   include PetApplications::StateManager
 
   belongs_to :pet
@@ -9,14 +10,6 @@ class PetApplication < ApplicationRecord
   scope :remove_filters, -> { unscope(:where) }
 
   def time_listed
-    return "#{days_listed} days" if days_listed > 0
-
-    "#{(days_listed / 1).hour} hours"
-  end
-
-  private
-
-  def days_listed
-    @days_listed ||= (Time.now - created_at).to_i
+    @time_listed ||= distance_of_time_in_words(created_at, Time.now)
   end
 end
