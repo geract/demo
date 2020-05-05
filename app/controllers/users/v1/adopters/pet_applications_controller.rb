@@ -1,6 +1,8 @@
 class Users::V1::Adopters::PetApplicationsController < Users::V1::Adopters::BaseController
   def create
+    pet = Pet.find(pet_application_params[:pet_id])
     pet_application = PetApplication.new(pet_application_params)
+    pet_application.organization_id = pet.organization_id
 
     if pet_application.save
       head :ok

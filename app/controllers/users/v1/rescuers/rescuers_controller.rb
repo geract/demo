@@ -21,7 +21,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
   end
 
   def show
-    rescuer = current_user.organization.rescuers.find_by(id: params[:id])
+    rescuer = current_user.organization.rescuers.find(params[:id])
 
     if rescuer
       render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }
@@ -31,7 +31,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
   end
 
   def update
-    rescuer = current_user.organization.rescuers.find_by(id: params[:id])
+    rescuer = current_user.organization.rescuers.find(params[:id])
 
     if rescuer.update(rescuer_params)
       render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }

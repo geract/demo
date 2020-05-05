@@ -36,12 +36,6 @@ class Pet < ApplicationRecord
     @date_listed ||= applications.order(:created_at).first.try(:created_at)
   end
 
-  def days_listed
-    return 0 unless date_listed
-
-    (Time.now - date_listed).to_i
-  end
-
   def long_url
     host = ENV['host'] || Rails.application.config_for(:config)[:bitly][:app_url]
     Rails.application.routes.url_helpers.pet_url(name, host: host)

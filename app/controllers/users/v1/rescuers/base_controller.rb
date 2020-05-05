@@ -6,4 +6,8 @@ class Users::V1::Rescuers::BaseController < Users::V1::BaseController
 
     render_error(401, I18n.t('devise_token_auth.sessions.bad_credentials'))
   end
+
+  def current_organization
+    @current_organization ||= current_user.organization
+  end
 end

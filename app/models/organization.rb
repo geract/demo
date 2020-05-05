@@ -8,6 +8,7 @@ class Organization < ApplicationRecord
   has_one :admin, through: :rescuer_admin_profile
   has_one_attached :logo
   has_many :messages
+  has_many :pet_applications
 
   validates :name, presence: true
   validates :director, presence: true
