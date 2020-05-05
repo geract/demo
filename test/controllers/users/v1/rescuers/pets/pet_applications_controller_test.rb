@@ -53,11 +53,4 @@ class Users::V1::Rescuers::Pets::PetApplicationsControllerTest < ActionDispatch:
     assert_equal api_response[0]['adopter']['address_attributes']['city'], 'Mountain View'
     assert_equal api_response[0]['adopter']['address_attributes']['state'], 'CA'
   end
-
-  def test_index_error
-    get rescuers_pet_pet_applications_path(pet_id: 987),
-      headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
-
-    assert_response :unprocessable_entity
-  end
 end

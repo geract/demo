@@ -10,7 +10,7 @@ class Users::V1::Rescuers::PetApplications::FavoritesController < Users::V1::Res
   private
 
   def update_pet_application(favorite)
-    pet_application = current_organization.pet_applications.find_by(id: safe_params[:pet_application_id])
+    pet_application = current_organization.pet_applications.find(safe_params[:pet_application_id])
 
     if pet_application&.update(favorite: favorite)
       head :ok
