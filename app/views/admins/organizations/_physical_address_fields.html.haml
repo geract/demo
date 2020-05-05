@@ -1,0 +1,9 @@
+.nested-fields.mb-3
+  %h5 Physical Address
+  = f.input :name
+  = f.input :address
+  = f.input :city
+  = f.input :state
+  = f.input :zip_code
+  = f.input :main_location, as: :boolean
+  = link_to_remove_association 'remove physical address', f, class: 'btn btn-danger btn-sm'

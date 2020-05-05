@@ -22,6 +22,7 @@ module PetparentBack
     end
 
     config.eager_load_paths << Rails.root.join('lib')
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
     config.generators do |g|
       g.test_framework        :minitest, fixture: false
@@ -40,6 +41,10 @@ module PetparentBack
           expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
           methods: [:get, :post, :options, :delete, :put]
       end
+    end
+
+    config.to_prepare do
+      Devise::SessionsController.layout 'empty'
     end
   end
 end

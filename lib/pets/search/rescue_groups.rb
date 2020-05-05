@@ -4,7 +4,7 @@ class Pets::Search::RescueGroups
   def execute(args)
     params = build_params(args)
     response = RescueGroups::Animal.where(params)
-    Pets::Search::RescueGroups::ResponseFormater.new(response).execute
+    Pets::Search::RescueGroups::ResponseFormatter.new(response).execute
   end
 
   private
