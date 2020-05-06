@@ -22,6 +22,7 @@ class Pet < ApplicationRecord
   validates :age, presence: true
   validates :name, presence: true
   validates :status, presence: true
+  validates :location, presence: true
 
   has_many_attached :images
   image_field_name :images
@@ -44,4 +45,12 @@ class Pet < ApplicationRecord
   def update_short_url(short_url)
     update(short_url: short_url)
   end
+
+  def source
+    'DB'
+  end
+
+  private
+
+  attr_reader :radius
 end

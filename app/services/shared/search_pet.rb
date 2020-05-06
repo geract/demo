@@ -1,11 +1,8 @@
 class Shared::SearchPet
   def self.perform(args)
-    if args[:provider] == 'RescueOrganization'
-      searcher = Pets::Search::RescueGroups.new
-    else
-      searcher = Pets::Search::Database.new
-    end
+    external_source = Pets::Search::RescueGroups.new.execute(args)
+    local_source = Pets::Search::Database.new.execute(args)
 
-    searcher.execute(args)
+    local_source.to_a.concat(external_source)
   end
 end

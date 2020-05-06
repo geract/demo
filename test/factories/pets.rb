@@ -9,6 +9,7 @@ FactoryBot.define do
     sex               { 'Male' }
     size              { 'Large' }
     status            { 'created' }
+    location          { 'Boonton, NJ' }
     personality {
       {
         good_with_children: true,

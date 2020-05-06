@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_212537) do
+ActiveRecord::Schema.define(version: 2020_05_04_144540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(version: 2020_04_30_212537) do
     t.integer "reason_code"
     t.bigint "organization_id"
     t.integer "added_by_id"
+    t.string "location", default: "", null: false
     t.index ["external_type"], name: "index_pets_on_external_type"
     t.index ["organization_id"], name: "index_pets_on_organization_id"
     t.index ["pet_type"], name: "index_pets_on_pet_type"

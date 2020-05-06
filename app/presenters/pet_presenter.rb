@@ -12,7 +12,8 @@ class PetPresenter
       age: pet.age,
       location: pet.location,
       size: pet.size,
-      images: pet.image_urls
+      images: pet.images_url,
+      source: pet.source
     }
   end
 

@@ -1986,6 +1986,8 @@ paths:
                     type: string
                   size:
                     type: string
+                  source:
+                    type: string
                   images:
                     type:
                       - string

@@ -31,7 +31,11 @@ class Pets::Search::RescueGroups::ResponseAdapter
     item['animalAdoptionFee']
   end
 
-  def image_urls
+  def source
+    'RescueGroups'
+  end
+
+  def images_url
     @images ||= item['animalPictures'].map do |img| 
                   { 
                     original: img['urlSecureFullsize'], 
