@@ -1,6 +1,6 @@
 class Users::V1::Rescuers::Pets::PetApplicationsController < Users::V1::Rescuers::BaseController
   def index
-    pet = current_organization.pets.find(params[:pet_id])
+    pet = current_organization.pets.friendly.find(params[:pet_id])
     
     if pet
       applications = pet.applications.includes(adopter_profile: :address).favorites

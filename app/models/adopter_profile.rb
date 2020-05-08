@@ -1,10 +1,13 @@
 class AdopterProfile < ApplicationRecord
   include AdopterProfile::StateManager
+  delegate :email, to: :adopter
 
   attr_accessor :has_co_adopter
 
   STATES = ['personal_info', 'personal_co_adopter', 'personal_final', 'home', 'lifestyle',
             'agreements', 'add_references', 'agreements', 'add_references', 'completed'].freeze
+
+  PREFERENCES_FIELDS = ['age', 'sex', 'size', 'hair', 'energy', 'breed', 'special_needs']
 
   has_one :address, class_name: "AdopterAddress", as: :addressable, dependent: :destroy
   has_one :employment, as: :employmentable, dependent: :destroy
@@ -17,6 +20,8 @@ class AdopterProfile < ApplicationRecord
 
   validates :phone_number, :adopter, :family_status, :pronoun, presence: true
   validates :home_visit_agreement, :adoption_fee_agreement, acceptance: { message: 'must be accepted' }, if: :agreements?
+
+  store :preferences, accessors: PREFERENCES_FIELDS
 
   accepts_nested_attributes_for :co_adopter, :pet_info, :veterinarian, :references, 
                                 :employment, :address, update_only: true
