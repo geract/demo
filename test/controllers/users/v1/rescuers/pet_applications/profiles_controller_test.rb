@@ -7,7 +7,7 @@ class Users::V1::Rescuers::PetApplications::ProfilesControllerTest < ActionDispa
     @user.save
   end
   
-  def test_it_works
+  def test_show_success
     @organization = @user.profile.organization
     @pet_application = create(:pet_application, organization: @organization)
 
