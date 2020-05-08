@@ -11,8 +11,12 @@ require 'minitest/rails'
 require 'capybara/rails'
 require 'capybara/minitest'
 require 'webmock/minitest'
+require 'database_cleaner/active_record'
 require_relative 'helpers/login_test_helper'
 require_relative 'helpers/api_headers_helper'
+
+DatabaseCleaner.clean_with :truncation
+DatabaseCleaner.strategy = :transaction
 
 FactoryBot::SyntaxRunner.class_eval do
   include ActionDispatch::TestProcess
@@ -37,8 +41,23 @@ class ActionDispatch::IntegrationTest
   include LoginTestHelpers
   include ApiHeadersHelper
 
+  def setup
+    DatabaseCleaner.start
+  end
+
   def teardown
     Capybara.reset_sessions!
     Capybara.use_default_driver
+    DatabaseCleaner.clean
+  end
+end
+
+class Minitest::Spec
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
   end
 end

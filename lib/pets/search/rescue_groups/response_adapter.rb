@@ -27,7 +27,7 @@ class Pets::Search::RescueGroups::ResponseAdapter
     item['animalLocationCitystate']
   end
 
-  def fee
+  def price
     item['animalAdoptionFee']
   end
 
