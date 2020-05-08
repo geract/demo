@@ -3,7 +3,7 @@ class ReferencePresenter
     @reference = reference
   end
 
-  def response
+  def short_response
     {
       id: reference.id,
       first_name: reference.first_name,

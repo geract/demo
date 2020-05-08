@@ -1,0 +1,13 @@
+class Users::V1::Rescuers::PetApplications::ProfilesController < Users::V1::Rescuers::BaseController
+  def show
+    pet_application = current_organization.pet_applications.find(safe_params[:pet_application_id])
+
+    render json: Users::Adopters::ProfilePresenter.new(pet_application.adopter_profile).response, status: :ok
+  end
+
+  private
+
+  def safe_params
+    params.permit(:pet_application_id)
+  end
+end
