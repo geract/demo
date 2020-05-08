@@ -45,7 +45,7 @@ class Users::Adopters::ProfilePresenter
 
   def references
     adopter_profile.references.map do |reference|
-      ::ReferencePresenter.new(reference).short_response
+      ::ReferencePresenter.new(reference).response
     end
   end
 end
