@@ -27,6 +27,10 @@ class Pet < ApplicationRecord
   has_many_attached :images
   image_field_name :images
 
+  attr_accessor :birthdate
+
+  delegate :id, :name, to: :organization, prefix: true
+
   enum reason_code: { pet_adopted: 0, pet_died: 1, no_longer_available: 2 }
 
   scope :not_archived, -> { where.not(status: 'archived') }

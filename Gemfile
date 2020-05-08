@@ -58,6 +58,7 @@ group :test do
   gem 'shoulda-context'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'database_cleaner-active_record'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 end
 
