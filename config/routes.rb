@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         resources :pet_applications, only: %i(index) do
           resource :favorite, only: %i(create destroy), controller: 'pet_applications/favorites'
           resource :profile, only: %i(show), controller: 'pet_applications/profiles'
+          resource :application, only: %i(show), controller: 'pet_applications/applications'
         end
       end
 
