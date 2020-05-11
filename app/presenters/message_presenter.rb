@@ -5,9 +5,9 @@ class MessagePresenter
 
   def response
     {
-      id: message.id,
-      message: message.message,
-      pet_id: message.pet_id
+      text: message.message,
+      sender_id: message.senderable.id,
+      sender_type: message.senderable.type
     }
   end
 

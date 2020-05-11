@@ -1,4 +1,4 @@
 class Message < ApplicationRecord
-  belongs_to :organization
-  belongs_to :sender, class_name: 'User'
+  belongs_to :senderable, polymorphic: true
+  belongs_to :pet_application
 end

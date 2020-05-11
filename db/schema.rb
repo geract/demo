@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_144540) do
+ActiveRecord::Schema.define(version: 2020_05_10_235307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,13 +136,14 @@ ActiveRecord::Schema.define(version: 2020_05_04_144540) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.string "sender_type"
-    t.bigint "sender_id"
-    t.bigint "pet_id"
-    t.bigint "organization_id"
     t.text "message"
+    t.string "senderable_type", null: false
+    t.bigint "senderable_id", null: false
+    t.bigint "pet_application_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["pet_application_id"], name: "index_messages_on_pet_application_id"
+    t.index ["senderable_type", "senderable_id"], name: "index_messages_on_senderable_type_and_senderable_id"
   end
 
   create_table "newsletters", force: :cascade do |t|
@@ -309,6 +310,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_144540) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopter_profiles", "users"
   add_foreign_key "co_adopters", "adopter_profiles"
+  add_foreign_key "messages", "pet_applications"
   add_foreign_key "organization_addresses", "organizations"
   add_foreign_key "pet_applications", "adopter_profiles"
   add_foreign_key "pet_applications", "pets"

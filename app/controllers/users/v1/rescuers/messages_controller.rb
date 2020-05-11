@@ -1,24 +1,28 @@
 class Users::V1::Rescuers::MessagesController < Users::V1::Rescuers::BaseController
   def index
-    render json: { messages: Messages::IndexPresenter.new(current_user.organization.messages) }, status: :ok
+    pet_application = current_organization.pet_applications.find(params[:pet_application_id])
+    render json: {
+      messages: Messages::IndexPresenter.new(pet_application.messages)
+    }, status: :ok
   end
 
   def create
-    message = current_user.organization.messages.build(message_params)
-    message.sender = current_user
+    message = current_user.messages.build(
+      pet_application_id: params[:pet_application_id],
+      message: message_params[:message]
+    )
 
     if message.save
-      render json: { message: Messages::ShowPresenter.new(message) }
+      head :ok
     else
-      head :unprocessable_entity
+      render json: message.errors.full_message, status: :unprocessable_entity
     end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:pet_id, :message)
+    params.require(:message).permit(:message)
   end
 
 end
-
