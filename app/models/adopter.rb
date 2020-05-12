@@ -1,7 +1,6 @@
 class Adopter < User
   has_one :profile, class_name: 'AdopterProfile', foreign_key: 'user_id'
 
-  has_many :messages, foreign_key: 'sender_id'
   has_many :searches, class_name: 'Search', foreign_key: 'user_id'
   has_many :pet_applications, through: :profile
   has_and_belongs_to_many :favorite_pets, -> { distinct }, foreign_key: 'user_id', class_name: 'Pet',  join_table: 'favorites' do

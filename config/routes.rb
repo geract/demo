@@ -28,16 +28,17 @@ Rails.application.routes.draw do
         resource :pet_bulk, only: %i(update)
         resources :rescuer_statuses, only: %i(update)
         resource :profile, only: %i(show update)
-        resources :messages, only: %i(index create)
         resources :favorite_pet_applications, only: %i(update destroy), controller: 'pets/favorite_applications'
 
         resources :pets do
           resources :pet_applications, only: %i(index), controller: 'pets/pet_applications'
         end
+
         resources :pet_applications, only: %i(index) do
           resource :favorite, only: %i(create destroy), controller: 'pet_applications/favorites'
           resource :profile, only: %i(show), controller: 'pet_applications/profiles'
           resource :application, only: %i(show), controller: 'pet_applications/applications'
+          resources :messages, only: %i(index create)
         end
       end
 

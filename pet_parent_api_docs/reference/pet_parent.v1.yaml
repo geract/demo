@@ -3598,62 +3598,11 @@ paths:
             schema:
               type: object
               properties:
-                search:
-                  type: object
-                  properties:
-                    sex:
-                      type: string
-                    age:
-                      type: string
-                    size:
-                      type: string
-                    breed:
-                      type: string
-                    zipcode:
-                      type: string
-            examples:
-              Success:
-                value:
-                  search:
-                    sex: female
-                    age: puppy
-                    size: large
-                    breed: dalmatian
-                    zipcode: '90210'
-    parameters: []
-    post:
-      summary: ''
-      operationId: post-adopter-pet_applications
-      responses:
-        '200':
-          description: OK
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-      description: Create a pet application
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                pet_application:
-                  type: object
-                  properties:
-                    pet._id:
-                      type: integer
-                      description: ''
-                  required:
-                    - pet._id
-  '/rescuer/pet_applications/:pet_application_id/profile':
+                pet_application_id:
+                  type: integer
+              required:
+                - pet_application_id
+                  '/rescuer/pet_applications/:pet_application_id/profile':
     get:
       summary: Your GET endpoint
       tags: []
@@ -3768,7 +3717,7 @@ paths:
                         type: string
       operationId: 'get-rescuer-pet_applications-:pet_application_id-profile'
       description: 'Get profile information for an applicant, given the pet application id'
-  '/rescuer/pet_applications/:pet_application_id/application':
+  /rescuer/pet_applications/:pet_application_id/application:
     get:
       summary: Your GET endpoint
       tags: []
@@ -3997,5 +3946,46 @@ paths:
                             type: string
       operationId: 'get-rescuer-pet_applications-:pet_application_id-application'
       description: 'Get application information (home, lifestyle, co_adopter, etc) for an applicant, given the pet application id'
+  /rescuer/pet_applications/:pet_application_id/messages:
+    post:
+      summary: 'Create a message'
+      operationId: 'post-rescuer-pet_applications-:pet_application_id-messages'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      description: Create a message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application_id:
+                  type: integer
+                message:
+                  type: string
+              required:
+                - pet_application_id
+    get:
+      summary: 'List all messages of a pet application'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  sender_id:
+                    type: integer
+                  sender_type:
+                    type: string
+        '422':
+          description: Unprocessable Entity (WebDAV)
 components:
   schemas: {}
