@@ -115,101 +115,6 @@ paths:
                         state: cali
                         zip_code: '55555'
                         main_location: null
-  /adopter/pet_applications:
-    patch:
-      summary: Updates adopter search
-      tags:
-        - adopters
-        - search
-      responses:
-        '200':
-          description: OK
-        '422':
-          description: Unprocessable Entity
-      operationId: patch-adopters-searches
-      parameters:
-        - schema:
-            type: integer
-          in: header
-          name: API-VERSION
-          description: ''
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: access-token
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: uid
-          required: true
-        - schema:
-            type: string
-          in: header
-          name: client
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                search:
-                  type: object
-                  properties:
-                    sex:
-                      type: string
-                    age:
-                      type: string
-                    size:
-                      type: string
-                    breed:
-                      type: string
-                    zipcode:
-                      type: string
-            examples:
-              Success:
-                value:
-                  search:
-                    sex: female
-                    age: puppy
-                    size: large
-                    breed: dalmatian
-                    zipcode: '90210'
-    parameters: []
-    post:
-      summary: ''
-      operationId: post-adopter-pet_applications
-      responses:
-        '200':
-          description: OK
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  errors:
-                    type: array
-                    items:
-                      type: string
-      description: Create a pet application
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                pet_application:
-                  type: object
-                  properties:
-                    pet._id:
-                      type: integer
-                      description: ''
-                  required:
-                    - pet._id
   '/rescuer/rescuer_statuses/{id}':
     patch:
       summary: Updates current recuer status
@@ -1986,8 +1891,6 @@ paths:
                     type: string
                   size:
                     type: string
-                  source:
-                    type: string
                   images:
                     type:
                       - string
@@ -1999,6 +1902,8 @@ paths:
                           type: string
                         thumbnail:
                           type: string
+                  source:
+                    type: string
             examples: {}
           application/xml:
             schema:
@@ -3489,123 +3394,6 @@ paths:
                         - Friend
                         - Neighbor
                         - Coworker
-  /rescuer/pet_applications:
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses:
-        '200':
-          description: OK
-          headers: {}
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  pet:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      name:
-                        type: string
-                      images:
-                        type: array
-                        items:
-                          type: string
-                      address:
-                        type: string
-                        description: Not implemented yet
-                  total_applications:
-                    type: integer
-                  date_listed:
-                    format: date
-                    type: string
-                  new_applications:
-                    type: integer
-                    description: Not implemented yet
-                  'new_:messages':
-                    type: integer
-                    description: Not implemented yet
-      operationId: get-rescuer-pet_applications
-      description: |-
-        Get all the Pet applications available for a pet
-        Filters by status are available for this endpoint
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                filters:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      enum:
-                        - archived
-                        - created
-                        - adopted
-        description: ''
-  '/rescuer/pets/:pet_id/pet_applications':
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  favorite:
-                    type: boolean
-                  adopter:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      first_name:
-                        type: string
-                      last_name:
-                        type: string
-                      addres_attributes:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          city:
-                            type: string
-                          state:
-                            type: string
-                  created_at:
-                    type: string
-                    format: date
-        '422':
-          description: Unprocessable Entity (WebDAV)
-      operationId: 'get-rescuer-pets-:pet_id-pet_applications'
-      description: |-
-        List all the applications available for a pet
-        Filters by favorite are available for this endpoint
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                filters:
-                  type: object
-                  properties:
-                    status:
-                      type: string
-                      description: ''
-                      enum:
-                        - archived
-                        - created
-                        - adopted
   '/rescuer/pet_applications/:pet_application_id/favorite':
     post:
       summary: ''
@@ -3646,5 +3434,568 @@ paths:
                   type: integer
               required:
                 - pet_application_id
+  '/rescuer/pets/:pet_id/pet_applications':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  favorite:
+                    type: boolean
+                  adopter:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      addres_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          city:
+                            type: string
+                          state:
+                            type: string
+                  created_at:
+                    type: string
+                    format: date
+                  slug:
+                    type: string
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      operationId: 'get-rescuer-pets-:pet_id-pet_applications'
+      description: |-
+        List all the applications available for a pet
+
+        Filters by favorite are available for this endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  properties:
+                    favorite:
+                      type: string
+                      description: ''
+                      enum:
+                        - archived
+                        - created
+                        - adopted
+        description: ''
+  /rescuer/pet_applications:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pet:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      images:
+                        type: array
+                        items:
+                          type: string
+                      address:
+                        type: string
+                        description: Not implemented yet
+                  total_applications:
+                    type: integer
+                  date_listed:
+                    format: date
+                    type: string
+                  new_applications:
+                    type: integer
+                    description: Not implemented yet
+                  new_messages:
+                    type: integer
+                    description: Not implemented yet
+                  slug:
+                    type: string
+      operationId: get-rescuer-pet_applications
+      description: |-
+        Get all the Pet applications available for a pet
+
+        Filters by status are available for this endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      enum:
+                        - archived
+                        - created
+                        - adopted
+        description: ''
+  /adopter/pet_applications:
+    patch:
+      summary: Updates adopter search
+      tags:
+        - adopters
+        - search
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+      operationId: patch-adopters-searches
+      parameters:
+        - schema:
+            type: integer
+          in: header
+          name: API-VERSION
+          description: ''
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: object
+                  properties:
+                    sex:
+                      type: string
+                    age:
+                      type: string
+                    size:
+                      type: string
+                    breed:
+                      type: string
+                    zipcode:
+                      type: string
+            examples:
+              Success:
+                value:
+                  search:
+                    sex: female
+                    age: puppy
+                    size: large
+                    breed: dalmatian
+                    zipcode: '90210'
+    parameters: []
+    post:
+      summary: ''
+      operationId: post-adopter-pet_applications
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      description: Create a pet application
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application:
+                  type: object
+                  properties:
+                    pet._id:
+                      type: integer
+                      description: ''
+                  required:
+                    - pet._id
+  '/rescuer/pet_applications/:pet_application_id/profile':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  phone_number:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  pronoun:
+                    type: string
+                  family_status:
+                    type: string
+                  birthday:
+                    type: string
+                    format: date
+                  address_attributes:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      street_line_1:
+                        type: string
+                      street_line_2:
+                        type: string
+                      city:
+                        type: string
+                      state:
+                        type: string
+                  employed attributes:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      status:
+                        type: string
+                      years:
+                        type: integer
+                      company:
+                        type: string
+                      pet_costs:
+                        type:
+                          - string
+                          - integer
+                      address_attribut_preferences:
+                        type: object
+                        properties:
+                          age:
+                            type: integer
+                          sex:
+                            type: string
+                          size:
+                            type: string
+                          hair:
+                            type: string
+                          energy:
+                            type: string
+                          breed:
+                            type: string
+                          special_needs:
+                            type: string
+                  references:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone_number:
+                        type: string
+                      relationship:
+                        type: string
+                      how_you_know:
+                        type: string
+                      years:
+                        type: integer
+                      adopter_has_pets:
+                        type: string
+                      adopter_pet_kind:
+                        type: string
+                      adopter_pet_treatment:
+                        type: string
+                      adopter_pet_location:
+                        type: string
+                      adopter_home_safe:
+                        type: string
+                      adopter_has_children:
+                        type: string
+                      adopter_pet_expectation:
+                        type: string
+                      adopter_has_income:
+                        type: string
+                      adopter_reservatons:
+                        type: string
+                      additional_information:
+                        type: string
+                      interested_in_pets:
+                        type: string
+      operationId: 'get-rescuer-pet_applications-:pet_application_id-profile'
+      description: 'Get profile information for an applicant, given the pet application id'
+  '/rescuer/pet_applications/:pet_application_id/application':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  co_adopter:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                        format: email
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      phone_number:
+                        type: string
+                      birthday:
+                        type: string
+                        format: date
+                      address_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          street_line_1:
+                            type: string
+                          street_line_2:
+                            type: string
+                          city:
+                            type: string
+                          state:
+                            type: string
+                          zip_code:
+                            type: integer
+                          country:
+                            type: string
+                      employment_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          status:
+                            type: string
+                          years:
+                            type:
+                              - string
+                              - integer
+                          company:
+                            type: string
+                          pet_costs:
+                            type:
+                              - string
+                              - integer
+                          address_attributes:
+                            type: string
+                          street_line_1:
+                            type: string
+                          street_line_2:
+                            type: string
+                          city:
+                            type: string
+                          state:
+                            type: string
+                          zip_code:
+                            type: integer
+                          country:
+                            type: string
+                      pet_info:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          personal:
+                            type: object
+                            properties:
+                              has_children:
+                                type: string
+                              children_ages:
+                                type: integer
+                              is_pet_allergic:
+                                type: string
+                              pet_allergic_plan:
+                                type: string
+                              about_you:
+                                type: string
+                              ideal_pet:
+                                type: string
+                              adopt_reason:
+                                type: string
+                              is_military:
+                                type: string
+                              military_pet_plan:
+                                type: string
+                              received_updates:
+                                type: string
+                          home:
+                            type: object
+                            properties:
+                              kind:
+                                type: string
+                              has_pool:
+                                type: string
+                              is_pool_fenced:
+                                type: string
+                              has_yard:
+                                type: string
+                              yard:
+                                type: string
+                              is_rent:
+                                type: string
+                              is_landlord_contactable:
+                                type: string
+                              landlord_first_name:
+                                type: string
+                              landlord_last_name:
+                                type: string
+                              landlord_phone_number:
+                                type: string
+                              landlord_email:
+                                type: string
+                                format: email
+                          lifestyle:
+                            type: object
+                            properties:
+                              living_places:
+                                type: string
+                              bad_weather_plan:
+                                type: string
+                              hours_left:
+                                type:
+                                  - string
+                                  - integer
+                              alone_place:
+                                type: string
+                              walk_explanation:
+                                type: string
+                              trainer:
+                                type: string
+                              energy:
+                                type: string
+                              train_plan:
+                                type: string
+                              experiences:
+                                type: string
+                          animal_history:
+                            type: object
+                            properties:
+                              has_pets:
+                                type: string
+                              pet_name:
+                                type: string
+                              pet_species:
+                                type: string
+                              pet_breed:
+                                type: string
+                              pet_sex:
+                                type: string
+                              pet_age:
+                                type:
+                                  - integer
+                                  - string
+                              has_owned_pets:
+                                type: string
+                              owned_pet_name:
+                                type: string
+                              owned_pet_species:
+                                type: string
+                              owned_pet_breed:
+                                type: string
+                              owned_pet_sex:
+                                type: string
+                              owned_pet_age:
+                                type: string
+                              owned_pet_where:
+                                type: string
+                          veterinarian_extra:
+                            type: object
+                            properties:
+                              has_veterinarian:
+                                type: string
+                              is_contactable:
+                                type: string
+                              emergency_vet_bills_plan:
+                                type: string
+                              is_pet_insurance:
+                                type: string
+                  veterinarian:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+                      phone_number:
+                        type: string
+                      address_attributes:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          street_line_1:
+                            type: string
+                          street_line_2:
+                            type: string
+                          city:
+                            type: string
+                          state:
+                            type: string
+                          zip_code:
+                            type: integer
+                          country:
+                            type: string
+      operationId: 'get-rescuer-pet_applications-:pet_application_id-application'
+      description: 'Get application information (home, lifestyle, co_adopter, etc) for an applicant, given the pet application id'
 components:
   schemas: {}
