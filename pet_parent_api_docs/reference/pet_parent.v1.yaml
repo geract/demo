@@ -3646,5 +3646,46 @@ paths:
                   type: integer
               required:
                 - pet_application_id
+  '/rescuer/pet_applications/:pet_application_id/messages':
+    post:
+      summary: 'Create a message'
+      operationId: 'post-rescuer-pet_applications-:pet_application_id-messages'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity (WebDAV)
+      description: Create a message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet_application_id:
+                  type: integer
+                message:
+                  type: string
+              required:
+                - pet_application_id
+    get:
+      summary: 'List all messages of a pet application'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  sender_id:
+                    type: integer
+                  sender_type:
+                    type: string
+        '422':
+          description: Unprocessable Entity (WebDAV)
 components:
   schemas: {}
