@@ -7,6 +7,7 @@ module Rescuers
     def response
       {
         id: pet.id,
+        slug: pet.slug,
         name: pet.name,
         sex: pet.sex,
         breed: pet.breed,

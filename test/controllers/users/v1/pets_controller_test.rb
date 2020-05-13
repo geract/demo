@@ -68,7 +68,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     api_response = JSON.parse(response.body)
 
     assert_response :success
-    assert_equal 1, api_response['pet']['id']
+    assert api_response['pet']['id']
     assert_equal 'Doggo', api_response['pet']['name']
     assert_equal 'Male', api_response['pet']['sex']
     assert_equal 'Shiba Inu', api_response['pet']['breed']
@@ -79,7 +79,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal nil, api_response['pet']['birthdate']
     assert_equal '100.0', api_response['pet']['fee']
     assert_equal 'Happy dog', api_response['pet']['description']
-    assert_equal 1, api_response['pet']['organization_id']
+    assert api_response['pet']['organization_id']
     assert_equal 'Large', api_response['pet']['size']
     assert_equal 'petparent', api_response['pet']['organization_name']
   end

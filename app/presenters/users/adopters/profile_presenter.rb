@@ -6,6 +6,8 @@ class Users::Adopters::ProfilePresenter
   def response
     {
       id: adopter_profile.id,
+      first_name: adopter_profile.first_name,
+      last_name: adopter_profile.last_name,
       phone_number: adopter_profile.phone_number,
       email: adopter_profile.email,
       pronoun: adopter_profile.pronoun,

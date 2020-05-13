@@ -39,3 +39,5 @@ yarn-debug.log*
 /coverage/*
 
 dump.rdb
+
+/config/credentials/test.key
