@@ -10,6 +10,7 @@ class Users::V1::Adopters::MessagesControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_adopter_create_success
+    skip
     post adopters_messages_url,
       params: {
         message: {
@@ -29,6 +30,7 @@ class Users::V1::Adopters::MessagesControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_adopter_index
+    skip
     create_list(:message, 3, organization: @organization, sender: @user)
 
     get adopters_messages_url,
