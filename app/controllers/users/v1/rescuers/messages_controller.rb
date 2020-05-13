@@ -15,7 +15,7 @@ class Users::V1::Rescuers::MessagesController < Users::V1::Rescuers::BaseControl
     if message.save
       head :ok
     else
-      render json: message.errors.full_message, status: :unprocessable_entity
+      render json: message.errors.full_messages, status: :unprocessable_entity
     end
   end
 
