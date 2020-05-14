@@ -2,7 +2,7 @@ class Users::V1::OrganizationsController < Users::BaseController
   def show
     filters = filters_params.merge({ provider: 'RescueOrganization' })
 
-    organization = Shared::SearchOrganization.perform(filters)
+    organization = SearchOrganizationService.perform(filters)
 
     if organization
       render json: { organization: Organizations::ShowPresenter.new(organization) }, 

@@ -1,14 +1,14 @@
 class Users::V1::PetsController < Users::BaseController
   def index
     filters = filters_params.merge({ provider: 'RescueOrganization' })
-    pets = Shared::SearchPet.perform(filters)
+    pets = SearchPetService.perform(filters)
 
     render json: { pets: Pets::IndexPresenter.new(pets) }, status: :ok
   end
 
   def show
     filters = filters_params.merge({ provider: 'RescueOrganization', id: params[:id] })
-    pet = Shared::SearchPet.perform(filters).first
+    pet = SearchPetService.perform(filters).first
     
     if pet
       render json: { pet: Pets::ShowPresenter.new(pet) }, status: :ok
