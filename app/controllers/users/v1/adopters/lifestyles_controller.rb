@@ -10,7 +10,7 @@ class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseContr
   def update
     profile = current_user.profile
 
-    if Adopter::Profile::SaveLifestyle.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SaveLifestyleService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: profile.errors.full_mesages, status: :unprocessable_entity

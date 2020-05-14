@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Adopter::Profile::SavePersonalFinal
+class Adopter::Profile::SavePersonalFinalService
   class << self
     def perform(profile, params)
       @profile = profile

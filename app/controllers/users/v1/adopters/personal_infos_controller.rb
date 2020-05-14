@@ -12,7 +12,7 @@ class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseCo
   def update
     profile = current_user.profile || current_user.build_profile
 
-    if Adopter::Profile::SavePersonalInfo.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SavePersonalInfoService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: profile.errors.full_messages, status: :unprocessable_entity

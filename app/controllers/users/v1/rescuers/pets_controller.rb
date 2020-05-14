@@ -12,7 +12,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   def update
     pet = current_user.organization.pets.friendly.find(params[:id])
 
-    if Rescuer::UpdatePet.perform(pet, pet_params)
+    if Rescuer::UpdatePetService.perform(pet, pet_params)
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet) }
     else
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet), errors: pet.errors.full_messages }, status: :unprocessable_entity
@@ -24,7 +24,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
     pet = SearchPetService.perform(slug: params[:id], **search_filters).first
 
     if pet
-      response, status = Rescuer::ShowPet.perform(pet)
+      response, status = Rescuer::ShowPetService.perform(pet)
       render json: response, status: status
     else
       render json: {}, status: :not_found

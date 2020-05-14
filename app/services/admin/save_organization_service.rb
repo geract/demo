@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::SaveOrganization
+class Admin::SaveOrganizationService
   class << self
     def perform(org)
       @organization = org
@@ -30,7 +30,7 @@ class Admin::SaveOrganization
 
       rescuer_admin.allow_password_change = true
       token = rescuer_admin.password_token
-      Admin::InviteRescuerAdmin.perform(rescuer_admin.id, token)
+      Admin::InviteRescuerAdminService.perform(rescuer_admin.id, token)
     end
   end
 end

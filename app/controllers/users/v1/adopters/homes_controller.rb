@@ -10,7 +10,7 @@ class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
   def update
     profile = current_user.profile
 
-    if Adopter::Profile::SaveHome.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SaveHomeService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: profile.errors.full_messages, status: :unprocessable_entity

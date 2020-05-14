@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Admin::InviteRescuerAdmin
+class Admin::InviteRescuerAdminService
   class << self
     def perform(admin_id, token)
       rescuer_admin = RescuerAdmin.find(admin_id)

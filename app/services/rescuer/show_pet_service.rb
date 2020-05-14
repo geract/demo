@@ -1,4 +1,4 @@
-class Rescuer::ShowPet
+class Rescuer::ShowPetService
   class << self
     def perform(pet)
       @pet = pet

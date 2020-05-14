@@ -1,4 +1,4 @@
-class Adopter::SaveNewsletter
+class Adopter::SaveNewsletterService
   class << self
     def perform(newsletter)
       @newsletter = newsletter
