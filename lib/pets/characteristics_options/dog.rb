@@ -3,7 +3,7 @@ module Pets::CharacteristicsOptions
     attr_reader :options
 
     def initialize
-      @options = Rails.application.config_for(:pet)['dog']
+      @options = Config.settings_for(:pet)['dog']
     end
   end
 end
