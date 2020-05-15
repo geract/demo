@@ -207,6 +207,63 @@ paths:
         in: path
         required: true
         description: Rescuer id
+  '/rescuer/pet_applications_statuses/{id}':
+    patch:
+      summary: Updates current pet application status
+      tags:
+        - pet _applications
+        - status
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      operationId: patch-rescuer-pet_applications_statuses
+      parameters:
+        - schema:
+            type: number
+          in: header
+          name: API-VERSION
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: access-token
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: uid
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: client
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              pet_application:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  rejection_details:
+                    type: object
+            examples:
+              Success:
+                value:
+                  rescuer:
+                    status: archive
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Rescuer id
   /rescuer/profile:
     patch:
       summary: Updates current rescuer profile
@@ -3985,6 +4042,26 @@ paths:
                     type: integer
                   sender_type:
                     type: string
+        '422':
+          description: Unprocessable Entity (WebDAV)
+  /rescuer/pet_applications/:pet_application_id/rejection_surveys:
+    get:
+      summary: 'Lists the questions for a rejection'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                  items:
+                    type: object
+                    properties:
+                      question:
+                        type: string
+                      answers:
+                        type: array
         '422':
           description: Unprocessable Entity (WebDAV)
 components:
