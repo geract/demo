@@ -1,4 +1,4 @@
-class Rescuer::UpdatePetStatus
+class Rescuer::UpdatePetStatusService
   def self.perform(pet, status, params = {})
     case status
     when 'archive'

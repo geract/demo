@@ -10,7 +10,7 @@ class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseContr
   def update
     profile = current_user.profile
 
-    if Adopter::Profile::SaveReferences.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SaveReferencesService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: profile.errors.full_messages, status: :unprocessable_entity

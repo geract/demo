@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-class Adopter::Profile::SaveReferences
+class Adopter::Profile::SaveLifestyleService
   class << self
-    MIN_REFERENCES = 1
-
     def perform(profile, params)
       @profile = profile
-
+      
       profile.assign_attributes(params)
       profile.transaction do
         saved = profile.save
@@ -15,12 +13,12 @@ class Adopter::Profile::SaveReferences
       end
     end
 
-    def saved_callbacks
-      profile.add_references? && profile.continue!
-    end
-
     private
 
     attr_reader :profile
+
+    def saved_callbacks
+      profile.lifestyle? && profile.continue!
+    end
   end
 end

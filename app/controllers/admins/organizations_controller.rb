@@ -13,7 +13,7 @@ class Admins::OrganizationsController < Admins::BaseController
   def create
     @organization = Organization.new(organization_params)
     
-    if Admin::SaveOrganization.perform(@organization)
+    if Admin::SaveOrganizationService.perform(@organization)
       flash[:notice] = 'Organization successfully created'
       redirect_to admins_organization_path(@organization)
     else

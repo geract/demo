@@ -11,7 +11,7 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
     profile = current_user.profile
     profile.build_co_adopter unless profile.co_adopter
 
-    if Adopter::Profile::SavePersonalCoAdopter.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SavePersonalCoAdopterService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: {errors: profile.errors.full_messages}, status: :unprocessable_entity

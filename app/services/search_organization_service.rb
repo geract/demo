@@ -1,4 +1,4 @@
-class Shared::SearchOrganization
+class SearchOrganizationService
   def self.perform(args)
     if args[:provider] == 'RescueOrganization'
       searcher = Organizations::Search::RescueGroups.new

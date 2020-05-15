@@ -31,7 +31,7 @@ class PetTest < ActiveSupport::TestCase
   def test_new_pet_can_be_archived
     assert_equal @pet.status, 'created'
 
-    status_updated = Rescuer::UpdatePetStatus.perform(@pet, 'archive', reason_code: 'pet_adopted')
+    status_updated = Rescuer::UpdatePetStatusService.perform(@pet, 'archive', reason_code: 'pet_adopted')
 
     assert status_updated
     assert_equal @pet.status, 'archived'

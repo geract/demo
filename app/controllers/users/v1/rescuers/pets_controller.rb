@@ -2,7 +2,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   def create
     pet = Pet.new(pet_params)
 
-    if Shared::SavePet.perform(pet, current_user)
+    if SavePetService.perform(pet, current_user)
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet) }
     else
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet), errors: pet.errors.full_messages }, status: :bad_request
@@ -12,7 +12,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   def update
     pet = current_user.organization.pets.friendly.find(params[:id])
 
-    if Rescuer::UpdatePet.perform(pet, pet_params)
+    if Rescuer::UpdatePetService.perform(pet, pet_params)
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet) }
     else
       render json: { pet: Rescuers::Pets::ShowPresenter.new(pet), errors: pet.errors.full_messages }, status: :unprocessable_entity
@@ -21,10 +21,10 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
 
   def show
     search_filters = { organization_id: current_user.organization.id }
-    pet = Shared::SearchPet.perform(slug: params[:id], **search_filters).first
+    pet = SearchPetService.perform(slug: params[:id], **search_filters).first
 
     if pet
-      response, status = Rescuer::ShowPet.perform(pet)
+      response, status = Rescuer::ShowPetService.perform(pet)
       render json: response, status: status
     else
       render json: {}, status: :not_found
@@ -32,7 +32,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
   end
 
   def index
-    pets = Shared::SearchPet.perform(organization_id: current_user.organization.id)
+    pets = SearchPetService.perform(organization_id: current_user.organization.id)
 
     render json: { pets: Rescuers::Pets::IndexPresenter.new(pets) }, status: :ok
   end

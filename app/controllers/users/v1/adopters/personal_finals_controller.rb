@@ -11,7 +11,7 @@ class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseC
     profile = current_user.profile
     profile.build_veterinarian unless profile.veterinarian
 
-    if Adopter::Profile::SavePersonalFinal.perform(profile, adopter_profile_params)
+    if Adopter::Profile::SavePersonalFinalService.perform(profile, adopter_profile_params)
       head :ok
     else
       render json: profile.errors.full_messages, status: :unprocessable_entity

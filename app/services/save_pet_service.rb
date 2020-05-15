@@ -1,4 +1,4 @@
-class Shared::SavePet
+class SavePetService
   class << self
     def perform(pet, user)
       @user = user

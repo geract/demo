@@ -31,7 +31,7 @@ module Rescuers
         images: pet.images_url,
       }
     end
-    
+
     def short_response
       {
         id: pet.id,
