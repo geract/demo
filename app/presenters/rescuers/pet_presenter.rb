@@ -24,7 +24,6 @@ module Rescuers
         public: pet.public,
         mix_breed: pet.mix_breed,
         personality: pet.personality,
-        slug: pet.slug,
         short_url: pet.short_url,
         status: pet.status,
         reason_code: pet.reason_code,
@@ -36,6 +35,7 @@ module Rescuers
     def short_response
       {
         id: pet.id,
+        slug: pet.slug,
         name: pet.name,
         address: 'TBD',
         images: pet.images_url
