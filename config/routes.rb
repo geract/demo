@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         resources :rescuer_statuses, only: %i(update)
         resource :profile, only: %i(show update)
         resources :favorite_pet_applications, only: %i(update destroy), controller: 'pets/favorite_applications'
+        resources :pet_applications_statuses, only: %i(update)
 
         resources :pets do
           resources :pet_applications, only: %i(index), controller: 'pets/pet_applications'
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
           resource :profile, only: %i(show), controller: 'pet_applications/profiles'
           resource :application, only: %i(show), controller: 'pet_applications/applications'
           resources :messages, only: %i(index create)
+          resources :rejection_surveys, only: %i(index), controller: 'pet_applications/rejection_surveys'
         end
       end
 
