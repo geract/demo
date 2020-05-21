@@ -9,7 +9,6 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_create_success
-    skip
     post rescuers_pets_url,
       params: { pet: attributes_for(:pet, name: 'Josh').merge(images: [fixture_file_upload("files/test_attachment.jpg", "image/jpg")]) },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
@@ -34,7 +33,8 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_success
-    skip
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
+      to_return(status: 200, body: { data: [] }.to_json)
     pet = create(:pet, :complete, name: 'Josh', organization: @organization)
 
     get rescuers_pet_url(pet),
@@ -48,7 +48,9 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show_no_pet_error
-    skip
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
+      to_return(status: 200, body: { data: [] }.to_json)
+
     get rescuers_pet_url(id: 'pikachu'),
     headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
     
@@ -70,7 +72,6 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_update_error
-    skip
     pet = create(:pet, :complete, name: 'Josh', organization: @organization)
 
     put rescuers_pet_url(pet),
@@ -85,7 +86,8 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
   end
   
   def test_index
-    skip
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
+      to_return(status: 200, body: { data: [] }.to_json)
     published_pet = create(:pet, :complete, name: 'Pancho', status: 'published', organization: @organization)
     archived_pet = create(:pet, :complete, name: 'Archi', status: 'archived', reason_code: 'pet_died', organization: @organization)
     adopted_pet = create(:pet, :complete, name: 'Aldo', status: 'adopted', organization: @organization)

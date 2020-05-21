@@ -55,6 +55,7 @@ class Users::V1::Rescuers::PetsController < Users::V1::Rescuers::BaseController
                         :foster_family,
                         :public,
                         :mix_breed,
+                        :location,
                         personality: {},
                         images: []
                         )
