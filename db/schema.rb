@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_232114) do
+ActiveRecord::Schema.define(version: 2020_05_22_182418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,10 +104,15 @@ ActiveRecord::Schema.define(version: 2020_05_20_232114) do
     t.index ["employmentable_type", "employmentable_id"], name: "index_employments_on_employmentable_type_and_employmentable_id"
   end
 
-  create_table "favorites", id: false, force: :cascade do |t|
+  create_table "favorite_pets", force: :cascade do |t|
     t.bigint "pet_id"
     t.bigint "user_id"
-    t.index ["pet_id", "user_id"], name: "index_favorites_on_pet_id_and_user_id", unique: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pet_id", "user_id"], name: "index_favorite_pets_on_pet_id_and_user_id"
+    t.index ["pet_id"], name: "index_favorite_pets_on_pet_id"
+    t.index ["user_id", "pet_id"], name: "index_favorite_pets_on_user_id_and_pet_id"
+    t.index ["user_id"], name: "index_favorite_pets_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -312,6 +317,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_232114) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "adopter_profiles", "users"
   add_foreign_key "co_adopters", "adopter_profiles"
+  add_foreign_key "favorite_pets", "pets"
+  add_foreign_key "favorite_pets", "users"
   add_foreign_key "messages", "pet_applications"
   add_foreign_key "organization_addresses", "organizations"
   add_foreign_key "pet_applications", "adopter_profiles"

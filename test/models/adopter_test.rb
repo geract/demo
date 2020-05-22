@@ -9,7 +9,8 @@ class AdopterTest < ActiveSupport::TestCase
     should have_one(:profile)
     should have_many(:pet_applications)
 
-    should have_and_belong_to_many(:favorite_pets)
+    should have_many(:favorites)
+    should have_many(:favorite_pets)
 
     should accept_nested_attributes_for(:profile)
   end

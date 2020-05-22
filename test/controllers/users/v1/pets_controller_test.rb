@@ -76,7 +76,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Boonton, NJ', api_response['pet']['location']
     assert_equal [], api_response['pet']['images']
     assert_equal 'created', api_response['pet']['status']
-    assert_equal nil, api_response['pet']['birthdate']
+    refute api_response['pet']['birthdate']
     assert_equal '100.0', api_response['pet']['fee']
     assert_equal 'Happy dog', api_response['pet']['description']
     assert api_response['pet']['organization_id']

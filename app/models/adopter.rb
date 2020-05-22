@@ -4,13 +4,8 @@ class Adopter < User
   has_many :searches, class_name: 'Search', foreign_key: 'user_id'
   has_many :pet_applications, through: :profile
   has_many :messages, as: :senderable, dependent: :destroy
-  has_and_belongs_to_many :favorite_pets, -> { distinct }, foreign_key: 'user_id', class_name: 'Pet',  join_table: 'favorites' do
-    def <<(*items)
-      super(items)
-    rescue ActiveRecord::RecordNotUnique
-      false
-    end
-  end
+  has_many :favorites, class_name: 'FavoritePet', foreign_key: 'user_id'
+  has_many :favorite_pets, through: :favorites, source: :pet
 
   accepts_nested_attributes_for :profile
 
