@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth', controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  mount_devise_token_auth_for 'User', at: 'auth', 
+    controllers: { 
+      omniauth_callbacks: 'users/omniauth_callbacks',
+      registrations: 'users/v1/adopters/registrations'
+    }
 
   devise_for :admins, only: :sessions, path: '/admin',
              path_names: { sign_in: 'login', sign_out: 'logout' },

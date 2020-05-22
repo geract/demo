@@ -54,4 +54,6 @@ DeviseTokenAuth.setup do |config|
   config.enable_standard_devise_support = true
 
   config.require_client_password_reset_token = true
+
+  config.default_confirm_success_url = '/'
 end
