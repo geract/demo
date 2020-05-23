@@ -32,6 +32,8 @@ class Users::V1::Adopters::Pets::FavoritesControllerTest < ActionDispatch::Integ
   end
 
   def test_delete
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
+      to_return(status: 200, body: { data: [] }.to_json)
     create(:favorite_pet, pet: @pet, adopter: @adopter)
 
     delete adopters_pet_favorites_url(@pet),
