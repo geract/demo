@@ -9,14 +9,15 @@ class Pets::Search::RescueGroups::ParamsFormater
     return {} if params.blank?
 
     rg_params = {}
-    rg_params[:id] = params[:id] unless params[:id].blank?
-    rg_params[:location] = params[:zipCode] unless params[:zipCode].blank?
-    rg_params[:location_distance] = { radius: params[:radius] } unless params[:radius].blank? || params[:zipCode].blank?
-    rg_params[:breed] = params[:breed] unless params[:breed].blank?
-    rg_params[:general_size_potential] = params[:size] unless params[:size].blank?
-    rg_params[:sex] = params[:sex] unless params[:sex].blank?
-    rg_params[:general_age] = params[:age] unless params[:age].blank?
-    rg_params[:organization_id] = params[:organization_id] unless params[:organization_id].blank?
+    rg_params[:id] = params[:id] if !params[:id].blank?
+    rg_params[:id] ||= params[:slug] if !params[:slug].blank?
+    rg_params[:location] = params[:zipCode] if !params[:zipCode].blank?
+    rg_params[:location_distance] = { radius: params[:radius] } if !params[:radius].blank? && !params[:zipCode].blank?
+    rg_params[:breed] = params[:breed] if !params[:breed].blank?
+    rg_params[:general_size_potential] = params[:size] if !params[:size].blank?
+    rg_params[:sex] = params[:sex] if !params[:sex].blank?
+    rg_params[:general_age] = params[:age] if !params[:age].blank?
+    rg_params[:organization_id] = params[:organization_id] if !params[:organization_id].blank?
     rg_params
   end
 end

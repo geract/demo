@@ -73,6 +73,10 @@ class Pets::Search::RescueGroups::ResponseAdapter
     item['animalStatus']
   end
 
+  def slug
+    item['animalID']
+  end
+
   private
 
   attr_reader :item

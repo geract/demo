@@ -18,6 +18,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Young', api_response['pets'][0]['age']
     assert_equal 'Bowie, MD', api_response['pets'][0]['location']
     assert_equal 'Small', api_response['pets'][0]['size']
+    assert_equal '320', api_response['pets'][0]['slug']
     assert_equal 'https://s3.amazonaws.com/filestore.rescuegroups.org/13/pictures/animals/0/320/181_350x216.jpg', api_response['pets'][0]['images'][0]['original']
   end
 
@@ -51,6 +52,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'description', api_response['pet']['description']
     assert_equal '13', api_response['pet']['organization_id']
     assert_equal 'Small', api_response['pet']['size']
+    assert_equal '320', api_response['pet']['slug']
     assert_equal 'Animal Relief Fund', api_response['pet']['organization_name']
   end
 
@@ -81,6 +83,7 @@ class Users::V1::PetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Happy dog', api_response['pet']['description']
     assert api_response['pet']['organization_id']
     assert_equal 'Large', api_response['pet']['size']
+    assert_equal 'doggo', api_response['pet']['slug']
     assert_equal 'petparent', api_response['pet']['organization_name']
   end
 end

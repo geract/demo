@@ -13,6 +13,7 @@ class PetPresenter
       location: pet.location,
       size: pet.size,
       images: pet.images_url,
+      slug: pet.slug,
       source: pet.source
     }
   end
