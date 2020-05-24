@@ -10,7 +10,6 @@ class Pets::Search::RescueGroups::ParamsFormater
 
     rg_params = {}
     rg_params[:id] = params[:id] if !params[:id].blank?
-    rg_params[:id] ||= params[:slug] if !params[:slug].blank?
     rg_params[:location] = params[:zipCode] if !params[:zipCode].blank?
     rg_params[:location_distance] = { radius: params[:radius] } if !params[:radius].blank? && !params[:zipCode].blank?
     rg_params[:breed] = params[:breed] if !params[:breed].blank?
