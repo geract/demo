@@ -3,9 +3,9 @@ class Users::V1::InqueriesController < Users::BaseController
     inquery = Inquery.new(inquery_params)
 
     if inquery.save
-      render json: { inquery: Inqueries::CreatePresenter.new(inquery)}, status: :ok
+      head :created
     else
-      render json: { inquery: Inqueries::CreatePresenter.new(inquery), errors: inquery.errors.messages }, status: :unprocessable_entity
+      render json: { errors: inquery.errors.messages }, status: :unprocessable_entity
     end
   end
 

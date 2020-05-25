@@ -2,13 +2,13 @@ require 'test_helper'
 
 class Users::V1::NewsletterControllerTest < ActionDispatch::IntegrationTest
   def test_success_on_post_create
-    params = attributes_for(:newsletter_params)[:body]
+    params = build(:newsletter_params)
     post newsletter_index_url, 
       params: params,
       headers: headers_v1
 
     assert_response :created
-    assert_equal params[:newsletter][:email], Newsletter.last.email
+    assert_equal params['newsletter']['email'], Newsletter.last.email
   end
 
   def test_error_on_post_create
