@@ -1,4 +1,4 @@
-class OrganizationObjectPresenter
+class Users::V1::Objects::OrganizationPresenter
   def self.to_json(org)
     {
       id: org.id,

@@ -1,4 +1,4 @@
-class PetObjectPresenter
+class Users::V1::Objects::PetPresenter
   def self.to_json(pet)
     {
       id: pet.id,
