@@ -2,7 +2,7 @@ class Users::V1::Adopters::Pets::FavoritesController < Users::V1::Adopters::Base
   def index
     pets = current_user.favorite_pets
 
-    render json: V1::Adopters::FavoritePets::IndexPresenter.new(pets), status: :ok
+    response_with_presenter(pets: pets)
   end
 
   def create

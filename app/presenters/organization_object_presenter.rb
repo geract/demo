@@ -1,9 +1,5 @@
-class OrganizationPresenter
-  def initialize(org)
-    @org = org
-  end
-
-  def response
+class OrganizationObjectPresenter
+  def self.to_json(org)
     {
       id: org.id,
       name: org.name,
@@ -14,8 +10,4 @@ class OrganizationPresenter
       address: org.full_address
     }
   end
-
-  private
-
-  attr_reader :org
 end

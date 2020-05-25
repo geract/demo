@@ -18,7 +18,7 @@ class Users::V1::Adopters::Pets::FavoritesControllerTest < ActionDispatch::Integ
 
     assert_response :success
     assert api_response
-    assert_equal @pet.id, api_response[0]['id']
+    assert_equal @pet.id, api_response['pets'][0]['id']
   end
 
   def test_create

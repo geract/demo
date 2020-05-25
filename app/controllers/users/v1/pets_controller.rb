@@ -3,7 +3,7 @@ class Users::V1::PetsController < Users::BaseController
     filters = filters_params.merge({ provider: 'RescueOrganization' })
     pets = SearchPetService.perform(filters)
 
-    render json: { pets: Pets::IndexPresenter.new(pets) }, status: :ok
+    response_with_presenter(pets: pets)
   end
 
   def show
@@ -11,7 +11,7 @@ class Users::V1::PetsController < Users::BaseController
     pet = SearchPetService.perform(filters).first
     
     if pet
-      render json: { pet: Pets::ShowPresenter.new(pet) }, status: :ok
+      response_with_presenter(pet: pet)
     else
       render status: 404
     end

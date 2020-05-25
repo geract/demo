@@ -1,9 +1,5 @@
-class PetPresenter
-  def initialize(pet)
-    @pet = pet
-  end
-
-  def response
+class PetObjectPresenter
+  def self.to_json(pet)
     {
       id: pet.id,
       name: pet.name,
@@ -17,8 +13,4 @@ class PetPresenter
       source: pet.source
     }
   end
-
-  private
-
-  attr_reader :pet
 end
