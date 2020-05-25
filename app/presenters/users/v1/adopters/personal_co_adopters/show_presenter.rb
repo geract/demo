@@ -30,10 +30,10 @@ class Users::V1::Adopters::PersonalCoAdopters::ShowPresenter < BasePresenter
   end
 
   def co_adopter
-    profile.co_adopter
+    @co_adopter ||= profile.co_adopter
   end
 
   def pet_info
-    profile.pet_info
+    @pet_info ||= profile.pet_info
   end
 end
