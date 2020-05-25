@@ -1,9 +1,8 @@
 class Users::V1::Rescuers::MessagesController < Users::V1::Rescuers::BaseController
   def index
     pet_application = current_organization.pet_applications.find(params[:pet_application_id])
-    render json: {
-      messages: Messages::IndexPresenter.new(pet_application.messages)
-    }, status: :ok
+    
+    response_with_presenter(messages: pet_application.messages)
   end
 
   def create
@@ -24,5 +23,4 @@ class Users::V1::Rescuers::MessagesController < Users::V1::Rescuers::BaseControl
   def message_params
     params.require(:message).permit(:message)
   end
-
 end
