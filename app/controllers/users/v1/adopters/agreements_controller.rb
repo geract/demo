@@ -4,7 +4,7 @@ class Users::V1::Adopters::AgreementsController < Users::V1::Adopters::BaseContr
   before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('agreements') }
 
   def show
-    render json: Users::Adopters::Profile::AgreementsPresenter.new(current_user), status: :ok
+    render_with_presenter
   end
 
   def update

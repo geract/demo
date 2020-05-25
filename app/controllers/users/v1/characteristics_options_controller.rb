@@ -1,6 +1,6 @@
 class Users::V1::CharacteristicsOptionsController < Users::BaseController
   def index
-    render json: CharacteristicsOptions::IndexPresenter.new(options)
+    response_with_presenter(options: options)
   end
 
   private

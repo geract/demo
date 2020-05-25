@@ -1,10 +1,7 @@
-class Users::Adopters::Profile::AgreementsPresenter
-  def initialize(adopter)
-    @profile = adopter.profile
-  end
-
+class Users::V1::Adopters::AgreementsPresenter::IndexPresenter < BasePresenter
   def as_json(*)
-    { profile: { 
+    { 
+      profile: { 
         id: profile.id,
         home_visit_agreement: profile.home_visit_agreement,
         adoption_fee_agreement: profile.adoption_fee_agreement,
@@ -12,7 +9,7 @@ class Users::Adopters::Profile::AgreementsPresenter
     }
   end
 
-  private
-
-  attr_reader :profile
+  def profile
+    @profile ||= adopter.profile
+  end
 end
