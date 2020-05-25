@@ -1,7 +1,6 @@
 class BasePresenter
   delegate :current_user,  to: :ctrl
 
-
   def initialize(ctrl, **args)
     @ctrl = ctrl
     build_attr_readers(args)
@@ -16,5 +15,9 @@ class BasePresenter
       self.class_eval("def #{k};@#{k};end")
       self.instance_variable_set("@#{k}", v)
     end
+  end
+
+  def profile
+    @profile ||= current_user&.profile
   end
 end

@@ -8,7 +8,7 @@ class Users::V1::Pets::ShowPresenter < BasePresenter
   private
 
   def pet_response
-    pet_hash = PetObjectPresenter.to_json(pet)
+    pet_hash = Users::V1::Objects::PetPresenter.to_json(pet)
     pet_hash.merge({
       status: pet.status,
       birthdate: pet.birthdate,

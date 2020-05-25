@@ -4,7 +4,7 @@ class Users::V1::Adopters::HomesController < Users::V1::Adopters::BaseController
   before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('home') }
 
   def show
-    render json: Users::Adopters::Profile::HomePresenter.new(current_user), status: :ok
+    response_with_presenter
   end
 
   def update

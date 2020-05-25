@@ -1,4 +1,4 @@
-class Users::V1::Adopters::AgreementsPresenter::IndexPresenter < BasePresenter
+class Users::V1::Adopters::AgreementsPresenter::ShowPresenter < BasePresenter
   def as_json(*)
     { 
       profile: { 
@@ -7,9 +7,5 @@ class Users::V1::Adopters::AgreementsPresenter::IndexPresenter < BasePresenter
         adoption_fee_agreement: profile.adoption_fee_agreement,
       }
     }
-  end
-
-  def profile
-    @profile ||= adopter.profile
   end
 end
