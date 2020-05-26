@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       namespace :adopters, path: 'adopter' do
         resource :searches, only: %i(update)
         resources :messages, only: %i(index create)
-        resources :pets do
+        resources :pets, only: %i(index show) do
           resource :favorites, only: %i(create destroy), controller: 'pets/favorites'
           collection do
             resources :favorites, only: %i(index), controller: 'pets/favorites'

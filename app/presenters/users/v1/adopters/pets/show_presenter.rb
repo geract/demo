@@ -1,4 +1,4 @@
-class Users::V1::Pets::ShowPresenter < BasePresenter
+class Users::V1::Adopters::Pets::ShowPresenter < BasePresenter
   def as_json(*)
     {
       pet: pet_response
@@ -16,7 +16,7 @@ class Users::V1::Pets::ShowPresenter < BasePresenter
       description: pet.description,
       organization_id: pet.organization_id,
       organization_name: pet.organization_name,
-      favorite: false
+      favorite: pet.favorite_of_adopter?(current_user.id)
     })
   end
 end

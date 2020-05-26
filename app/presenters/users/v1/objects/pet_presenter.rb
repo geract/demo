@@ -10,7 +10,8 @@ class Users::V1::Objects::PetPresenter
       size: pet.size,
       images: pet.images_url,
       slug: pet.slug,
-      source: pet.source
+      source: pet.source,
+      favorite: false
     }
   end
 end

@@ -1,4 +1,4 @@
-class Users::V1::Pets::IndexPresenter < BasePresenter
+class Users::V1::Adopters::Pets::IndexPresenter < BasePresenter
   def as_json(*)
     {
       pets: pets.map{ |pet| pets_attributes(pet) }
@@ -9,6 +9,6 @@ class Users::V1::Pets::IndexPresenter < BasePresenter
 
   def pets_attributes(pet)
     attributes = Users::V1::Objects::PetPresenter.to_json(pet)
-    attributes.merge({  favorte: false })
+    attributes.merge({  favorite: pet.favorite_of_adopter?(current_user.id) })
   end
 end

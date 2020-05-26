@@ -1,4 +1,4 @@
-class Users::V1::PetsController < Users::BaseController
+class Users::V1::Adopters::PetsController < Users::V1::Adopters::BaseController
   def index
     pets = SearchPetService.perform(filters_params)
 
