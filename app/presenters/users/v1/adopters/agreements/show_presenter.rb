@@ -1,4 +1,4 @@
-class Users::V1::Adopters::AgreementsPresenter::ShowPresenter < BasePresenter
+class Users::V1::Adopters::Agreements::ShowPresenter < BasePresenter
   def as_json(*)
     { 
       profile: { 
