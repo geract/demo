@@ -1,4 +1,4 @@
-if Rails.env.staging?
+if Rails.env.staging? || Rails.env.development?
   legal_address = LegalAddress.new(name: 'PetParent', address: '5th. Avenue', city: 'Manhattan', state: 'New York', zip_code: '99923', main_location: true)
   organization = Organization.create(name: 'PetParent', email: 'pph@pph.com', phone: '1231231231', director: 'Dana', legal_address: legal_address)
 
