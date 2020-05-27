@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Users::V1::Rescuers::Pets::FavoriteApplicationsControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::Pets::FavoritesApplicationsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = build(:rescuer_admin, :complete)
     @credentials = @user.create_token
@@ -12,14 +12,14 @@ class Users::V1::Rescuers::Pets::FavoriteApplicationsControllerTest < ActionDisp
   end
 
   def test_create_success
-    post rescuers_pet_application_favorite_path(@pet_application.id),
+    post rescuers_pet_application_favorites_path(@pet_application.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     assert_response :success
   end
 
   def test_delete_success
-    delete rescuers_pet_application_favorite_path(@pet_application.id),
+    delete rescuers_pet_application_favorites_path(@pet_application.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     assert_response :success
