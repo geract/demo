@@ -46,9 +46,8 @@ Rails.application.routes.draw do
             resource :profiles, only: %i(show)
             resource :applications, only: %i(show)
             resources :rejection_surveys, only: %i(index)
+            resources :messages, only: %i(index create)
           end
-          
-          resources :messages, only: %i(index create)
         end
       end
 

@@ -1,4 +1,4 @@
-class Users::V1::Rescuers::MessagesController < Users::V1::Rescuers::BaseController
+class Users::V1::Rescuers::PetApplications::MessagesController < Users::V1::Rescuers::BaseController
   def index
     pet_application = current_organization.pet_applications.includes(messages: :senderable).find(params[:pet_application_id])
     
