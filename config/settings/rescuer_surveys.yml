@@ -1,0 +1,29 @@
+defaults: &defaults
+  dog:
+    pet_application_rejection:
+      - question: 'Are you denying the applicant based on the needs of the dog or rescue?'
+        answers:
+            - Dog
+            - Rescue
+      - question: 'Would you still consider this applicant for other dogs in your rescue?'
+        answers:
+          - Yes
+          - No
+      - question: 'Why are you rejecting this application?'
+        answers:
+          - Found a better fit
+          - Dog requires specific living conditions
+          - Dog is not good with children
+          - Other
+
+development:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+test: &test
+  <<: *defaults
