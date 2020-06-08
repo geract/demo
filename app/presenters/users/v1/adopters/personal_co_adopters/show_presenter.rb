@@ -25,7 +25,7 @@ class Users::V1::Adopters::PersonalCoAdopters::ShowPresenter < BasePresenter
 
   def co_adopter_info
     {
-      co_adopter_attributes: Users::V1::Objects::Adopters::CoAdopterPresenter.to_json(co_adopter)
+      co_adopter_attributes: Users::V1::Objects::CoAdopterPresenter.to_json(co_adopter)
     }
   end
 

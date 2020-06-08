@@ -13,7 +13,7 @@ class Users::V1::Adopters::Lifestyles::ShowPresenter < BasePresenter
   private
 
   def lifestyle_info
-    pet_info = Users::V1::Objects::Adopters::PetInfoPresenter.to_json(profile.pet_info)
+    pet_info = Users::V1::Objects::PetInfoPresenter.to_json(profile.pet_info)
 
     {
       id: pet_info[:id],

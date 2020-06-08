@@ -4,7 +4,7 @@ class Users::V1::Adopters::PersonalFinals::ShowPresenter < BasePresenter
       profile: {
         id: profile.id,
         pet_info_attributes: pet_info_attributes,
-        veterinarian_attributes: Users::V1::Objects::Adopters::VeterinarianPresenter.to_json(profile.veterinarian)
+        veterinarian_attributes: Users::V1::Objects::VeterinarianPresenter.to_json(profile.veterinarian)
       }
     }
   end
@@ -12,7 +12,7 @@ class Users::V1::Adopters::PersonalFinals::ShowPresenter < BasePresenter
   private
 
   def pet_info_attributes
-    pet_info = Users::V1::Objects::Adopters::PetInfoPresenter.to_json(profile.pet_info)
+    pet_info = Users::V1::Objects::PetInfoPresenter.to_json(profile.pet_info)
     pet_info.delete(:home)
     pet_info.delete(:lifestyle)
     

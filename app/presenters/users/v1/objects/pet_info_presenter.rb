@@ -1,4 +1,4 @@
-class Users::V1::Objects::Adopters::PetInfoPresenter
+class Users::V1::Objects::PetInfoPresenter
   class << self
     def to_json(pet_info)
       return {} unless pet_info

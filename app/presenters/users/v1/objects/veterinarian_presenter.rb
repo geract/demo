@@ -1,4 +1,4 @@
-class Users::V1::Objects::Adopters::VeterinarianPresenter
+class Users::V1::Objects::VeterinarianPresenter
   def self.to_json(veterinarian)
     return {} if veterinarian.blank?
 

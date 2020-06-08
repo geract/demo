@@ -1,4 +1,4 @@
-class Users::V1::Objects::Adopters::ReferencePresenter
+class Users::V1::Objects::ReferencePresenter
   def self.to_json(reference)
     {
       id: reference.id,

@@ -11,7 +11,7 @@ class Users::V1::Adopters::PersonalInfos::ShowPresenter < BasePresenter
         birthday: profile.birthday,
         phone_number: profile.phone_number,
         address_attributes: Users::V1::Objects::AddressPresenter.to_json(profile.address),
-        employment_attributes: Users::V1::Objects::Adopters::EmploymentPresenter.to_json(profile.employment),
+        employment_attributes: Users::V1::Objects::EmploymentPresenter.to_json(profile.employment),
         pet_info_attributes: {
           id: profile.pet_info.id,
           personal: {

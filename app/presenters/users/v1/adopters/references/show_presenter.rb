@@ -10,7 +10,7 @@ class Users::V1::Adopters::References::ShowPresenter < BasePresenter
 
   def references_attributes
     profile.references.map do |reference|
-      Users::V1::Objects::Adopters::ReferencePresenter.to_json(reference)
+      Users::V1::Objects::ReferencePresenter.to_json(reference)
     end
   end
 end

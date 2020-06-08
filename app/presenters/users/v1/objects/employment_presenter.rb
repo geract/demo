@@ -1,4 +1,4 @@
-class Users::V1::Objects::Adopters::EmploymentPresenter
+class Users::V1::Objects::EmploymentPresenter
   def self.to_json(employment)
     return {} if employment.blank?
 
