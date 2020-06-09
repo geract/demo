@@ -5,7 +5,7 @@ class Users::V1::Rescuers::OrganizationsController < Users::V1::Rescuers::BaseCo
     organization = current_user.organization
 
     if organization.update(organization_params)
-      render json: { organization: Rescuers::Organizations::ShowPresenter.new(organization) }
+      head :ok
     else
       render json: { errors: organization.errors.full_messages }, status: :unprocessable_entity
     end
@@ -14,7 +14,7 @@ class Users::V1::Rescuers::OrganizationsController < Users::V1::Rescuers::BaseCo
   def show
     return :not_found unless current_user.organization
 
-    render json: { organization: Rescuers::Organizations::ShowPresenter.new(current_user.organization) }
+    response_with_presenter(organization: current_user.organization)
   end
 
   private

@@ -5,7 +5,7 @@ class Users::V1::Rescuers::Pets::PetApplicationsController < Users::V1::Rescuers
     applications = pet.applications.includes(adopter_profile: :address)
     applications = applications.favorites unless filter_params.blank?
 
-    render json: Rescuers::Pets::PetApplications::IndexPresenter.new(applications), status: :ok
+    response_with_presenter(applications: applications)
   end
 
   private
