@@ -4,7 +4,7 @@ class Users::V1::Adopters::PersonalFinalsController < Users::V1::Adopters::BaseC
   before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('personal_final') }
 
   def show
-    render json: Users::Adopters::Profile::PersonalFinalPresenter.new(current_user), status: :ok
+    response_with_presenter
   end
 
   def update

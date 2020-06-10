@@ -8,6 +8,7 @@ class Pet < ApplicationRecord
   belongs_to :organization
   belongs_to :added_by, class_name: 'User'
   has_many :applications, class_name: 'PetApplication'
+  has_many :favorite_adopters, class_name: 'FavoritePet'
 
   store_accessor :personality, :good_with_dogs
   store_accessor :personality, :good_with_cats
@@ -51,6 +52,10 @@ class Pet < ApplicationRecord
 
   def source
     'DB'
+  end
+
+  def favorite_of_adopter?(adopter_id)
+    !favorite_adopters.by_adopter(adopter_id).blank?
   end
 
   private

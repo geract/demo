@@ -12,12 +12,8 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
     post rescuers_pets_url,
       params: { pet: attributes_for(:pet, name: 'Josh').merge(images: [fixture_file_upload("files/test_attachment.jpg", "image/jpg")]) },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
-    api_response = JSON.parse(response.body)
 
     assert_response :success
-    assert api_response.include?('pet')
-    assert api_response['pet']['name'], 'Josh'
-    assert api_response['pet']['images'].any?
   end
 
   def test_create_error
@@ -27,9 +23,8 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
 
     api_response = JSON.parse(response.body)
 
-    assert_response :bad_request
-    assert api_response.include?('pet')
-    assert api_response['pet']['name'], ''
+    assert_response :unprocessable_entity
+    assert api_response.include?('errors')
   end
 
   def test_show_success
@@ -64,11 +59,7 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
       params: { pet: { name: 'Tobby' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
-
     assert_response :success
-    assert api_response.include?('pet')
-    assert api_response['pet']['name'], 'Tobby'
   end
 
   def test_update_error
@@ -81,8 +72,7 @@ class Users::V1::Rescuers::PetsControllerTest < ActionDispatch::IntegrationTest
     api_response = JSON.parse(response.body)
 
     assert_response :unprocessable_entity
-    assert api_response.include?('pet')
-    assert api_response['pet']['name'], pet.name
+    assert api_response.include?('errors')
   end
   
   def test_index

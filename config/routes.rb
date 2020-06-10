@@ -32,26 +32,30 @@ Rails.application.routes.draw do
         resource :pet_bulk, only: %i(update)
         resources :rescuer_statuses, only: %i(update)
         resource :profile, only: %i(show update)
-        resources :favorite_pet_applications, only: %i(update destroy), controller: 'pets/favorite_applications'
         resources :pet_applications_statuses, only: %i(update)
 
-        resources :pets do
-          resources :pet_applications, only: %i(index), controller: 'pets/pet_applications'
+        resources :pets, shallow: true do
+          scope module: 'pets' do
+            resources :pet_applications, only: %i(index)
+          end
         end
 
         resources :pet_applications, only: %i(index) do
-          resource :favorite, only: %i(create destroy), controller: 'pet_applications/favorites'
-          resource :profile, only: %i(show), controller: 'pet_applications/profiles'
-          resource :application, only: %i(show), controller: 'pet_applications/applications'
-          resources :messages, only: %i(index create)
-          resources :rejection_surveys, only: %i(index), controller: 'pet_applications/rejection_surveys'
+          scope module: 'pet_applications' do
+            resource :favorites, only: %i(create destroy)
+            resource :profiles, only: %i(show)
+            resource :applications, only: %i(show)
+            resources :messages, only: %i(index create)
+          end
         end
+
+        resources :surveys, only: %i(index)
       end
 
       namespace :adopters, path: 'adopter' do
         resource :searches, only: %i(update)
         resources :messages, only: %i(index create)
-        resources :pets do
+        resources :pets, only: %i(index show) do
           resource :favorites, only: %i(create destroy), controller: 'pets/favorites'
           collection do
             resources :favorites, only: %i(index), controller: 'pets/favorites'

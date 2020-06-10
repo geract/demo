@@ -3,9 +3,9 @@ class Users::V1::NewsletterController < Users::BaseController
     newsletter = Newsletter.new(newsletter_params)
 
     if Adopter::SaveNewsletterService.perform(newsletter)
-      render json: {newsletter: Newsletter::CreatePresenter.new(newsletter)}, status: :ok
+      head :created
     else
-      render json: {newsletter: Newsletter::CreatePresenter.new(newsletter), errors: newsletter.errors.messages}, status: :unprocessable_entity
+      render json: { errors: newsletter.errors.messages }, status: :unprocessable_entity
     end
   end
 

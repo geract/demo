@@ -1,6 +1,6 @@
 set :stage, :staging
 set :rails_env, :staging
-set :branch, 'master'
+set :branch, 'refactor-presenters'
 
 server '52.200.18.242',
   user: 'ubuntu',

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Users::V1::Rescuers::MessagesControllerTest < ActionDispatch::IntegrationTest
+class Users::V1::Rescuers::PetApplications::MessagesControllerTest < ActionDispatch::IntegrationTest
   def setup
     admin = build(:rescuer_admin, :complete)
     organization = admin.profile.organization
@@ -12,7 +12,7 @@ class Users::V1::Rescuers::MessagesControllerTest < ActionDispatch::IntegrationT
   end
 
   def test_rescuer_create_success
-    post rescuers_pet_application_messages_path(@pet_application.id),
+    post rescuers_pet_application_messages_url(@pet_application.id),
       params: {
         message: {
           message: 'Hello',
@@ -30,7 +30,7 @@ class Users::V1::Rescuers::MessagesControllerTest < ActionDispatch::IntegrationT
                 pet_application: @pet_application,
                 senderable: @user)
 
-    get rescuers_pet_application_messages_path(@pet_application.id),
+    get rescuers_pet_application_messages_url(@pet_application.id),
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
     api_response = JSON.parse(response.body)

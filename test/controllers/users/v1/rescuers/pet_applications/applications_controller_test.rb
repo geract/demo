@@ -11,7 +11,7 @@ class Users::V1::Rescuers::PetApplications::ApplicationsControllerTest < ActionD
     @organization = @user.profile.organization
     @pet_application = create(:pet_application, organization: @organization)
 
-    get rescuers_pet_application_application_path(@pet_application),
+    get rescuers_pet_application_applications_path(@pet_application),
       params: {},
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 

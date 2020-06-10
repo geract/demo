@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :adopter_profile_home_params, class: Hash do
     body do
-      { profile: {
+      { 
+        profile: {
           pet_info_attributes: {
             home: {
               kind: 'Test',

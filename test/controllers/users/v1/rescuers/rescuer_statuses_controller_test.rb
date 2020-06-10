@@ -19,10 +19,6 @@ class Users::V1::Rescuers::RecuerStatusesControllerTest < ActionDispatch::Integr
       params: { rescuer: { status: 'archive' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
-
     assert_response :success
-    assert api_response.include?('rescuer')
-    assert_equal api_response['rescuer']['status'], 'archived'
   end
 end

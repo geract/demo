@@ -8,4 +8,6 @@ class PetApplication < ApplicationRecord
 
   scope :favorites, -> { where(favorite: true) }
   scope :remove_filters, -> { unscope(:where) }
+
+  validates :adopter_profile_id, uniqueness: { scope: :pet_id }
 end

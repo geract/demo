@@ -5,13 +5,11 @@ class Users::V1::OrganizationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_show
-    api_key = Rails.application.credentials.rescue_groups_key
-
-    stub_request(:post, "https://api.rescuegroups.org/http/json").
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
           with(body: hash_including('objectType': 'orgs')).
           to_return(status: 200, body: { data: [build(:rescue_groups_organization_response)] }.to_json)
 
-    stub_request(:post, "https://api.rescuegroups.org/http/json").
+    stub_request(:post, 'https://api.rescuegroups.org/http/json').
           with(body: hash_including('objectType': 'animals')).
           to_return(status: 200, body: { data: build(:rescue_groups_response) }.to_json)
 

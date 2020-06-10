@@ -15,11 +15,7 @@ class Users::V1::Rescuers::PetsStatusesControllerTest < ActionDispatch::Integrat
       params: { pet: { status: 'archive', reason_code: 'pet_adopted' } },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
-
     assert_response :success
-    assert api_response.include?('pet')
-    assert api_response['pet']['status'], 'archived'
   end
 
   def test_update_error
@@ -32,7 +28,6 @@ class Users::V1::Rescuers::PetsStatusesControllerTest < ActionDispatch::Integrat
     api_response = JSON.parse(response.body)
 
     assert_response :unprocessable_entity
-    assert api_response.include?('pet')
-    assert api_response['pet']['name'], pet.name
+    assert api_response.include?('errors')
   end
 end

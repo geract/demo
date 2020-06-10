@@ -4,7 +4,7 @@ class Users::V1::Adopters::ReferencesController < Users::V1::Adopters::BaseContr
   before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('add_references') }
 
   def show
-    render json: Users::Adopters::Profile::ReferencesPresenter.new(current_user), status: :ok
+    response_with_presenter
   end
 
   def update

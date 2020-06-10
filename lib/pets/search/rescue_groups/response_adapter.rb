@@ -77,6 +77,10 @@ class Pets::Search::RescueGroups::ResponseAdapter
     item['animalID']
   end
 
+  def favorite_of_adopter?(adopter_id)
+    false
+  end
+
   private
 
   attr_reader :item

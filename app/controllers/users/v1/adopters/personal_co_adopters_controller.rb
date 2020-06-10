@@ -4,7 +4,7 @@ class Users::V1::Adopters::PersonalCoAdoptersController < Users::V1::Adopters::B
   before_action :redirect_to_profile_step, unless: -> { current_user.profile&.completed_status?('personal_co_adopter') }
 
   def show
-    render json: Users::Adopters::Profile::PersonalCoAdopterPresenter.new(current_user), status: :ok
+    response_with_presenter
   end
 
   def update

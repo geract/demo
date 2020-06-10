@@ -16,12 +16,7 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
       params: { pets: Pet.ids, status: 'publish' },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
-
     assert_response :success
-    assert api_response.include?('pets')
-    assert_equal 'GoodBoy17', api_response['pets'].first['name']
-    assert_equal 'Doge', api_response['pets'].last['name']
   end
 
   def test_failed_update
@@ -35,7 +30,6 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
     api_response = JSON.parse(response.body)
 
     assert_response :unprocessable_entity
-    assert api_response.include?('pets')
     assert api_response.include?('errors')
     assert_equal api_response['errors'].first['errors'], {"reason_code"=>["Reason code is required when trying to archive a pet"]}
   end
@@ -48,8 +42,6 @@ class Users::V1::Rescuers::PetBulksControllerTest < ActionDispatch::IntegrationT
     api_response = JSON.parse(response.body)
 
     assert_response :ok
-    api_response.include?('pets')
-    assert api_response['pets'].empty?
     assert api_response['errors'].empty?
   end
 end

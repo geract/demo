@@ -10,7 +10,7 @@ class Users::V1::Rescuers::PetApplicationsStatusesController < Users::V1::Rescue
     )
       head :ok
     else
-      render json: pet_application.errors.full_messages, status: :unprocessable_entity
+      render json: { errors: pet_application.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

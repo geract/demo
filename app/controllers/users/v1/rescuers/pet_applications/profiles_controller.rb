@@ -2,7 +2,7 @@ class Users::V1::Rescuers::PetApplications::ProfilesController < Users::V1::Resc
   def show
     pet_application = current_organization.pet_applications.includes(adopter_profile: :references).find(safe_params[:pet_application_id])
 
-    render json: Users::Adopters::ProfilePresenter.new(pet_application.adopter_profile).response, status: :ok
+    response_with_presenter(adopter_profile: pet_application.adopter_profile)
   end
 
   private

@@ -9,6 +9,10 @@ development:
   <<: *default
   database: petparent_development
 
+staging:
+  <<: *default
+  database: petparent_development
+
 test:
   <<: *default
   database: petparent_test

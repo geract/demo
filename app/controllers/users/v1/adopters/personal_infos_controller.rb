@@ -3,7 +3,7 @@
 class Users::V1::Adopters::PersonalInfosController < Users::V1::Adopters::BaseController
   def show
     if current_user.profile
-      render json: Users::Adopters::Profile::PersonalInfoPresenter.new(current_user), status: :ok
+      response_with_presenter
     else
       head :conflict
     end

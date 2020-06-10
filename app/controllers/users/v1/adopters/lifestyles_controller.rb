@@ -4,7 +4,7 @@ class Users::V1::Adopters::LifestylesController < Users::V1::Adopters::BaseContr
   before_action :redirect_to_profile_step, unless: -> { current_user.profile.completed_status?('lifestyle') }
 
   def show
-    render json: Users::Adopters::Profile::LifestylePresenter.new(current_user), status: :ok
+    response_with_presenter
   end
 
   def update
