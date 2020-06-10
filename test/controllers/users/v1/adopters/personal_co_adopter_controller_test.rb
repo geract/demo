@@ -48,7 +48,7 @@ class Users::V1::Adopters::PersonalCoAdoptersControllerTest < ActionDispatch::In
     @credentials = @adopter.create_token
     @adopter.save
 
-    params = Users::Adopters::Profile::PersonalCoAdopterPresenter.new(@adopter).as_json
+    params = build(:personal_co_adopter_params)
     params[:profile][:co_adopter_attributes][:address_attributes] = { street_line_1: "", street_line_2: "", city: "", state: "", zip_code: "", country: "" }
     params[:profile][:is_address_same_as_adopter] = true
 

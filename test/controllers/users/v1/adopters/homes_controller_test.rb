@@ -40,7 +40,7 @@ class Users::V1::Adopters::HomesControllerTest < ActionDispatch::IntegrationTest
     @adopter.save
 
     patch adopters_home_path,
-      params: Users::Adopters::Profile::HomePresenter.new(@adopter).as_json,
+      params: build(:adopter_profile_home_params),
       headers: headers_v1(@adopter.uid, @credentials.token, @credentials.client)
 
     @profile = @adopter.reload.profile

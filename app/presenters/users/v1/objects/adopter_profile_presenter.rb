@@ -12,8 +12,8 @@ class Users::V1::Objects::AdopterProfilePresenter
         pronoun: adopter_profile.pronoun,
         family_status: adopter_profile.family_status,
         birthday: adopter_profile.birthday,
-        address_attributes: Users::Adopters::AddressPresenter.new(adopter_profile.address).response,
-        employment_attributes: Users::Adopters::EmploymentPresenter.new(adopter_profile.employment).response,
+        address_attributes: Users::V1::Objects::AddressPresenter.to_json(adopter_profile.address),
+        employment_attributes: Users::V1::Objects::EmploymentPresenter.to_json(adopter_profile.employment),
         preferences: {
           age: adopter_profile.age,
           sex: adopter_profile.sex,

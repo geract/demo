@@ -67,7 +67,7 @@ class Users::V1::Adopters::PersonalInfosControllerTest < ActionDispatch::Integra
     @adopter = build(:adopter, :with_personal_final)
     @credentials = @adopter.create_token
     @adopter.save
-    params = Users::Adopters::Profile::PersonalInfoPresenter.new(@adopter).as_json
+    params = build(:personal_info_params)
     params[:profile][:has_co_adopter] = false
     params[:profile][:birthday] = Date.today
 
