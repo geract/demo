@@ -25,15 +25,8 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
       },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
 
     assert_response :success
-    assert api_response.include?('rescuer')
-    assert_equal api_response['rescuer']['first_name'], 'Joane'
-    assert_equal api_response['rescuer']['last_name'], 'Doe'
-    assert_equal api_response['rescuer']['phone'], '888999222'
-    assert_equal api_response['rescuer']['email'], 'joane@doe.com'
-    assert api_response['rescuer']['photo'].present?
   end
 
   def test_rescuer_admin_update
@@ -52,17 +45,7 @@ class Users::V1::Rescuers::RescuersControllerTest < ActionDispatch::IntegrationT
       },
       headers: headers_v1(@user.uid, @credentials.token, @credentials.client)
 
-    api_response = JSON.parse(response.body)
-
     assert_response :success
-    assert api_response.include?('rescuer')
-    assert_equal api_response['rescuer']['first_name'], 'Michael'
-    assert_equal api_response['rescuer']['last_name'], 'Doe'
-    assert_equal api_response['rescuer']['phone'], '888999222'
-    assert_equal api_response['rescuer']['title'], 'director'
-    assert_equal api_response['rescuer']['email'], 'joane@doe.com'
-    assert api_response['rescuer']['photo'].present?
-    assert @rescuer.reload.profile.photo.attached?
   end
 
   def test_rescuer_admin_show

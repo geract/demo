@@ -2,7 +2,7 @@ class Users::V1::Rescuers::PetApplicationsController < Users::V1::Rescuers::Base
   def index
     pets = Pets::Search::Database.new.execute(status: filters_params[:status], organization: current_user.organization)
 
-    render json: {applications: Rescuers::PetApplications::IndexPresenter.new(pets)}, status: :ok
+    response_with_presenter(pets: pets)
   end
 
   private

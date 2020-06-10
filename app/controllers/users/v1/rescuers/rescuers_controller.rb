@@ -3,7 +3,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
     rescuers = current_user.organization.rescuers.by_status(params[:status]).order_by_name
 
     if rescuers
-      render json: { rescuers: Rescuers::Profiles::IndexPresenter.new(rescuers) }
+      response_with_presenter(rescuers: rescuers)
     else
       head :not_found
     end
@@ -14,7 +14,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
     rescuer.profile.organization_id = current_user.organization.id
     
     if rescuer.save
-      render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }
+      head :ok
     else
       render json: { errors: rescuer.errors.full_messages }, status: :bad_request
     end
@@ -24,7 +24,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
     rescuer = current_user.organization.rescuers.find(params[:id])
 
     if rescuer
-      render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }
+      response_with_presenter(rescuer: rescuer)
     else
       head :not_found
     end
@@ -34,7 +34,7 @@ class Users::V1::Rescuers::RescuersController < Users::V1::Rescuers::BaseControl
     rescuer = current_user.organization.rescuers.find(params[:id])
 
     if rescuer.update(rescuer_params)
-      render json: { rescuer: Rescuers::Profiles::ShowPresenter.new(rescuer) }
+      head :ok
     else
       render json: { errors: rescuer.errors.full_messages }, status: :unprocessable_entity
     end

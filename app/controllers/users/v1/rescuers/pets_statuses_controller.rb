@@ -3,9 +3,9 @@ class Users::V1::Rescuers::PetsStatusesController < Users::V1::Rescuers::BaseCon
     pet = current_user.organization.pets.friendly.find(params[:id])
 
     if Rescuer::UpdatePetStatusService.perform(pet, pet_params[:status], pet_params)
-      render json: { pet: Rescuers::Pets::ShowPresenter.new(pet) }
+      head :ok
     else
-      render json: { pet: Rescuers::Pets::ShowPresenter.new(pet), errors: pet.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: pet.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

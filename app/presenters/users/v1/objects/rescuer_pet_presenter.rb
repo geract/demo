@@ -1,17 +1,8 @@
-module Rescuers
-  class PetPresenter
-    def initialize(pet)
-      @pet = pet
-    end
+class Users::V1::Objects::RescuerPetPresenter
+  def self.to_json(pet)
+    base = Users::V1::Objects::PetPresenter.to_json(pet)
 
-    def response
-      {
-        id: pet.id,
-        slug: pet.slug,
-        name: pet.name,
-        sex: pet.sex,
-        breed: pet.breed,
-        age: pet.age,
+    base.merge({
         price: pet.price,
         microchip_provider: pet.microchip_provider,
         microchip_number: pet.microchip_number,
@@ -27,23 +18,6 @@ module Rescuers
         short_url: pet.short_url,
         status: pet.status,
         reason_code: pet.reason_code,
-        size: pet.size,
-        images: pet.images_url,
-      }
-    end
-
-    def short_response
-      {
-        id: pet.id,
-        slug: pet.slug,
-        name: pet.name,
-        address: 'TBD',
-        images: pet.images_url
-      }
-    end
-
-    private
-
-    attr_reader :pet
+      })
   end
 end
